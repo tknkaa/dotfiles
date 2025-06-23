@@ -55,6 +55,7 @@ config.local*
 .cache/
 .local/
 .python_history
+.config/netlify/
 
 # Custom: ignore all files in 'logs' and 'tmp' folders
 logs/
