@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{ pkgs, ... }: {
   # Spotify TUI
   programs.ncspot.enable = true;
 

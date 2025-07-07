@@ -14,7 +14,14 @@
     username = "tknkaa";
     homeDirectory = "/home/${username}";
     stateVersion = "22.11";
-    packages = [ pkgs.vscode ];
+    packages = with pkgs; [
+      vscode
+      bat
+      bottom
+      eza
+      httpie
+      ripgrep
+    ];
   };
   programs.home-manager.enable = true;
 }
