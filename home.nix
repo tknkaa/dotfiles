@@ -9,6 +9,7 @@
     ./wezterm.nix
     ./browser.nix
     ./apps.nix
+    ./starship.nix
   ];
   home = rec {
     username = "tknkaa";
@@ -21,6 +22,8 @@
       eza
       httpie
       ripgrep
+      xclip
+      wl-clipboard
     ];
   };
   programs.home-manager.enable = true;
