@@ -2,7 +2,7 @@ local wezterm = require("wezterm")
 
 return {
 	-- Theme
-	color_scheme = "MyTheme",
+	color_scheme = "Dracula+",
 
 	-- Font
 	font = wezterm.font_with_fallback({

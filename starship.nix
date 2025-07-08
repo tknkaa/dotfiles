@@ -4,7 +4,7 @@
     settings = {
       format = "$directory[ ](fg:#88C0D0 bg:#1d2230)$git_branch$git_status[ ](fg:#1d2230)\n$character";
 
-      right_format = "$cmd_duration$username✨$time";
+      right_format = "";
 
       add_newline = true;
 
