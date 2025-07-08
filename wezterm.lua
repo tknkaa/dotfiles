@@ -1,31 +1,31 @@
--- wezterm.lua の中身
+local wezterm = require("wezterm")
 
-local wezterm = require 'wezterm'
-local act = wezterm.action
-local config = {}
+return {
+	-- Theme
+	color_scheme = "MyTheme",
 
--- これ以降に設定を記述
+	-- Font
+	font = wezterm.font_with_fallback({
+		{ family = "JetBrainsMono Nerd Font", weight = "Regular" },
+		{ family = "JetBrainsMono Nerd Font", weight = "Regular", assume_emoji_presentation = true },
+		{ family = "Noto Sans CJK JP" },
+	}),
+	font_size = 14.0,
 
-config.keys = {
-  -- Vキーで左右分割 (Vertical)
-  {
-    key = 'V',
-    mods = 'CTRL|SHIFT',
-    action = act.SplitVertical { domain = 'CurrentPaneDomain' },
-  },
+	-- Padding
+	window_padding = {
+		left = 10,
+		right = 10,
+		top = 10,
+		bottom = 10,
+	},
 
-  -- Hキーで上下分割 (Horizontal)
-  {
-    key = 'H',
-    mods = 'CTRL|SHIFT',
-    action = act.SplitHorizontal { domain = 'CurrentPaneDomain' },
-  },
+	-- Tab
+	use_fancy_tab_bar = false,
+	hide_tab_bar_if_only_one_tab = true,
 
-  -- Ctrl + Shift + 矢印キーでペインを移動
-  { key = 'LeftArrow',  mods = 'CTRL|SHIFT', action = act.ActivatePaneDirection 'Left' },
-  { key = 'RightArrow', mods = 'CTRL|SHIFT', action = act.ActivatePaneDirection 'Right' },
-  { key = 'UpArrow',    mods = 'CTRL|SHIFT', action = act.ActivatePaneDirection 'Up' },
-  { key = 'DownArrow',  mods = 'CTRL|SHIFT', action = act.ActivatePaneDirection 'Down' },
+	-- Misc
+	use_ime = true, -- Enable IME
+	check_for_updates = false, -- Disable update check
+	audible_bell = "Disabled", -- Disable bell
 }
-
-return config
