@@ -43,7 +43,7 @@
   #   LC_TIME = "en_US.UTF-8";
   #  };
 
-  console.keyMap = "jp106";
+  console.keyMap = "jp";
 
   # Configure keymap in X11
   services.xserver = {
