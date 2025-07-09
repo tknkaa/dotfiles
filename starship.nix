@@ -46,7 +46,7 @@
       };
 
       git_branch = {
-        symbol = "";
+        symbol = "";
         style = "bg:#1d2230";
         format = "[[ $symbol $branch ](fg:#769ff0 bg:#1d2230)]($style)";
       };
