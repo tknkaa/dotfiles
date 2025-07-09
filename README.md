@@ -2,6 +2,6 @@ I'm currently studying Nix. I set up my environment by reading [asa1984's articl
 
 Command memos
 ```sh
-sudo nixos-rebuild switch --flake ."myNixOS # rebuild
+sudo nixos-rebuild switch --flake .#myNixOS # rebuild
 home-mananger switch --flake .#myHome # create profile
 ```
