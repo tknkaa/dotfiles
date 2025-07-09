@@ -42,15 +42,14 @@
   #   LC_TELEPHONE = "en_US.UTF-8";
   #   LC_TIME = "en_US.UTF-8";
   #  };
-  services.xserver.enable = true;
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
 
   console.keyMap = "jp106";
 
   # Configure keymap in X11
   services.xserver = {
-    exportConfiguration = true;
+    enable = true;
+    displayManager.gdm.enable = true;
+    desktopManager.gnome.enable = true;
     xkbVariant = "";
     layout = "jp";
   };
@@ -156,7 +155,7 @@
     enabled = "fcitx5";
     fcitx5.addons = with pkgs; [
       fcitx5-mozc
-      # fcitx5-gtk
+      fcitx5-gtk
     ];
   };
 
@@ -165,7 +164,8 @@
       noto-fonts-cjk-serif
       noto-fonts-cjk-sans
       noto-fonts-emoji
-      # nerdfonts
+      nerd-fonts.fira-code
+      nerd-fonts.jetbrains-mono
     ];
     fontDir.enable = true;
     fontconfig = {
