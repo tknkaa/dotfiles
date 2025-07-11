@@ -20,6 +20,7 @@
       nerd-fonts.fira-code
       nerd-fonts.jetbrains-mono
       vscode
+      zoom-us
       bat
       bottom
       eza
