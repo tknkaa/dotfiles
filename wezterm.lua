@@ -28,4 +28,12 @@ return {
 	use_ime = true, -- Enable IME
 	check_for_updates = false, -- Disable update check
 	audible_bell = "Disabled", -- Disable bell
+
+	keys = {
+		{
+		 key = 'n',
+		 mods = 'SHIFT|CTRL',
+		 action = wezterm.action.ToggleFullScreen,
+		},
+	}
 }
