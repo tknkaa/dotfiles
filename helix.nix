@@ -7,13 +7,22 @@
       theme = "tokyonight";
       editor = {
         line-number = "relative";
-        lsp.display-messages = true;
+
+        lsp = {
+          display-messages = true;
+          display-inlay-hints = false;
+          display-signature-help-docs = false;
+          auto-signature-help = false;
+        };
       };
       keys = {
         insert = {
           j = {
-            k = "normal_mode"; 
+            k = "normal_mode";
           };
+        };
+        normal = {
+          "K" = "hover";
         };
       };
     };
@@ -113,14 +122,14 @@
     };
 
     extraPackages = with pkgs; [
-      nodePackages.typescript-language-server 
-      nodePackages.vscode-langservers-extracted 
-      nodePackages.svelte-language-server 
-      emmet-ls 
+      nodePackages.typescript-language-server
+      nodePackages.vscode-langservers-extracted
+      nodePackages.svelte-language-server
+      emmet-ls
 
-      gopls 
-      pyright 
-      clang-tools 
+      gopls
+      pyright
+      clang-tools
 
       nixd
       rust-analyzer
