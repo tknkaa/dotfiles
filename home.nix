@@ -29,6 +29,7 @@
       ripgrep
       xclip
       wl-clipboard
+      conda
     ];
     pointerCursor = {
       name = "Adwaita";
