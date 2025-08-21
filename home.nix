@@ -30,6 +30,7 @@
       xclip
       wl-clipboard
       conda
+      openssl
     ];
     pointerCursor = {
       name = "Adwaita";
