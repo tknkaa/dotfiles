@@ -10,5 +10,6 @@
     python312
     zig
     rust-bin.stable.latest.default
+    pnpm
   ];
 }
