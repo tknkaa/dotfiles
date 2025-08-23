@@ -1,16 +1,18 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   programs.neovim = {
     enable = true;
     viAlias = true;
     vimAlias = true;
     plugins = with pkgs.vimPlugins; [
       # Treesitter
-      (nvim-treesitter.withPlugins (plugins:
-        with plugins; [
+      (nvim-treesitter.withPlugins (
+        plugins: with plugins; [
           tree-sitter-markdown
           tree-sitter-nix
           # ...
-        ]))
+        ]
+      ))
       telescope-nvim
       # ...
     ];

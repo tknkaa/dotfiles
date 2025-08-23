@@ -70,27 +70,45 @@
       language = [
         {
           name = "html";
-          language-servers = [ "vscode-html-language-server" "emmet-ls" ];
+          language-servers = [
+            "vscode-html-language-server"
+            "emmet-ls"
+          ];
         }
         {
           name = "css";
-          language-servers = [ "vscode-css-language-server" "emmet-ls" ];
+          language-servers = [
+            "vscode-css-language-server"
+            "emmet-ls"
+          ];
         }
         {
           name = "javascript";
-          language-servers = [ "typescript-language-server" "emmet-ls" ];
+          language-servers = [
+            "typescript-language-server"
+            "emmet-ls"
+          ];
         }
         {
           name = "typescript";
-          language-servers = [ "typescript-language-server" "emmet-ls" ];
+          language-servers = [
+            "typescript-language-server"
+            "emmet-ls"
+          ];
         }
         {
           name = "tsx";
-          language-servers = [ "typescript-language-server" "emmet-ls" ];
+          language-servers = [
+            "typescript-language-server"
+            "emmet-ls"
+          ];
         }
         {
           name = "svelte";
-          language-servers = [ "svelte-language-server" "emmet-ls" ];
+          language-servers = [
+            "svelte-language-server"
+            "emmet-ls"
+          ];
         }
         {
           name = "go";

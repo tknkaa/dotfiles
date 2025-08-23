@@ -31,6 +31,7 @@
       wl-clipboard
       conda
       openssl
+      nixfmt-tree
     ];
     pointerCursor = {
       name = "Adwaita";
@@ -49,7 +50,7 @@
     publicShare = "$HOME/PublicShare";
     pictures = "$HOME/Pictures";
     templates = "$HOME/Templates";
-    videos = "$HOME/Videos";    
+    videos = "$HOME/Videos";
   };
   programs.home-manager.enable = true;
 }
