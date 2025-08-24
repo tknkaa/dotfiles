@@ -32,6 +32,7 @@
       conda
       openssl
       nixfmt-tree
+      gemini-cli
     ];
     pointerCursor = {
       name = "Adwaita";
