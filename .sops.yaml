@@ -1,0 +1,9 @@
+keys:
+  - &user_key age1wj9yfl2ul4qx3fcm2jv8u976fr280ne0djv9dchuq9f9lv4zrfks354hvt
+  - &host_key age1l4zld0ldy453cx7pe54rfz9ngdvq5vw89njrqtskt5g4rhaxrqyq0dxzwc
+creation_rules:
+  - path_regex: .*\.(yaml|json|env|ini)$
+    key_groups:
+     - age:
+       - *user_key
+       - *host_key

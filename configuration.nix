@@ -3,14 +3,7 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
 { config, pkgs, ... }:
-let
-  ageKeyFile = "/home/tknkaa/.config/sops/age/keys.txt";
-in
 {
-  sops = {
-    age.keyFile = ageKeyFile;
-    age.generateKey = true;
-  };
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
@@ -120,9 +113,6 @@ in
     docker-compose
   ];
 
-  environment.variables = {
-    SOPS_AGE_KEY_FILE = ageKeyFile;
-  };
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
@@ -134,7 +124,7 @@ in
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
+  services.openssh.enable = true;
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
@@ -211,5 +201,24 @@ in
         emoji = [ "Noto Color Emoji" ];
       };
     };
+  };
+
+  # This will add secrets.yml to the nix store
+  # You can avoid this by adding a string to the full path instead, i.e.
+  # sops.defaultSopsFile = "/root/.sops/secrets/example.yaml";
+  sops.defaultSopsFile = ./secrets/example.yaml;
+  # This will automatically import SSH keys as age keys
+  sops.age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
+  # This is using an age key that is expected to already be in the filesystem
+  sops.age.keyFile = "/var/lib/sops-nix/key.txt";
+  # This will generate a new key if the key specified above does not exist
+  sops.age.generateKey = true;
+  # This is the actual specification of the secrets.
+  sops.secrets.db_password = { };
+  sops.secrets.api_key = { };
+  sops.secrets.gemini_api_key = {
+    owner = "tknkaa";
+    group = "users";
+    mode = "0400";
   };
 }

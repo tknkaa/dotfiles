@@ -14,5 +14,8 @@
       ll = "eza --icons always --long --all --git ";
       tree = "eza --icons always --classify always --tree";
     };
+    initContent = ''
+      export GEMINI_API_KEY="$(cat /run/secrets/gemini_api_key)"
+    '';
   };
 }
