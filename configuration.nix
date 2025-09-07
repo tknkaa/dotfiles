@@ -177,9 +177,11 @@
 
   fonts = {
     fonts = with pkgs; [
+      noto-fonts
       noto-fonts-cjk-serif
       noto-fonts-cjk-sans
       noto-fonts-emoji
+      dejavu_fonts
       nerd-fonts.fira-code
       nerd-fonts.jetbrains-mono
     ];
@@ -195,6 +197,9 @@
           "Noto Color Emoji"
         ];
         monospace = [
+          "DejaVu Sans Mono"
+          "Noto Sans Mono"
+          "FiraCode Nerd Font"
           "JetBrainMono Nerd Font"
           "Noto Color Emoji"
         ];
