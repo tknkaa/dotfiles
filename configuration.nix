@@ -121,6 +121,9 @@
     swaylock
     swayidle
     wl-clipboard
+    mako
+    grim
+    slurp
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
