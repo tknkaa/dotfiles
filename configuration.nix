@@ -40,7 +40,7 @@
     enable = true;
     settings = {
       default_session = {
-        command = "${pkgs.greetd}/bin/agreety --cmd sway";
+        command = "${pkgs.tuigreet}/bin/tuigreet --time --cmd sway";
       };
     };
   };
@@ -112,6 +112,10 @@
     #  wget
     libreoffice-qt
     docker-compose
+
+    swaylock
+    swayidle
+    wl-clipboard
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
