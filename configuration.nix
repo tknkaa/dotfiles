@@ -143,7 +143,7 @@
     brightnessctl
     # screen color temperature
     gammastep
-    
+
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
