@@ -136,7 +136,7 @@
     # application launcher
     wofi
     # file manager
-    ranger
+    kdePackages.dolphin
     # audio control
     wob
     # screen brightness
