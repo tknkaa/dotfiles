@@ -11,7 +11,6 @@
     ./browser.nix
     ./apps.nix
     ./starship.nix
-    ./sway.nix
   ];
   fonts.fontconfig.enable = true;
   home = rec {
