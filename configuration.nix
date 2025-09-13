@@ -88,6 +88,7 @@
       "networkmanager"
       "wheel"
       "docker"
+      "input"
     ];
     packages = with pkgs; [
       #  thunderbird
@@ -144,6 +145,7 @@
     # screen color temperature
     gammastep
 
+    pavucontrol
   ];
 
   # Some programs need SUID wrappers, can be configured further or are

@@ -53,7 +53,38 @@
     videos = "$HOME/Videos";
   };
   programs.home-manager.enable = true;
+
   programs.waybar.settings.main = {
-    modules-left = [ "clock" ];
+    layer = "top";
+    position = "top";
+    height = 30;
+    modules-left = [
+      "sway/workspaces"
+      "sway/mode"
+    ];
+    modules-center = [ "sway/window" ];
+    modules-right = [
+      "pulseaudio"
+      "network"
+      "cpu"
+      "memory"
+      "clock"
+    ];
+
+    "pulseaudio" = {
+      "scroll-step" = 5;
+      "format" = "{volume}% {icon}";
+      "format-muted" = " Muted";
+      "format-icons" = {
+        "default" = [
+          ""
+          ""
+          ""
+        ];
+      };
+      "on-click" = "pavucontrol";
+      "on-scroll-up" = "pactl set-sink-volume @DEFAULT_SINK@ +5%";
+      "on-scroll-down" = "pactl set-sink-volume @DEFAULT_SINK@ -5%";
+    };
   };
 }
