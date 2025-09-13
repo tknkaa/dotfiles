@@ -52,7 +52,4 @@
     videos = "$HOME/Videos";
   };
   programs.home-manager.enable = true;
-  programs.waybar.settings.main = {
-    modules-left = [ "clock" ];
-  };
 }
