@@ -31,27 +31,14 @@
 
   console.keyMap = "us";
 
-  programs.sway = {
-    enable = true;
-    wrapperFeatures.gtk = true;
-  };
-
-  services.greetd = {
-    enable = true;
-    settings = {
-      default_session = {
-        command = "${pkgs.greetd}/bin/agreety --cmd sway";
-      };
-    };
-  };
   # Configure keymap in X11
-  # services.xserver = {
-  #   enable = true;
-  #   displayManager.gdm.enable = true;
-  #   desktopManager.gnome.enable = true;
-  #   xkbVariant = "";
-  #   layout = "us";
-  # };
+  services.xserver = {
+    enable = true;
+    displayManager.gdm.enable = true;
+    desktopManager.gnome.enable = true;
+    xkbVariant = "";
+    layout = "us";
+  };
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
