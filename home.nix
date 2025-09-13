@@ -27,6 +27,8 @@
       eza
       httpie
       ripgrep
+      xclip
+      wl-clipboard
       conda
       openssl
       nixfmt-tree
