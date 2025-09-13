@@ -118,32 +118,12 @@
     libreoffice-qt
     docker-compose
 
-    # screen lock
     swaylock
     swayidle
-    # clipboard
     wl-clipboard
-    # history manager
-    clipman
-    # notifications
     mako
-    # capture screen
     grim
-    # select screen
     slurp
-    # record screen
-    wf-recorder
-    # application launcher
-    wofi
-    # file manager
-    ranger
-    # audio control
-    wob
-    # screen brightness
-    brightnessctl
-    # screen color temperature
-    gammastep
-    
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
