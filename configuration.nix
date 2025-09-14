@@ -168,9 +168,16 @@
   };
 
   i18n.inputMethod = {
+    # How to type in Japanese
+    # Step 1: type `fcitx5-configtool` in the terminal.
+    # Step 2: In the "input Method" tab, add Mozc. 
+    # Step 3: You can also configure the shortcut to switch between input methods.
+    # Step 4: Apply changes.
     enabled = "fcitx5";
     fcitx5.addons = with pkgs; [
+      # For Japanese input
       fcitx5-mozc
+      # For GTK-based apps
       fcitx5-gtk
     ];
   };
