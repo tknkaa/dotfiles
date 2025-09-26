@@ -35,7 +35,7 @@
       openssl
       nixfmt-tree
       gemini-cli
-      gh
+      unzip
     ];
     pointerCursor = {
       name = "Adwaita";
