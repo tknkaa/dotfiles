@@ -11,6 +11,7 @@
     ./browser.nix
     ./apps.nix
     ./starship.nix
+    ./vscode.nix
   ];
   fonts.fontconfig.enable = true;
   home = rec {
@@ -20,7 +21,6 @@
     packages = with pkgs; [
       nerd-fonts.fira-code
       nerd-fonts.jetbrains-mono
-      vscode
       zoom-us
       bat
       bottom
