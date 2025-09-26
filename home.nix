@@ -12,6 +12,7 @@
     ./apps.nix
     ./starship.nix
     ./vscode.nix
+    ./zed-editor.nix
   ];
   fonts.fontconfig.enable = true;
   home = rec {
