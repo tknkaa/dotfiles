@@ -31,6 +31,7 @@
       xclip
       wl-clipboard
       conda
+      unzip
       openssl
       nixfmt-tree
       gemini-cli
