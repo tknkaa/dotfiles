@@ -31,6 +31,11 @@ require("lazy").setup({
   { "hrsh7th/cmp-buffer" },
   { "hrsh7th/cmp-path" },
   { "nvim-tree/nvim-tree.lua" },
+  {
+    "windwp/nvim-autopairs",
+    event = "InsertEnter",
+    config = true
+  }
 })
 
 vim.o.clipboard = "unnamedplus"
