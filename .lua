@@ -1,4 +1,6 @@
 vim.g.mapleader = " "
+vim.g.loaded_netrwPlugin = 1
+vim.g.loaded_netrw = 1
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
@@ -28,6 +30,7 @@ require("lazy").setup({
   { "hrsh7th/cmp-nvim-lsp" },
   { "hrsh7th/cmp-buffer" },
   { "hrsh7th/cmp-path" },
+  { "nvim-tree/nvim-tree.lua" },
 })
 
 vim.o.clipboard = "unnamedplus"
@@ -39,12 +42,16 @@ vim.o.tabstop = 2
 vim.o.termguicolors = true
 vim.o.cursorline = true
 
+require("nvim-tree").setup()
+
 local map = vim.keymap.set
 local opts = { noremap = true, silent = true }
 map("i", "jk", "<ESC>", opts)
-map("n", "<leader>e", ":Explore<CR>", opts)
 map("n", "<leader>f", ":Telescope find_files<CR>", opts)
 map("n", "K", vim.lsp.buf.hover, opts)
+
+map("n", "<leader>e", ":NvimTreeToggle<CR>", opts)
+map("n", "<leader>b", ":NvimTreeFocus<CR>", opts)
 
 require("lualine").setup()
 require("nvim-treesitter.configs").setup({
