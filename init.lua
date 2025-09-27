@@ -23,6 +23,11 @@ require("lazy").setup({
   { "nvim-telescope/telescope.nvim", tag = '0.1.8' },
   { "neovim/nvim-lspconfig" },
   { "nvim-lualine/lualine.nvim" },
+  -- nvim-cmp and completion sources
+  { "hrsh7th/nvim-cmp" },
+  { "hrsh7th/cmp-nvim-lsp" },
+  { "hrsh7th/cmp-buffer" },
+  { "hrsh7th/cmp-path" },
 })
 
 vim.o.clipboard = "unnamedplus"
@@ -50,10 +55,41 @@ require("nvim-treesitter.configs").setup({
   indent = { enable = true },
 })
 
--- alr installed pyroght, clangd and lua-language-server from home-manager
+-- Setup nvim-cmp
+local cmp = require('cmp')
+cmp.setup({
+  mapping = cmp.mapping.preset.insert({
+    ['<C-Space>'] = cmp.mapping.complete(),
+    ['<C-e>'] = cmp.mapping.abort(),
+    ['<CR>'] = cmp.mapping.confirm({ select = true }),
+    ['<Tab>'] = cmp.mapping.select_next_item(),
+    ['<S-Tab>'] = cmp.mapping.select_prev_item(),
+  }),
+  sources = cmp.config.sources({
+    { name = 'nvim_lsp' },
+    { name = 'buffer' },
+    { name = 'path' },
+  })
+})
 
+-- Setup LSP servers with enhanced capabilities for autocompletion
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
+
+vim.lsp.config.pyright = {
+  capabilities = capabilities,
+}
+vim.lsp.config.clangd = {
+  capabilities = capabilities,
+}
+vim.lsp.config.lua_ls = {
+  capabilities = capabilities,
+}
 vim.lsp.config.ts_ls = {
   filetypes = { "typescript", "typescriptreact", "javascript", "javascriptreact" },
+  capabilities = capabilities,
+}
+vim.lsp.config.svelte = {
+  capabilities = capabilities,
 }
 
 vim.lsp.enable("pyright")
