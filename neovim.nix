@@ -8,6 +8,10 @@
       clang-tools
       lua-language-server
       pyright
+
+      nodePackages.typescript-language-server
+      nodePackages.svelte-language-server
+      typescript
     ];
     extraLuaConfig = builtins.readFile ./init.lua;
   };

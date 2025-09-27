@@ -43,7 +43,7 @@ map("n", "K", vim.lsp.buf.hover, opts)
 
 require("lualine").setup()
 require("nvim-treesitter.configs").setup({
-  ensure_installed = { "c", "lua", "python" },
+  ensure_installed = { "c", "lua", "python", "typescript", "tsx", "javascript", "svelte" },
   sync_install = false,
   auto_install = true,
   highlight = { enable = true },
@@ -51,6 +51,13 @@ require("nvim-treesitter.configs").setup({
 })
 
 -- alr installed pyroght, clangd and lua-language-server from home-manager
-vim.lsp.enable('pyright')
-vim.lsp.enable('clangd')
-vim.lsp.enable('lua_ls')
+
+vim.lsp.config.ts_ls = {
+  filetypes = { "typescript", "typescriptreact", "javascript", "javascriptreact" },
+}
+
+vim.lsp.enable("pyright")
+vim.lsp.enable("clangd")
+vim.lsp.enable("lua_ls")
+vim.lsp.enable("ts_ls")
+vim.lsp.enable("svelte")
