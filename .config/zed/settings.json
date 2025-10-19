@@ -1,15 +1,16 @@
 {
   "agent": {
     "inline_assistant_model": {
-      "provider": "google",
-      "model": "gemini-2.5-pro"
+      "provider": "copilot_chat",
+      "model": "gpt-4.1"
     },
     "default_profile": "write",
     "default_model": {
-      "provider": "copilot_chat",
-      "model": "claude-3.5-sonnet"
+      "provider": "google",
+      "model": "gemini-2.5-pro"
     }
   },
+  "show_edit_predictions": false,
   "buffer_font_size": 24,
   "theme": "Tokyo Night",
   "ui_font_size": 24,
@@ -26,20 +27,6 @@
   "agent_font_size": 20,
   "relative_line_numbers": true,
   "lsp": {
-    "nix": {
-      "binary": {
-        "path_lookup": true,
-        "path": "/nix/store/qppc0h5n0bdsklcrkdkr4p47j0r57dzr-nixd-2.6.4/bin/nixd"
-      },
-      "binaty": {
-        "path_lookup": true
-      }
-    },
-    "nixd": {
-      "binary": {
-        "path_lookup": true
-      }
-    },
     "rust-analyzer": {
       "initialization_options": {
         "chackOnSave": {
@@ -75,17 +62,7 @@
           }
         }
       }
-    },
-    "nil": {
-      "command": "nixd",
-      "enable": true
     }
   },
-  "languages": {
-    "Nix": {
-      "languageServer": {
-        "binary": "/nix/store/qppc0h5n0bdsklcrkdkr4p47j0r57dzr-nixd-2.6.4/bin/nixd"
-      }
-    }
-  }
+  "languages": {}
 }

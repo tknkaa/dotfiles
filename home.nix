@@ -11,8 +11,8 @@
     ./browser.nix
     ./apps.nix
     ./starship.nix
-    ./vscode.nix
     ./zed-editor.nix
+    ./vscode.nix
   ];
   fonts.fontconfig.enable = true;
   home = rec {
@@ -36,6 +36,8 @@
       nixfmt-tree
       gemini-cli
       nixfmt
+      nil
+      nixd
     ];
     pointerCursor = {
       name = "Adwaita";
