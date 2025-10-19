@@ -3,5 +3,8 @@
         "jk": {
             "command": "vscode-neovim.escape"
         }
+    },
+    "extensions.experimental.affinity": {
+        "asvetliakov.vscode-neovim": 1
     }
 }
