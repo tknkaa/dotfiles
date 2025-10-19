@@ -38,6 +38,7 @@
       nixfmt
       nil
       nixd
+      vscode
     ];
     pointerCursor = {
       name = "Adwaita";
