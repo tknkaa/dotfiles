@@ -4,7 +4,7 @@
     google-chrome = {
       enable = true;
       commandLineArgs = [
-        "--force-device-scale-factor=1.2"
+        "--force-device-scale-factor=1.1"
       ];
     };
     vivaldi = {

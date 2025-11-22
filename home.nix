@@ -39,6 +39,7 @@
       nil
       nixd
       vscode
+      dig
     ];
     pointerCursor = {
       name = "Adwaita";
