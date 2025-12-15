@@ -15,6 +15,7 @@
     };
     initContent = ''
       export GEMINI_API_KEY="$(cat /run/secrets/gemini_api_key)"
+      export PATH="/home/tknkaa/.bun/bin:$PATH"
     '';
   };
 }

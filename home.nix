@@ -34,12 +34,12 @@
       unzip
       openssl
       nixfmt-tree
-      gemini-cli
       nixfmt
       nil
       nixd
       vscode
       dig
+      uv
     ];
     pointerCursor = {
       name = "Adwaita";

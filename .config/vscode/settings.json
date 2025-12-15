@@ -18,5 +18,6 @@
     },
     "docker.extension.enableComposeLanguageServer": false,
     "svelte.enable-ts-plugin": true,
-    "editor.experimentalEditContextEnabled": false
+    "editor.experimentalEditContextEnabled": false,
+    "workbench.editor.empty.hint": "hidden"
 }
