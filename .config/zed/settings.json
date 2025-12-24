@@ -4,10 +4,10 @@
       "provider": "copilot_chat",
       "model": "claude-sonnet-4"
     },
-    "default_profile": "write",
+    "default_profile": "ask",
     "default_model": {
-      "provider": "copilot_chat",
-      "model": "claude-sonnet-4.5"
+      "provider": "google",
+      "model": "gemini-2.5-flash"
     }
   },
   "show_edit_predictions": false,
