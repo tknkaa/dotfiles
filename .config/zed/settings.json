@@ -1,18 +1,14 @@
 {
   "agent": {
-    "inline_assistant_model": {
-      "provider": "copilot_chat",
-      "model": "claude-sonnet-4"
-    },
-    "default_profile": "ask",
     "default_model": {
       "provider": "google",
-      "model": "gemini-2.5-flash"
-    }
+      "model": "gemini-3-pro-preview"
+    },
+    "model_parameters": []
   },
   "show_edit_predictions": false,
   "buffer_font_size": 24,
-  "theme": "Tokyo Night",
+  "theme": "Tomorrow Night Blue",
   "ui_font_size": 24,
   "vim_mode": true,
   "auto_install_extensions": {
@@ -24,8 +20,8 @@
     "tokyonight": true,
     "Tokyo Night": true
   },
-  "agent_font_size": 20,
-  "relative_line_numbers": true,
+  "agent_ui_font_size": 20,
+  "relative_line_numbers": "enabled",
   "lsp": {
     "rust-analyzer": {
       "initialization_options": {
