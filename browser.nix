@@ -1,18 +1,6 @@
 {
   programs = {
     firefox.enable = true;
-    google-chrome = {
-      enable = true;
-      commandLineArgs = [
-        "--force-device-scale-factor=1.1"
-      ];
-    };
-    vivaldi = {
-      enable = true;
-      commandLineArgs = [
-        "--enable-features=WebUIDarkMode"
-        "--force-dark-mode"
-      ];
-    };
+    google-chrome.enable = true;
   };
 }

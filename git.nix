@@ -2,8 +2,8 @@
 {
   programs.git = {
     enable = true;
-    userName = "Git用のユーザー名";
-    userEmail = "Git用のメールアドレス";
+    userName = "tknkaa";
+    userEmail = "email address here";
   };
 
   # GitHub CLI
