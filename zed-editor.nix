@@ -1,6 +1,5 @@
-{
-  config,
-  ...
+{ config
+, ...
 }:
 {
   programs.zed-editor = {
@@ -12,10 +11,10 @@
     "zed/settings.json".source = config.lib.file.mkOutOfStoreSymlink
       "${config.home.homeDirectory}/.dotfiles/.config/zed/settings.json";
 
-     "zed/keymap.json".source = config.lib.file.mkOutOfStoreSymlink
+    "zed/keymap.json".source = config.lib.file.mkOutOfStoreSymlink
       "${config.home.homeDirectory}/.dotfiles/.config/zed/keymap.json";
 
-     "zed/themes".source = config.lib.file.mkOutOfStoreSymlink
+    "zed/themes".source = config.lib.file.mkOutOfStoreSymlink
       "${config.home.homeDirectory}/.dotfiles/.config/zed/themes";
   };
 }

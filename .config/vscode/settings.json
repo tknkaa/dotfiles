@@ -20,5 +20,6 @@
     "svelte.enable-ts-plugin": true,
     "editor.experimentalEditContextEnabled": false,
     "workbench.editor.empty.hint": "hidden",
-    "workbench.colorTheme": "Tomorrow Night Blue"
+    "workbench.colorTheme": "Tomorrow Night Blue",
+    "terminal.integrated.enableMultiLinePasteWarning": "never"
 }
