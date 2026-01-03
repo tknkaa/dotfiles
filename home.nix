@@ -40,6 +40,8 @@
       dig
       uv
       gemini-cli
+      gh
+      github-copilot-cli
     ];
     pointerCursor = {
       name = "Adwaita";
