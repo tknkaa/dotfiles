@@ -42,6 +42,7 @@
       gemini-cli
       gh
       github-copilot-cli
+      obsidian
     ];
     pointerCursor = {
       name = "Adwaita";

@@ -21,5 +21,6 @@
     "editor.experimentalEditContextEnabled": false,
     "workbench.editor.empty.hint": "hidden",
     "workbench.colorTheme": "Tomorrow Night Blue",
-    "terminal.integrated.enableMultiLinePasteWarning": "never"
+    "terminal.integrated.enableMultiLinePasteWarning": "never",
+    "typescript.updateImportsOnFileMove.enabled": "always"
 }
