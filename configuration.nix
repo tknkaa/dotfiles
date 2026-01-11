@@ -46,11 +46,11 @@
   # Configure keymap in X11
   services.xserver = {
     enable = true;
-    displayManager.gdm.enable = true;
-    desktopManager.gnome.enable = true;
-    xkbVariant = "";
-    layout = "jp";
+    xkb.variant = "";
+    xkb.layout = "jp";
   };
+  services.displayManager.gdm.enable = true;
+  services.desktopManager.gnome.enable = true;
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
@@ -172,25 +172,16 @@
   };
 
   i18n.inputMethod = {
-    # How to type in Japanese
-    # Step 1: type `fcitx5-configtool` in the terminal.
-    # Step 2: In the "input Method" tab, add Mozc.
-    # Step 3: You can also configure the shortcut to switch between input methods.
-    # Step 4: Apply changes.
-    enabled = "fcitx5";
     fcitx5.addons = with pkgs; [
-      # For Japanese input
       fcitx5-mozc
-      # For GTK-based apps
       fcitx5-gtk
-      fcitx5-qt
-
-      fcitx5-configtool
     ];
   };
+  i18n.inputMethod.enable = true;
+  i18n.inputMethod.type = "fcitx5";
 
   fonts = {
-    fonts = with pkgs; [
+    packages = with pkgs; [
       noto-fonts
       noto-fonts-cjk-serif
       noto-fonts-cjk-sans
