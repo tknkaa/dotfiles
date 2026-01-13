@@ -1,4 +1,5 @@
 local wezterm = require("wezterm")
+local act = wezterm.action
 
 return {
 	-- Theme
@@ -22,6 +23,7 @@ return {
 
 	-- Tab
 	use_fancy_tab_bar = false,
+	tab_bar_at_bottom = true,
 	hide_tab_bar_if_only_one_tab = true,
 
 	-- Misc
@@ -30,10 +32,26 @@ return {
 	audible_bell = "Disabled", -- Disable bell
 
 	keys = {
-		{
-		 key = 'n',
-		 mods = 'SHIFT|CTRL',
-		 action = wezterm.action.ToggleFullScreen,
-		},
-	}
+		-- 1. 全画面表示 (既存の設定)
+		{ key = "n", mods = "SHIFT|CTRL", action = act.ToggleFullScreen },
+
+		-- 2. タブの操作
+		{ key = "t", mods = "SHIFT|CTRL", action = act.SpawnTab("DefaultDomain") }, -- タブ追加
+		{ key = "w", mods = "SHIFT|CTRL", action = act.CloseCurrentTab({ confirm = true }) }, -- タブを閉じる
+		{ key = "Tab", mods = "CTRL", action = act.ActivateTabRelative(1) }, -- 次のタブへ (Ctrl + Tab)
+		{ key = "Tab", mods = "SHIFT|CTRL", action = act.ActivateTabRelative(-1) }, -- 前のタブへ (Ctrl + Shift + Tab)
+
+		-- 3. ペインの分割 (縦に分割 / 横に分割)
+		{ key = "v", mods = "SHIFT|CTRL", action = act.SplitHorizontal({ domain = "CurrentPaneDomain" }) }, -- 垂直に割る(右に開く)
+		{ key = "s", mods = "SHIFT|CTRL", action = act.SplitVertical({ domain = "CurrentPaneDomain" }) }, -- 水平に割る(下に開く)
+
+		-- 4. ペインの移動 (矢印キーで移動)
+		{ key = "LeftArrow", mods = "SHIFT|CTRL", action = act.ActivatePaneDirection("Left") },
+		{ key = "RightArrow", mods = "SHIFT|CTRL", action = act.ActivatePaneDirection("Right") },
+		{ key = "UpArrow", mods = "SHIFT|CTRL", action = act.ActivatePaneDirection("Up") },
+		{ key = "DownArrow", mods = "SHIFT|CTRL", action = act.ActivatePaneDirection("Down") },
+
+		-- 5. ペインを閉じる
+		{ key = "x", mods = "SHIFT|CTRL", action = act.CloseCurrentPane({ confirm = true }) },
+	},
 }
