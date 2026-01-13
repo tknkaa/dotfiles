@@ -9,13 +9,11 @@
       cat = "bat";
       grep = "rg";
       ls = "eza --icons always --classify always";
-      la = "eza --icons always --classify always --all ";
-      ll = "eza --icons always --long --all --git ";
       tree = "eza --icons always --classify always --tree";
+      n = "nvim";
     };
     initContent = ''
       export GEMINI_API_KEY="$(cat /run/secrets/gemini_api_key)"
-      export PATH="/home/tknkaa/.bun/bin:$PATH"
     '';
   };
 }
