@@ -1,4 +1,4 @@
-vim.g.mapleader = " "
+vim.g.mapleader = " " -- Set the leader key to spacebar for custom key mappings
 vim.g.loaded_netrwPlugin = 1
 vim.g.loaded_netrw = 1
 
@@ -28,7 +28,6 @@ require("lazy").setup({
 	{ "nvim-telescope/telescope.nvim", tag = "0.1.8" },
 	{ "neovim/nvim-lspconfig" },
 	{ "nvim-lualine/lualine.nvim" },
-	-- nvim-cmp and completion sources
 	{ "hrsh7th/nvim-cmp" },
 	{ "hrsh7th/cmp-nvim-lsp" },
 	{ "hrsh7th/cmp-buffer" },
@@ -44,7 +43,7 @@ require("lazy").setup({
 vim.o.clipboard = "unnamedplus"
 vim.o.number = true
 vim.o.relativenumber = true
-vim.o.expandtab = true
+vim.o.expandtab = true 
 vim.o.shiftwidth = 2
 vim.o.tabstop = 2
 vim.o.termguicolors = true
@@ -52,14 +51,14 @@ vim.o.cursorline = true
 
 require("nvim-tree").setup()
 
-local map = vim.keymap.set
+local map = vim.keymap.set -- shortcut for keymap.set
 local opts = { noremap = true, silent = true }
-map("i", "jk", "<ESC>", opts)
-map("n", "<leader>f", ":Telescope find_files<CR>", opts)
-map("n", "K", vim.lsp.buf.hover, opts)
+map("i", "jk", "<ESC>", opts) -- shortcut: 'jk' in insert mode to escape
+map("n", "<leader>f", ":Telescope find_files<CR>", opts) -- shortcut: <Space>f to Telescope file finder
+map("n", "K", vim.lsp.buf.hover, opts) -- shortcut: 'K' for LSP hover
 
-map("n", "<leader>e", ":NvimTreeToggle<CR>", opts)
-map("n", "<leader>b", ":NvimTreeFocus<CR>", opts)
+map("n", "<leader>e", ":NvimTreeToggle<CR>", opts) -- shortcut: <Space>e to toggle nvim-tree
+map("n", "<leader>b", ":NvimTreeFocus<CR>", opts) -- shortcut: <Space>b to focus nvim-tree
 
 require("lualine").setup()
 require("nvim-treesitter.configs").setup({
@@ -70,15 +69,14 @@ require("nvim-treesitter.configs").setup({
 	indent = { enable = true },
 })
 
--- Setup nvim-cmp
 local cmp = require("cmp")
 cmp.setup({
-	mapping = cmp.mapping.preset.insert({
-		["<C-Space>"] = cmp.mapping.complete(),
-		["<C-e>"] = cmp.mapping.abort(),
-		["<CR>"] = cmp.mapping.confirm({ select = true }),
-		["<Tab>"] = cmp.mapping.select_next_item(),
-		["<S-Tab>"] = cmp.mapping.select_prev_item(),
+	mapping = cmp.mapping.preset.insert({ -- shortcut for completion menu
+		["<C-Space>"] = cmp.mapping.complete(), -- shortcut: Ctrl+Space to trigger completion
+		["<C-e>"] = cmp.mapping.abort(), -- shortcut: Ctrl+e to abort completion
+		["<CR>"] = cmp.mapping.confirm({ select = true }), -- shortcut: Enter to confirm completion
+		["<Tab>"] = cmp.mapping.select_next_item(), -- shortcut: Tab to next completion
+		["<S-Tab>"] = cmp.mapping.select_prev_item(), -- shortcut: Shift+Tab to previous completion
 	}),
 	sources = cmp.config.sources({
 		{ name = "nvim_lsp" },
@@ -87,7 +85,6 @@ cmp.setup({
 	}),
 })
 
--- Setup LSP servers with enhanced capabilities for autocompletion
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 vim.lsp.config.pyright = {
