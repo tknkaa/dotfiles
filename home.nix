@@ -2,54 +2,22 @@
 
 {
   imports = [
-    ./helix.nix
-    ./zsh.nix
-    ./neovim.nix
-    ./direnv.nix
-    ./development.nix
-    ./wezterm.nix
-    ./browser.nix
-    ./apps.nix
-    ./starship.nix
-    ./zed-editor.nix
-    ./vscode.nix
+    .config/apps.nix
+    .config/browser.nix
+    .config/development.nix
+    .config/direnv.nix
+    .config/helix.nix
+    .config/neovim.nix
+    .config/starship.nix
+    .config/vscode.nix
+    .config/wezterm.nix
+    .config/zed-editor.nix
+    .config/zsh.nix
   ];
-  fonts.fontconfig.enable = true;
   home = rec {
     username = "tknkaa";
     homeDirectory = "/home/${username}";
     stateVersion = "22.11";
-    packages = with pkgs; [
-      nerd-fonts.fira-code
-      nerd-fonts.jetbrains-mono
-      zoom-us
-      bat
-      bottom
-      eza
-      httpie
-      ripgrep
-      xclip
-      wl-clipboard
-      conda
-      unzip
-      openssl
-      nixfmt-tree
-      nil
-      nixd
-      vscode
-      dig
-      uv
-      gemini-cli
-      gh
-      github-copilot-cli
-      obsidian
-    ];
-    pointerCursor = {
-      name = "Adwaita";
-      package = pkgs.adwaita-icon-theme;
-      size = 24;
-      gtk.enable = true;
-    };
   };
   xdg.userDirs = {
     enable = true;
