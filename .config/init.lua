@@ -17,11 +17,11 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
 	{
-		"folke/tokyonight.nvim",
+		"Mofiqul/dracula.nvim",
 		lazy = false,
 		priority = 1000,
 		config = function()
-			vim.cmd([[colorscheme tokyonight]])
+			vim.cmd([[colorscheme dracula]])
 		end,
 	},
 	{ "nvim-treesitter/nvim-treesitter", build = ":TSUpdate", branch = "master", lazy = false },
