@@ -2,17 +2,17 @@
 
 {
   imports = [
-    .config/apps.nix
-    .config/browser.nix
-    .config/development.nix
-    .config/direnv.nix
-    .config/helix.nix
-    .config/neovim.nix
-    .config/starship.nix
-    .config/vscode.nix
-    .config/wezterm.nix
-    .config/zed-editor.nix
-    .config/zsh.nix
+    ./home/apps.nix
+    ./home/browser.nix
+    ./home/development.nix
+    ./home/direnv.nix
+    ./home/helix.nix
+    ./home/neovim.nix
+    ./home/starship.nix
+    ./home/vscode.nix
+    ./home/wezterm.nix
+    ./home/zed-editor.nix
+    ./home/zsh.nix
   ];
   home = rec {
     username = "tknkaa";

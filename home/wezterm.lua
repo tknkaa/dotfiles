@@ -46,12 +46,27 @@ return {
 		{ key = "s", mods = "ALT", action = act.SplitVertical({ domain = "CurrentPaneDomain" }) }, -- 水平に割る(下に開く)
 
 		-- 4. ペインの移動 (矢印キーで移動)
-		{ key = "LeftArrow", mods = "ALT", action = act.ActivatePaneDirection("Left") },
-		{ key = "RightArrow", mods = "ALT", action = act.ActivatePaneDirection("Right") },
-		{ key = "UpArrow", mods = "ALT", action = act.ActivatePaneDirection("Up") },
-		{ key = "DownArrow", mods = "ALT", action = act.ActivatePaneDirection("Down") },
+		{ key = "h", mods = "ALT", action = act.ActivatePaneDirection("Left") },
+		{ key = "l", mods = "ALT", action = act.ActivatePaneDirection("Right") },
+		{ key = "k", mods = "ALT", action = act.ActivatePaneDirection("Up") },
+		{ key = "j", mods = "ALT", action = act.ActivatePaneDirection("Down") },
 
 		-- 5. ペインを閉じる
 		{ key = "x", mods = "ALT", action = act.CloseCurrentPane({ confirm = true }) },
+
+		-- 6. Yank previous output (Alt-y)
+		{
+			key = "y",
+			mods = "ALT",
+			action = act.Multiple {
+				act.ActivateCopyMode,
+				act.CopyMode 'MoveToScrollbackTop',
+				act.CopyMode { SetSelectionMode = "Line" },
+				act.CopyMode { MoveToStartOfLine = "Cell" },
+				act.CopyMode { MoveToEndOfLineContent = "Cell" },
+				act.CopyTo "ClipboardAndPrimarySelection",
+				act.CopyMode "Close",
+			},
+		},
 	},
 }
