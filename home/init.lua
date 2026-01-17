@@ -78,6 +78,7 @@ local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 vim.lsp.config.pyright = {capabilities = capabilities}
 vim.lsp.config.clangd = {capabilities = capabilities}
+vim.lsp.config.gopls = {capabilities = capabilities}
 vim.lsp.config.lua_ls = {capabilities = capabilities}
 vim.lsp.config.ts_ls = {
     filetypes = {
@@ -86,9 +87,14 @@ vim.lsp.config.ts_ls = {
     capabilities = capabilities
 }
 vim.lsp.config.svelte = {capabilities = capabilities}
+vim.lsp.config.r_language_server = {capabilities = capabilities}
+vim.lsp.config.nixd = {capabilities = capabilities}
 
 vim.lsp.enable("pyright")
 vim.lsp.enable("clangd")
 vim.lsp.enable("lua_ls")
 vim.lsp.enable("ts_ls")
 vim.lsp.enable("svelte")
+vim.lsp.enable("gopls")
+vim.lsp.enable("r_language_server")
+vim.lsp.enable("nixd")

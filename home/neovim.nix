@@ -8,6 +8,9 @@
       clang-tools
       lua-language-server
       pyright
+      rPackages.languageserver
+      gopls
+      nixd
 
       nodePackages.typescript-language-server
       nodePackages.svelte-language-server

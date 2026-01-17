@@ -10,7 +10,6 @@
 
     # Nix tooling
     nixfmt-tree
-    nil
     nixd
 
     # Development tools
