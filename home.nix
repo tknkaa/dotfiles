@@ -13,6 +13,7 @@
     ./home/wezterm.nix
     ./home/zed-editor.nix
     ./home/zsh.nix
+    ./home/gnome.nix
   ];
   home = rec {
     username = "tknkaa";
