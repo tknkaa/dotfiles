@@ -19,5 +19,7 @@
     gh
     github-copilot-cli
     vscode
+    fzf
+    zoxide
   ];
 }
