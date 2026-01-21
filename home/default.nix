@@ -2,18 +2,19 @@
 
 {
   imports = [
-    ./home/apps.nix
-    ./home/browser.nix
-    ./home/development.nix
-    ./home/direnv.nix
-    ./home/helix.nix
-    ./home/neovim.nix
-    ./home/starship.nix
-    ./home/vscode.nix
-    ./home/wezterm.nix
-    ./home/zed-editor.nix
-    ./home/zsh.nix
-    ./home/gnome.nix
+    ./apps.nix
+
+    ./browser.nix
+    ./development.nix
+    ./direnv.nix
+    ./helix.nix
+    ./neovim.nix
+    ./starship.nix
+    ./vscode
+    ./wezterm.nix
+    ./zed    
+    ./zsh.nix
+    ./gnome.nix
   ];
   home = rec {
     username = "tknkaa";
