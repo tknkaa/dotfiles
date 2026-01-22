@@ -17,6 +17,10 @@
     initContent = ''
       export GEMINI_API_KEY="$(cat /run/secrets/gemini_api_key)"
       eval "$(zoxide init zsh --cmd cd)"
+      cdi() {
+        local dir
+        dir=$(zoxide query -l | fzf) && cd "$dir"
+      }
     '';
   };
 }
