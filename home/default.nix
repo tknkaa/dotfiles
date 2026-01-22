@@ -3,18 +3,17 @@
 {
   imports = [
     ./apps.nix
-
     ./browser.nix
     ./development.nix
-    ./direnv.nix
-    ./helix.nix
-    ./neovim.nix
-    ./starship.nix
+    ./direnv
+    ./helix
+    ./neovim
+    ./paperwm
+    ./starship
     ./vscode
-    ./wezterm.nix
-    ./zed    
-    ./zsh.nix
-    ./gnome.nix
+    ./wezterm
+    ./zed
+    ./zsh
   ];
   home = rec {
     username = "tknkaa";
