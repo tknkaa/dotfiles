@@ -16,7 +16,7 @@
     };
     initContent = ''
       export GEMINI_API_KEY="$(cat /run/secrets/gemini_api_key)"
-      eval "$(zoxide init zsh)"
+      eval "$(zoxide init zsh --cmd cd)"
     '';
   };
 }
