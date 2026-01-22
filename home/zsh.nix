@@ -12,10 +12,11 @@
       tree = "eza --icons always --classify always --tree";
       n = "nvim";
       c = "copilot";
-      z = "zeditor";
+      zed = "zeditor";
     };
     initContent = ''
       export GEMINI_API_KEY="$(cat /run/secrets/gemini_api_key)"
+      eval "$(zoxide init zsh)"
     '';
   };
 }
