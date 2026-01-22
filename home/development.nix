@@ -21,5 +21,6 @@
     vscode
     fzf
     zoxide
+    lazygit
   ];
 }
