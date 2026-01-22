@@ -34,7 +34,7 @@
           inherit inputs;
         };
         modules = [
-          ./home
+          ./home-manager
         ];
       };
     };
