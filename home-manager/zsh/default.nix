@@ -21,6 +21,10 @@
         local dir
         dir=$(zoxide query -l | fzf) && cd "$dir"
       }
+      ni() {
+        local file
+        file=$(fzf) && nvim "$file"
+      }
     '';
   };
 }
