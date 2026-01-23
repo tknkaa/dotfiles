@@ -11,10 +11,10 @@
       rPackages.languageserver
       gopls
       nixd
+      gleam
 
       nodePackages.typescript-language-server
       nodePackages.svelte-language-server
-      typescript
     ];
     extraLuaConfig = builtins.readFile ./init.lua;
   };
