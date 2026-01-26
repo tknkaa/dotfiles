@@ -23,7 +23,7 @@
       }
       ni() {
         local file
-        file=$(fzf) && nvim "$file"
+        file=$(git ls-files | fzf) && nvim "$file"
       }
     '';
   };
