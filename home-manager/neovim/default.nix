@@ -16,6 +16,6 @@
       nodePackages.typescript-language-server
       nodePackages.svelte-language-server
     ];
-    extraLuaConfig = builtins.readFile ./init.lua;
+    initLua = builtins.readFile ./init.lua;
   };
 }
