@@ -45,6 +45,9 @@ local opts = {noremap = true, silent = true}
 map("i", "jk", "<ESC>", opts) -- shortcut: 'jk' in insert mode to escape
 map("n", "<leader>f", ":Telescope find_files<CR>", opts) -- shortcut: <Space>f to Telescope file finder
 map("n", "K", vim.lsp.buf.hover, opts) -- shortcut: 'K' for LSP hover
+map("n", "<C-k>", vim.diagnostic.open_float, opts) -- shortcut: Ctrl+K to show diagnostics/errors
+map("n", "[d", vim.diagnostic.goto_prev, opts) -- shortcut: '[d' to go to previous diagnostic
+map("n", "]d", vim.diagnostic.goto_next, opts) -- shortcut: ']d' to go to next diagnostic
 
 map("n", "<leader>e", ":NvimTreeToggle<CR>", opts) -- shortcut: <Space>e to toggle nvim-tree
 map("n", "<leader>b", ":NvimTreeFocus<CR>", opts) -- shortcut: <Space>b to focus nvim-tree
