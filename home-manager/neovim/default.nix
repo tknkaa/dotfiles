@@ -12,6 +12,7 @@
       gopls
       nixd
       gleam
+      rust-analyzer
 
       nodePackages.typescript-language-server
       nodePackages.svelte-language-server
