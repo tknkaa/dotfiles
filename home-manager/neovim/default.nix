@@ -13,6 +13,7 @@
       nixd
       gleam
       rust-analyzer
+      tinymist
 
       nodePackages.typescript-language-server
       nodePackages.svelte-language-server
