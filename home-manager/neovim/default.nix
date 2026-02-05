@@ -14,6 +14,7 @@
       gleam
       rust-analyzer
       tinymist
+      zls
 
       nodePackages.typescript-language-server
       nodePackages.svelte-language-server

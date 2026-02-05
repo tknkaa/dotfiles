@@ -56,7 +56,7 @@ require("lualine").setup()
 require("nvim-treesitter.configs").setup({
     ensure_installed = {
         "c", "lua", "python", "typescript", "tsx", "javascript", "svelte", "gleam",
-        "go", "r", "nix", "rust", "typst"
+        "go", "r", "nix", "rust", "typst", "zig"
     },
     sync_install = false,
     auto_install = true,
@@ -96,6 +96,7 @@ vim.lsp.config.nixd = {capabilities = capabilities}
 vim.lsp.config.gleam = {capabilities = capabilities}
 vim.lsp.config.rust_analyzer = {capabilities = capabilities}
 vim.lsp.config.tinymist = {capabilities = capabilities}
+vim.lsp.config.zls = {capabilities = capabilities}
 
 vim.lsp.enable("pyright")
 vim.lsp.enable("clangd")
@@ -108,3 +109,4 @@ vim.lsp.enable("nixd")
 vim.lsp.enable("gleam")
 vim.lsp.enable("rust_analyzer")
 vim.lsp.enable("tinymist")
+vim.lsp.enable("zls")
