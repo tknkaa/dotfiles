@@ -13,10 +13,20 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
     {
-        "Mofiqul/dracula.nvim",
+        "Mofiqul/vscode.nvim",
         lazy = false,
         priority = 1000,
-        config = function() vim.cmd([[colorscheme dracula]]) end
+        config = function()
+            require('vscode').setup({
+                transparent = false,
+                italic_comments = true,
+                disable_nvimtree_bg = true,
+            })
+            vim.cmd([[colorscheme vscode]])
+        end
+    }, {
+        "yorickpeterse/vim-paper",
+        lazy = true
     }, {
         "nvim-treesitter/nvim-treesitter",
         build = ":TSUpdate",
@@ -37,6 +47,7 @@ vim.o.shiftwidth = 2
 vim.o.tabstop = 2
 vim.o.termguicolors = true
 vim.o.cursorline = true
+-- To switch to light theme, run: :colorscheme paper
 
 require("nvim-tree").setup()
 
