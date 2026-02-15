@@ -232,4 +232,10 @@
     group = "users";
     mode = "0400";
   };
+
+  sops.secrets.kaggle_api_token = {
+    owner = "tknkaa";
+    group = "users";
+    mode = "0400";
+  };
 }

@@ -16,6 +16,7 @@
     };
     initContent = ''
       export GEMINI_API_KEY="$(cat /run/secrets/gemini_api_key)"
+      export KAGGLE_API_TOKEN="$(cat /run/secrets/kaggle_api_token)"
       eval "$(zoxide init zsh --cmd cd)"
       cdi() {
         local dir
