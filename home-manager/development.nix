@@ -22,5 +22,7 @@
     fzf
     zoxide
     lazygit
+    antigravity
+    qwen-code
   ];
 }
