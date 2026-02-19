@@ -6,6 +6,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     rust-overlay.url = "github:oxalica/rust-overlay";
+    rustowl-flake = {
+      url = "github:nix-community/rustowl-flake";
+      inputs.rust-overlay.follows = "rust-overlay";
+    };
     sops-nix = {
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -28,7 +32,10 @@
         pkgs = import inputs.nixpkgs {
           system = "x86_64-linux";
           config.allowUnfree = true;
-          overlays = [ (import inputs.rust-overlay) ];
+          overlays = [
+            inputs.rust-overlay.overlays.default
+            inputs.rustowl-flake.overlays.default
+          ];
         };
         extraSpecialArgs = {
           inherit inputs;

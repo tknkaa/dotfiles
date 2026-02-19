@@ -80,6 +80,12 @@ require("lazy").setup({
 		end,
 	},
 	{
+		"cordx56/rustowl",
+		version = "*", -- Latest stable version
+		lazy = false,
+		opts = {},
+	},
+	{
 		"nvim-telescope/telescope.nvim",
 		tag = "0.1.8",
 		dependencies = { "nvim-lua/plenary.nvim" },
@@ -110,15 +116,15 @@ require("lazy").setup({
 				capabilities = capabilities,
 			}
 
-      vim.lsp.config.zls = {
-        capabilities = capabilities,
-        settings = {
-          zls = {
-            enable_build_on_save = true,
-            build_on_save_step = "check",
-          },
-        },
-      }
+			vim.lsp.config.zls = {
+				capabilities = capabilities,
+				settings = {
+					zls = {
+						enable_build_on_save = true,
+						build_on_save_step = "check",
+					},
+				},
+			}
 
 			-- LSPを有効化
 			for _, server in ipairs(lsp_servers) do
@@ -180,6 +186,9 @@ vim.o.tabstop = 2
 vim.o.termguicolors = true
 vim.o.cursorline = true
 -- To switch to light theme, run: :colorscheme paper
+
+-- Limit LSP log spam
+vim.lsp.set_log_level("warn")
 
 -- キーマップ設定
 local map = vim.keymap.set

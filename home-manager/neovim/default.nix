@@ -12,7 +12,6 @@
       gopls
       nixd
       gleam
-      rust-analyzer
       tinymist
       zls
 
