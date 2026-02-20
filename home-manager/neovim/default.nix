@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 {
   programs.neovim = {
     enable = true;
@@ -15,6 +15,12 @@
 
       nodePackages.typescript-language-server
       nodePackages.svelte-language-server
+
+      inputs.rustowl-flake.packages.${pkgs.system}.rustowl
+      inputs.rustowl-flake.packages.${pkgs.system}.rustowl-nvim
+
+
+      rust-bin.nightly.latest.default
     ];
     initLua = builtins.readFile ./init.lua;
   };

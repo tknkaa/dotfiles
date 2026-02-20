@@ -10,6 +10,7 @@
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    rustowl-flake.url = "github:nix-community/rustowl-flake";
   };
 
   outputs = inputs: {
@@ -30,16 +31,17 @@
           config.allowUnfree = true;
           overlays = [
             inputs.rust-overlay.overlays.default
+            inputs.rustowl-flake.overlays.default
           ];
         };
         extraSpecialArgs = {
           inherit inputs;
+          rustowl = inputs.rustowl-flake.packages.x86_64-linux.default;
         };
         modules = [
           ./home-manager
         ];
       };
     };
-
   };
 }
