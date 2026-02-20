@@ -31,7 +31,7 @@
           config.allowUnfree = true;
           overlays = [
             inputs.rust-overlay.overlays.default
-            inputs.rustowl-flake.overlays.rustowl-with-rust-overlay
+            inputs.rustowl-flake.overlays.default
           ];
         };
         extraSpecialArgs = {
