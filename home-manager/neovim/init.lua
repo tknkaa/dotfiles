@@ -71,6 +71,7 @@ require("lazy").setup({
 					"rust",
 					"typst",
 					"zig",
+          "rustowl",
 				},
 				sync_install = false,
 				auto_install = true,
@@ -83,7 +84,13 @@ require("lazy").setup({
 		"cordx56/rustowl",
 		version = "*", -- Latest stable version
 		lazy = false,
-		opts = {},
+		config = function()
+			require("rustowl").setup({
+				semantic_tokens = {
+					enable = true,
+				},
+			})
+		end,
 	},
 	{
 		"nvim-telescope/telescope.nvim",
@@ -129,6 +136,23 @@ require("lazy").setup({
 			-- LSPを有効化
 			for _, server in ipairs(lsp_servers) do
 				vim.lsp.enable(server)
+			end
+
+			-- rustowlのhoverを優先的に表示
+			vim.lsp.handlers["textDocument/hover"] = function(err, result, ctx, config)
+				local client = vim.lsp.get_client_by_id(ctx.client_id)
+				if client and client.name == "rustowl" and result then
+					return vim.lsp.handlers.hover(err, result, ctx, config)
+				elseif client and client.name ~= "rustowl" then
+					-- rustowlがアタッチされているかチェック
+					local bufnr = vim.api.nvim_get_current_buf()
+					local clients = vim.lsp.get_clients({ bufnr = bufnr, name = "rustowl" })
+					if #clients > 0 then
+						-- rustowlがあれば他のLSPのhoverは表示しない
+						return
+					end
+					return vim.lsp.handlers.hover(err, result, ctx, config)
+				end
 			end
 		end,
 	},
@@ -188,7 +212,7 @@ vim.o.cursorline = true
 -- To switch to light theme, run: :colorscheme paper
 
 -- Limit LSP log spam
-vim.lsp.set_log_level("warn")
+vim.lsp.set_log_level("off")
 
 -- キーマップ設定
 local map = vim.keymap.set

@@ -26,7 +26,6 @@
     lazygit
     antigravity
     qwen-code
-
-    rustowl
+    stylua
   ];
 }
