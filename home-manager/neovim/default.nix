@@ -14,6 +14,7 @@
       gleam
       tinymist
       zls
+      rustowl
 
       nodePackages.typescript-language-server
       nodePackages.svelte-language-server

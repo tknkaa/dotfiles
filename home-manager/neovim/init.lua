@@ -71,7 +71,6 @@ require("lazy").setup({
 					"rust",
 					"typst",
 					"zig",
-          "rustowl",
 				},
 				sync_install = false,
 				auto_install = true,
