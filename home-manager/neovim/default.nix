@@ -2,8 +2,6 @@
 {
   programs.neovim = {
     enable = true;
-    viAlias = true;
-    vimAlias = true;
     extraPackages = with pkgs; [
       clang-tools
       lua-language-server
@@ -14,7 +12,6 @@
       gleam
       tinymist
       zls
-      rustowl
 
       nodePackages.typescript-language-server
       nodePackages.svelte-language-server

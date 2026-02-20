@@ -10,10 +10,6 @@
       extensions = [ "rust-src" "rust-analyzer" ];
     })
 
-    # Nix tooling
-    nixfmt-tree
-    nixd
-
     # Development tools
     openssl
     conda

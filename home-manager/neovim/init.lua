@@ -1,4 +1,8 @@
-vim.g.mapleader = " " -- Set the leader key to spacebar for custom key mappings
+-- To add a new LSP, edit the following 3 places:
+-- 1. vim.lsp.config.*: per-LSP settings like capabilities
+-- 2, vim.lsp.enable(): list of enabled servers
+-- 3. extraPackages: install the binary via nix (./default.nix)
+vim.g.mapleader = " "
 vim.g.loaded_netrwPlugin = 1
 vim.g.loaded_netrw = 1
 
@@ -14,22 +18,6 @@ if not vim.loop.fs_stat(lazypath) then
 	})
 end
 vim.opt.rtp:prepend(lazypath)
-
--- LSPサーバーリスト
-local lsp_servers = {
-	"pyright",
-	"clangd",
-	"lua_ls",
-	"ts_ls",
-	"svelte",
-	"gopls",
-	"r_language_server",
-	"nixd",
-	"gleam",
-	"rust_analyzer",
-	"tinymist",
-	"zls",
-}
 
 require("lazy").setup({
 	{
@@ -80,18 +68,6 @@ require("lazy").setup({
 		end,
 	},
 	{
-		"cordx56/rustowl",
-		version = "*", -- Latest stable version
-		lazy = false,
-		config = function()
-			require("rustowl").setup({
-				semantic_tokens = {
-					enable = true,
-				},
-			})
-		end,
-	},
-	{
 		"nvim-telescope/telescope.nvim",
 		tag = "0.1.8",
 		dependencies = { "nvim-lua/plenary.nvim" },
@@ -104,22 +80,25 @@ require("lazy").setup({
 		config = function()
 			local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-			-- すべてのLSPに共通の設定
-			for _, server in ipairs(lsp_servers) do
-				vim.lsp.config[server] = {
-					capabilities = capabilities,
-				}
-			end
+			vim.lsp.config.pyright = { capabilities = capabilities }
+			vim.lsp.config.clangd = { capabilities = capabilities }
+			vim.lsp.config.lua_ls = { capabilities = capabilities }
+			vim.lsp.config.svelte = { capabilities = capabilities }
+			vim.lsp.config.gopls = { capabilities = capabilities }
+			vim.lsp.config.r_language_server = { capabilities = capabilities }
+			vim.lsp.config.nixd = { capabilities = capabilities }
+			vim.lsp.config.gleam = { capabilities = capabilities }
+			vim.lsp.config.rust_analyzer = { capabilities = capabilities }
+			vim.lsp.config.tinymist = { capabilities = capabilities }
 
-			-- TypeScript固有の設定
 			vim.lsp.config.ts_ls = {
+				capabilities = capabilities,
 				filetypes = {
 					"typescript",
 					"typescriptreact",
 					"javascript",
 					"javascriptreact",
 				},
-				capabilities = capabilities,
 			}
 
 			vim.lsp.config.zls = {
@@ -132,27 +111,20 @@ require("lazy").setup({
 				},
 			}
 
-			-- LSPを有効化
-			for _, server in ipairs(lsp_servers) do
-				vim.lsp.enable(server)
-			end
-
-			-- rustowlのhoverを優先的に表示
-			vim.lsp.handlers["textDocument/hover"] = function(err, result, ctx, config)
-				local client = vim.lsp.get_client_by_id(ctx.client_id)
-				if client and client.name == "rustowl" and result then
-					return vim.lsp.handlers.hover(err, result, ctx, config)
-				elseif client and client.name ~= "rustowl" then
-					-- rustowlがアタッチされているかチェック
-					local bufnr = vim.api.nvim_get_current_buf()
-					local clients = vim.lsp.get_clients({ bufnr = bufnr, name = "rustowl" })
-					if #clients > 0 then
-						-- rustowlがあれば他のLSPのhoverは表示しない
-						return
-					end
-					return vim.lsp.handlers.hover(err, result, ctx, config)
-				end
-			end
+			vim.lsp.enable({
+				"pyright",
+				"clangd",
+				"lua_ls",
+				"ts_ls",
+				"svelte",
+				"gopls",
+				"r_language_server",
+				"nixd",
+				"gleam",
+				"rust_analyzer",
+				"tinymist",
+				"zls",
+			})
 		end,
 	},
 	{
@@ -199,7 +171,6 @@ require("lazy").setup({
 	},
 })
 
--- 基本設定
 vim.o.clipboard = "unnamedplus"
 vim.o.number = true
 vim.o.relativenumber = true
@@ -208,12 +179,9 @@ vim.o.shiftwidth = 2
 vim.o.tabstop = 2
 vim.o.termguicolors = true
 vim.o.cursorline = true
--- To switch to light theme, run: :colorscheme paper
 
--- Limit LSP log spam
 vim.lsp.set_log_level("off")
 
--- キーマップ設定
 local map = vim.keymap.set
 local opts = { noremap = true, silent = true }
 

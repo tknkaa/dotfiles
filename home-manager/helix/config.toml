@@ -1,0 +1,16 @@
+theme = "tokyonight"
+
+[editor]
+line-number = "relative"
+
+[editor.lsp]
+display-messages = true
+display-inlay-hints = false
+display-signature-help-docs = false
+auto-signature-help = false
+
+[keys.insert]
+j = { k = "normal_mode" }
+
+[keys.normal]
+K = "hover"

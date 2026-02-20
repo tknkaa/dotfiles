@@ -1,0 +1,85 @@
+[language-server.typescript-language-server]
+command = "typescript-language-server"
+args = ["--stdio"]
+
+[language-server.vscode-html-language-server]
+command = "vscode-html-language-server"
+args = ["--stdio"]
+
+[language-server.vscode-css-language-server]
+command = "vscode-css-language-server"
+args = ["--stdio"]
+
+[language-server.vscode-json-language-server]
+command = "vscode-json-language-server"
+args = ["--stdio"]
+
+[language-server.svelte-language-server]
+command = "svelteserver"
+args = ["--stdio"]
+
+[language-server.gopls]
+command = "gopls"
+
+[language-server.pyright]
+command = "pyright-langserver"
+args = ["--stdio"]
+
+[language-server.clangd]
+command = "clangd"
+
+[language-server.nixd]
+command = "nixd"
+
+[language-server.rust-analyzer]
+command = "rust-analyzer"
+
+[[language]]
+name = "html"
+language-servers = ["vscode-html-language-server"]
+
+[[language]]
+name = "css"
+language-servers = ["vscode-css-language-server"]
+
+[[language]]
+name = "javascript"
+language-servers = ["typescript-language-server"]
+
+[[language]]
+name = "typescript"
+language-servers = ["typescript-language-server"]
+
+[[language]]
+name = "tsx"
+language-servers = ["typescript-language-server"]
+
+[[language]]
+name = "svelte"
+language-servers = ["svelte-language-server"]
+
+[[language]]
+name = "go"
+language-servers = ["gopls"]
+
+[[language]]
+name = "python"
+language-servers = ["pyright"]
+
+[[language]]
+name = "c"
+language-servers = ["clangd"]
+
+[[language]]
+name = "cpp"
+language-servers = ["clangd"]
+roots = [".clangd"]
+
+[[language]]
+name = "json"
+language-servers = ["vscode-json-language-server"]
+
+[[language]]
+name = "nix"
+file-types = ["nix"]
+language-servers = ["nixd"]
