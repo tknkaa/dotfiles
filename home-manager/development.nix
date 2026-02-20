@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, rustowl, ... }:
 {
   home.packages = with pkgs; [
     # Languages & Compilers
@@ -23,5 +23,7 @@
     antigravity
     qwen-code
     stylua
+
+    rustowl # rustowl check
   ];
 }

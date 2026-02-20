@@ -34,6 +34,12 @@ require("lazy").setup({
 		end,
 	},
 	{
+		"cordx56/rustowl",
+		version = "*",
+		lazy = false,
+		opts = {},
+	},
+	{
 		"yorickpeterse/vim-paper",
 		lazy = true,
 	},
@@ -184,6 +190,10 @@ vim.lsp.set_log_level("off")
 
 local map = vim.keymap.set
 local opts = { noremap = true, silent = true }
+
+map("n", "<leader>o", function()
+  require("rustowl").toggle()
+end, { desc = "RustOwl Toggle" })
 
 map("i", "jk", "<ESC>", opts)
 map("n", "<leader>f", ":Telescope find_files<CR>", opts)
