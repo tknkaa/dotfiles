@@ -19,6 +19,7 @@
       export KAGGLE_API_TOKEN="$(cat /run/secrets/kaggle_api_token)"
       export PATH="$HOME/.cargo/bin:$PATH"
       export OPENSSL_DIR="$(dirname $(dirname $(which openssl)))"
+      export SSL_CERT_DIR="/etc/ssl/certs"
       export SSL_CERT_FILE="/etc/ssl/certs/ca-bundle.crt"
       eval "$(zoxide init zsh --cmd cd)"
       cdi() {
