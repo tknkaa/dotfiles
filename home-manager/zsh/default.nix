@@ -17,6 +17,8 @@
     initContent = ''
       export GEMINI_API_KEY="$(cat /run/secrets/gemini_api_key)"
       export KAGGLE_API_TOKEN="$(cat /run/secrets/kaggle_api_token)"
+      export PATH="$HOME/.cargo/bin:$PATH"
+      export OPENSSL_DIR="$(dirname $(dirname $(which openssl)))"
       eval "$(zoxide init zsh --cmd cd)"
       cdi() {
         local dir
