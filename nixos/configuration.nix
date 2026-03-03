@@ -85,7 +85,6 @@
     extraGroups = [
       "networkmanager"
       "wheel"
-      "docker"
     ];
     packages = with pkgs; [
       #  thunderbird
@@ -101,15 +100,14 @@
   nixpkgs.config.allowUnfree = true;
 
   virtualisation.docker = {
-    enable = true;
     rootless = {
       enable = true;
       setSocketVariable = true;
-    };
-    daemon.settings = {
-      default-address-pools = [
-        { base = "192.168.200.0/24"; size = 24; }
-      ];
+      daemon.settings = {
+        default-address-pools = [
+          { base = "192.168.200.0/24"; size = 24; }
+        ];
+      };
     };
   };
 
