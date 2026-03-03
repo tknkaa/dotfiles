@@ -12,6 +12,7 @@
       tree = "eza --icons always --classify always --tree";
       n = "nvim";
       c = "copilot";
+      a = "antigravity";
       zed = "zeditor";
     };
     initContent = ''
