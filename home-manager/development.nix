@@ -1,10 +1,11 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 {
   home.packages = with pkgs; [
     # Languages & Compilers
     gcc
     go
     bun
+    nodejs_24
     zig
     (rust-bin.stable.latest.default.override {
       extensions = [ "rust-src" "rust-analyzer" ];
@@ -24,4 +25,7 @@
     qwen-code
     stylua
   ];
+  home.file.".npmrc".text = ''
+    prefix=${config.home.homeDirectory}/.npm-global
+  '';
 }

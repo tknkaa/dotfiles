@@ -19,6 +19,7 @@
       export GEMINI_API_KEY="$(cat /run/secrets/gemini_api_key)"
       export KAGGLE_API_TOKEN="$(cat /run/secrets/kaggle_api_token)"
       export PATH="$HOME/.cargo/bin:$PATH"
+      export PATH="$HOME/.npm-global/bin:$PATH"
       export OPENSSL_DIR="$(dirname $(dirname $(which openssl)))"
       export SSL_CERT_DIR="/etc/ssl/certs"
       export SSL_CERT_FILE="/etc/ssl/certs/ca-bundle.crt"

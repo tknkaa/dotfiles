@@ -8,7 +8,6 @@
     ./direnv
     ./helix
     ./neovim
-    ./paperwm
     ./starship
     ./vscode
     ./wezterm
