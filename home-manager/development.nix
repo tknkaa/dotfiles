@@ -5,6 +5,7 @@
     gcc
     go
     bun
+    deno
     nodejs_24
     zig
     (rust-bin.stable.latest.default.override {
