@@ -27,7 +27,6 @@
     # Communication & Apps
     discord
     slack
-    wasistlos
     gemini-cli
     obsidian
   ];
