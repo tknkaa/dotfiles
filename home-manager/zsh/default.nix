@@ -61,5 +61,49 @@
       - name: git status
         keyword: gst
         snippet: git status --short --branch
+    
+      - name: git add all
+        keyword: gaa
+        snippet: git add --all
+    
+      - name: git commit
+        keyword: gcm
+        snippet: git commit -m '{{message}}'
+    
+      - name: git push
+        keyword: gp
+        snippet: git push
+    
+      - name: git pull
+        keyword: gpl
+        snippet: git pull
+    
+      - name: git switch
+        keyword: gsw
+        snippet: git switch {{branch}}
+    
+      - name: git diff
+        keyword: gd
+        snippet: git diff
+    
+      - name: lazygit
+        keyword: lg
+        snippet: lazygit
+    
+      - name: mkdir and cd
+        keyword: mkcd
+        snippet: mkdir -p {{dir}} && cd {{dir}}
+    
+      - name: find file
+        keyword: ff
+        snippet: find . -name '{{pattern}}'
+    
+      - name: home-manager switch
+        keyword: hms
+        snippet: home-manager switch --flake .#myHome
+    
+      - name: nix flake update
+        keyword: nfu
+        snippet: nix flake update
   '';
 }
