@@ -26,5 +26,7 @@
     qwen-code
     stylua
     opencode
+    # to preview readme in local
+    python3Packages.grip
   ];
 }
