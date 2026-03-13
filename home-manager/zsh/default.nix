@@ -19,6 +19,8 @@
     };
     initContent = ''
       export PATH="$HOME/.cargo/bin:$PATH"
+      export PATH="$HOME/.npm-global/bin:$PATH"
+      export PATH="$HOME/go/bin:$PATH"
       export DENO_DIR="$HOME/.cache/deno"
       export ZENO_HOME="$HOME/.config/zeno"
       export ZENO_DISABLE_EXECUTE_CACHE_COMMAND=1
