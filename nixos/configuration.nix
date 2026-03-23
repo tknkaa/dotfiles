@@ -225,4 +225,10 @@
     group = "users";
     mode = "0400";
   };
+
+  sops.secrets.cloudflare_account_id = {
+    owner = "tknkaa";
+    group = "users";
+    mode = "0400";
+  };
 }

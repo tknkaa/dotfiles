@@ -29,6 +29,7 @@
     slack
     gemini-cli
     obsidian
+    zoom-us
   ];
 
   home.pointerCursor = {

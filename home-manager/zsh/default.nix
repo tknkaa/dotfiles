@@ -40,6 +40,7 @@
       export GEMINI_API_KEY="$(cat /run/secrets/gemini_api_key)"
       export GOOGLE_GENERATIVE_AI_API_KEY="$(cat /run/secrets/gemini_api_key)"
       export KAGGLE_API_TOKEN="$(cat /run/secrets/kaggle_api_token)"
+      export CLOUDFLARE_ACCOUNT_ID="$(cat /run/secrets/cloudflare_account_id)"
       export OPENSSL_DIR="$(dirname $(dirname $(which openssl)))"
       export SSL_CERT_DIR="/etc/ssl/certs"
       export SSL_CERT_FILE="/etc/ssl/certs/ca-bundle.crt"
@@ -113,7 +114,7 @@
   home.file.".config/opencode/opencode.json".text = ''
     {
       "$schema": "https://opencode.ai/config.json",
-      "enabled_providers": ["github-copilot"],
+      "enabled_providers": ["github-copilot", "cloudflare-workers-ai"],
       "permission": {
         "bash": "ask",
         "edit": "ask"
