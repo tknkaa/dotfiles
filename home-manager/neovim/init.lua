@@ -59,6 +59,7 @@ require("lazy").setup({
 					"rust",
 					"typst",
 					"zig",
+          "vue",
 				},
 				sync_install = false,
 				auto_install = true,
@@ -90,6 +91,7 @@ require("lazy").setup({
 			vim.lsp.config.gleam = { capabilities = capabilities }
 			vim.lsp.config.rust_analyzer = { capabilities = capabilities }
 			vim.lsp.config.tinymist = { capabilities = capabilities }
+			vim.lsp.config.vue_ls = { capabilities = capabilities }
 
 			vim.lsp.config.ts_ls = {
 				capabilities = capabilities,
@@ -124,6 +126,7 @@ require("lazy").setup({
 				"rust_analyzer",
 				"tinymist",
 				"zls",
+        "vue_ls",
 			})
 		end,
 	},

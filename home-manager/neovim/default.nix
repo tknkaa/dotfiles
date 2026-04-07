@@ -13,8 +13,9 @@
       tinymist
       zls
 
-      nodePackages.typescript-language-server
-      nodePackages.svelte-language-server
+      typescript-language-server
+      svelte-language-server
+      vue-language-server
     ];
     initLua = builtins.readFile ./init.lua;
   };
