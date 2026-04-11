@@ -40,10 +40,10 @@ require("lazy").setup({
 	{
 		"nvim-treesitter/nvim-treesitter",
 		build = ":TSUpdate",
-		branch = "master",
+		branch = "main",
 		lazy = false,
 		config = function()
-			require("nvim-treesitter.configs").setup({
+			require("nvim-treesitter").setup({
 				ensure_installed = {
 					"c",
 					"lua",
@@ -63,8 +63,6 @@ require("lazy").setup({
 				},
 				sync_install = false,
 				auto_install = true,
-				highlight = { enable = true },
-				indent = { enable = true },
 			})
 		end,
 	},
