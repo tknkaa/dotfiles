@@ -17,14 +17,14 @@
     conda
     uv
     gh
-    github-copilot-cli
     vscode
     fzf
     zoxide
     lazygit
     antigravity
-    qwen-code
+    ollama
     stylua
+    github-copilot-cli
     opencode
     # to preview readme in local
     python3Packages.grip
