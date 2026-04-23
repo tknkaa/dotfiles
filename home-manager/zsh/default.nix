@@ -62,5 +62,8 @@
       - name: git status
         keyword: gst
         snippet: git status
+      - name: git log 
+        keyword: glg
+        snippet: git log --oneline -5
   '';
 }
