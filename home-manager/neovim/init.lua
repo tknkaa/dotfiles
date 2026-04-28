@@ -192,7 +192,7 @@ vim.o.tabstop = 2
 vim.o.termguicolors = true
 vim.o.cursorline = true
 
-vim.lsp.set_log_level("off")
+vim.lsp.log.set_level("off")
 
 local map = vim.keymap.set
 local opts = { noremap = true, silent = true }
