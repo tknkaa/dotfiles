@@ -46,6 +46,7 @@
     enable = true;
     xkb.variant = "";
     xkb.layout = "jp";
+    xkb.options = "caps:ctrl_modifier";
   };
   services.displayManager.gdm.enable = true;
   services.desktopManager.gnome.enable = true;
@@ -90,8 +91,6 @@
     shell = pkgs.zsh;
   };
 
-  # Install firefox.
-  programs.firefox.enable = true;
   programs.nix-ld.enable = true;
 
   # Allow unfree packages
