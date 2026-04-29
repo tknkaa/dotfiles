@@ -51,7 +51,7 @@ require("lazy").setup({
 	{
 		"nvim-treesitter/nvim-treesitter",
 		build = ":TSUpdate",
-		branch = "main",
+		branch = "master",
 		lazy = false,
 		config = function()
 			require("nvim-treesitter").setup({
@@ -81,6 +81,15 @@ require("lazy").setup({
 		"nvim-telescope/telescope.nvim",
     branch = "master",
 		dependencies = { "nvim-lua/plenary.nvim" },
+    config = function()
+      require("telescope").setup({
+        defaults = {
+          preview = {
+            treesitter = false,
+          },
+        }
+      })
+    end,
 	},
 	{
 		"neovim/nvim-lspconfig",
