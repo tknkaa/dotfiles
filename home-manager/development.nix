@@ -13,7 +13,7 @@
 
     # Development tools
     openssl
-    conda
+    tree-sitter
     uv
     gh
     vscode

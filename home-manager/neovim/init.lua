@@ -37,21 +37,21 @@ require("lazy").setup({
 		"yorickpeterse/vim-paper",
 		lazy = true,
 	},
-{
-  "github/copilot.vim",
-  config = function()
-    vim.g.copilot_no_tab_map = true
-    vim.keymap.set("i", "<C-j>", 'copilot#Accept("")', {
-      expr = true,
-      replace_keycodes = false,
-      silent = true,
-    })
-  end,
-},
+	{
+		"github/copilot.vim",
+		config = function()
+			vim.g.copilot_no_tab_map = true
+			vim.keymap.set("i", "<C-j>", 'copilot#Accept("")', {
+				expr = true,
+				replace_keycodes = false,
+				silent = true,
+			})
+		end,
+	},
 	{
 		"nvim-treesitter/nvim-treesitter",
 		build = ":TSUpdate",
-		branch = "master",
+		branch = "main",
 		lazy = false,
 		config = function()
 			require("nvim-treesitter").setup({
@@ -70,29 +70,26 @@ require("lazy").setup({
 					"rust",
 					"typst",
 					"zig",
-          "vue",
+					"vue",
 				},
 				sync_install = false,
 				auto_install = true,
-        highlight = {
-          enable = true,
-        },
 			})
 		end,
 	},
 	{
 		"nvim-telescope/telescope.nvim",
-    branch = "master",
+		branch = "master",
 		dependencies = { "nvim-lua/plenary.nvim" },
-    config = function()
-      require("telescope").setup({
-        defaults = {
-          preview = {
-            treesitter = false,
-          },
-        }
-      })
-    end,
+		config = function()
+			require("telescope").setup({
+				defaults = {
+					preview = {
+						treesitter = false,
+					},
+				},
+			})
+		end,
 	},
 	{
 		"neovim/nvim-lspconfig",
@@ -147,7 +144,7 @@ require("lazy").setup({
 				"rust_analyzer",
 				"tinymist",
 				"zls",
-        "vue_ls",
+				"vue_ls",
 			})
 		end,
 	},
@@ -203,6 +200,12 @@ vim.o.shiftwidth = 2
 vim.o.tabstop = 2
 vim.o.termguicolors = true
 vim.o.cursorline = true
+
+vim.api.nvim_create_autocmd("FileType", {
+	callback = function()
+		pcall(vim.treesitter.start)
+	end,
+})
 
 vim.lsp.log.set_level("off")
 
