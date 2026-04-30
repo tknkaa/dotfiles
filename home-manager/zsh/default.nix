@@ -14,28 +14,13 @@
       n = "nvim";
       c = "copilot";
       a = "antigravity";
-      zed = "zeditor";
-      o = "opencode";
+      gst = "git status";
+      glg = "git log --oneline -5";
     };
     initContent = ''
       export PATH="$HOME/.cargo/bin:$PATH"
       export PATH="$HOME/.npm-global/bin:$PATH"
       export PATH="$HOME/go/bin:$PATH"
-      export DENO_DIR="$HOME/.cache/deno"
-      export ZENO_HOME="$HOME/.config/zeno"
-      export ZENO_DISABLE_EXECUTE_CACHE_COMMAND=1
-
-      if [[ ! -d "$HOME/.cache/zeno-root" ]]; then
-        cp -r ${pkgs.fetchFromGitHub {
-          owner  = "yuki-yano";
-          repo   = "zeno.zsh";
-          rev    = "main";
-          sha256 = "sha256-IPYj4hJ4N5guqgpdJbo2poA+W/KuxkoHInhId4GcGHs=";
-        }} "$HOME/.cache/zeno-root"
-        chmod -R u+w "$HOME/.cache/zeno-root"
-      fi
-      export ZENO_ROOT="$HOME/.cache/zeno-root"
-      source "$ZENO_ROOT/zeno-plugin.zsh"
 
       export GEMINI_API_KEY="$(cat /run/secrets/gemini_api_key)"
       export GOOGLE_GENERATIVE_AI_API_KEY="$(cat /run/secrets/gemini_api_key)"
@@ -49,21 +34,6 @@
         local file
         file=$(git ls-files | fzf) && nvim "$file"
       }
-      if [[ -n $ZENO_LOADED ]]; then
-        bindkey ' '  zeno-auto-snippet
-        bindkey '^m' zeno-auto-snippet-and-accept-line
-        # bindkey '^i'  zeno-completion
-        bindkey '^x ' zeno-insert-snippet
-      fi
     '';
   };
-  home.file.".config/zeno/config.yml".text = ''
-    snippets:
-      - name: git status
-        keyword: gst
-        snippet: git status
-      - name: git log 
-        keyword: glg
-        snippet: git log --oneline -5
-  '';
 }

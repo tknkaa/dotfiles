@@ -11,7 +11,6 @@
       rPackages.languageserver
       gopls
       nixd
-      gleam
       tinymist
       zls
 

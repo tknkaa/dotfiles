@@ -11,7 +11,6 @@
     ./starship
     ./vscode
     ./wezterm
-    ./zed
     ./zsh
   ];
   home = rec {

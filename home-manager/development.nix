@@ -5,7 +5,6 @@
     gcc
     go
     bun
-    deno
     nodejs_24
     zig
     (rust-bin.stable.latest.default.override {
@@ -25,7 +24,6 @@
     ollama
     stylua
     github-copilot-cli
-    opencode
     # to preview readme in local
     python3Packages.grip
   ];
