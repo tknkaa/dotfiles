@@ -49,6 +49,19 @@ require("lazy").setup({
 		end,
 	},
 	{
+		"CopilotC-Nvim/CopilotChat.nvim",
+		dependencies = {
+			"github/copilot.vim",
+			"nvim-lua/plenary.nvim",
+		},
+		keys = {
+			{ "<leader>cc", "<cmd>CopilotChat<CR>", desc = "CopilotChat" },
+			{ "<leader>ce", "<cmd>CopilotChatExplain<CR>", desc = "Explain code" },
+			{ "<leader>cf", "<cmd>CopilotChatFix<CR>", desc = "Fix code" },
+			{ "<leader>ct", "<cmd>CopilotChatTests<CR>", desc = "Generate tests" },
+		},
+	},
+	{
 		"nvim-treesitter/nvim-treesitter",
 		build = ":TSUpdate",
 		branch = "main",
