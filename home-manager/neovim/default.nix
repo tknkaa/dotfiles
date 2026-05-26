@@ -13,6 +13,7 @@
       nixd
       tinymist
       zls
+      terraform-ls
 
       typescript-language-server
       svelte-language-server

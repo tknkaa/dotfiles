@@ -24,6 +24,8 @@
     ollama
     stylua
     github-copilot-cli
+    tfenv
+    
     # to preview readme in local
     python3Packages.grip
   ];

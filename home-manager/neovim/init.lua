@@ -123,6 +123,7 @@ require("lazy").setup({
 			vim.lsp.config.rust_analyzer = { capabilities = capabilities }
 			vim.lsp.config.tinymist = { capabilities = capabilities }
 			vim.lsp.config.vue_ls = { capabilities = capabilities }
+			vim.lsp.config.terraformls = { capabilities = capabilities }
 
 			vim.lsp.config.ts_ls = {
 				capabilities = capabilities,
@@ -158,6 +159,7 @@ require("lazy").setup({
 				"tinymist",
 				"zls",
 				"vue_ls",
+				"terraformls",
 			})
 		end,
 	},
