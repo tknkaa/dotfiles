@@ -16,11 +16,14 @@
       a = "antigravity";
       gst = "git status";
       glg = "git log --oneline -5";
+      x = "xclip -select clipboard";
     };
     initContent = ''
       export PATH="$HOME/.cargo/bin:$PATH"
       export PATH="$HOME/.npm-global/bin:$PATH"
       export PATH="$HOME/go/bin:$PATH"
+      export TFENV_CONFIG_DIR="$HOME/.tfenv"
+      mkdir -p "$TFENV_CONFIG_DIR"
 
       export GEMINI_API_KEY="$(cat /run/secrets/gemini_api_key)"
       export GOOGLE_GENERATIVE_AI_API_KEY="$(cat /run/secrets/gemini_api_key)"
