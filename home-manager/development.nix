@@ -25,7 +25,16 @@
     stylua
     github-copilot-cli
     tfenv
-    
+    gnumake
+    shopify-cli
+    google-cloud-sql-proxy
+    vim
+    google-cloud-sdk
+    gettext
+    claude-code
+    postgresql
+    delta
+
     # to preview readme in local
     python3Packages.grip
   ];
