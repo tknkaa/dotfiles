@@ -145,6 +145,11 @@ require("lazy").setup({
 				},
 			}
 
+      vim.filetype.add({
+        extension = {
+          tf = "terraform",
+        },
+      })
 			vim.lsp.enable({
 				"pyright",
 				"clangd",
