@@ -37,6 +37,7 @@
         local file
         file=$(git ls-files | fzf) && nvim "$file"
       }
+      git config --global delta.side-by-side true
     '';
   };
 }
