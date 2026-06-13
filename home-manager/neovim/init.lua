@@ -105,6 +105,19 @@ require("lazy").setup({
 		end,
 	},
 	{
+		"lewis6991/gitsigns.nvim",
+		opts = {
+			signs = {
+				add = { text = "▎" },
+				change = { text = "▎" },
+				delete = { text = "" },
+				topdelete = { text = "" },
+				changedelete = { text = "▎" },
+			},
+			current_line_blame = true,
+		},
+	},
+	{
 		"neovim/nvim-lspconfig",
 		dependencies = {
 			"hrsh7th/cmp-nvim-lsp",
@@ -240,3 +253,8 @@ map("n", "[d", vim.diagnostic.goto_prev, opts)
 map("n", "]d", vim.diagnostic.goto_next, opts)
 map("n", "<leader>e", ":NvimTreeToggle<CR>", opts)
 map("n", "<leader>b", ":NvimTreeFocus<CR>", opts)
+map("n", "]c", ":Gitsigns next_hunk<CR>", opts)
+map("n", "[c", ":Gitsigns prev_hunk<CR>", opts)
+map("n", "<leader>hp", ":Gitsigns preview_hunk<CR>", opts)
+map("n", "<leader>hs", ":Gitsigns stage_hunk<CR>", opts)
+map("n", "<leader>hr", ":Gitsigns reset_hunk<CR>", opts)
