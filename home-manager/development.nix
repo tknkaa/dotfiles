@@ -32,6 +32,7 @@
     google-cloud-sdk
     gettext
     claude-code
+    codex
     postgresql
     delta
 
