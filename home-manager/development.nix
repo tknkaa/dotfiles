@@ -35,6 +35,8 @@
     codex
     postgresql
     delta
+    turso-cli
+    sqld
 
     # to preview readme in local
     python3Packages.grip
