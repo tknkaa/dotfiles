@@ -31,41 +31,11 @@ return {
 	audible_bell = "Disabled", -- Disable bell
 
 	keys = {
-		-- 1. 全画面表示 (既存の設定)
+		-- 全画面表示
 		{ key = "n", mods = "SHIFT|CTRL", action = act.ToggleFullScreen },
 
-		-- 2. タブの操作
-		{ key = "t", mods = "SHIFT|CTRL", action = act.SpawnTab("DefaultDomain") }, -- タブ追加
-		{
-			key = "w",
-			mods = "SHIFT|CTRL",
-			action = act.CloseCurrentTab({ confirm = true }),
-		}, -- タブを閉じる
-		{ key = "Tab", mods = "CTRL", action = act.ActivateTabRelative(1) }, -- 次のタブへ (Ctrl + Tab)
-		{ key = "Tab", mods = "SHIFT|CTRL", action = act.ActivateTabRelative(-1) }, -- 前のタブへ (Ctrl + Shift + Tab)
-
-		-- 3. ペインの分割 (縦に分割 / 横に分割)
-		{
-			key = "v",
-			mods = "ALT",
-			action = act.SplitHorizontal({ domain = "CurrentPaneDomain" }),
-		}, -- 垂直に割る(右に開く)
-		{
-			key = "s",
-			mods = "ALT",
-			action = act.SplitVertical({ domain = "CurrentPaneDomain" }),
-		}, -- 水平に割る(下に開く)
-		-- 4. ペインの移動 (矢印キーで移動)
-		{ key = "h", mods = "ALT", action = act.ActivatePaneDirection("Left") },
-		{ key = "l", mods = "ALT", action = act.ActivatePaneDirection("Right") },
-		{ key = "k", mods = "ALT", action = act.ActivatePaneDirection("Up") },
-		{ key = "j", mods = "ALT", action = act.ActivatePaneDirection("Down") },
-
-		-- 5. ペインを閉じる
-		{
-			key = "x",
-			mods = "ALT",
-			action = act.CloseCurrentPane({ confirm = true }),
-		},
+		-- タブ / ペインの操作は herdr に委譲する。
+		-- WezTerm 側でキーを奪わないよう、対応するバインドは意図的に外して
+		-- ある(そのままキーが herdr に渡る)。設定は home-manager/herdr/config.toml。
 	},
 }

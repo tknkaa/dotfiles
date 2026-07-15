@@ -7,6 +7,7 @@
     ./development.nix
     ./direnv
     ./helix
+    ./herdr
     ./neovim
     ./starship
     ./vscode

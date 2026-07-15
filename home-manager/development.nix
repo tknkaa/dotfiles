@@ -1,6 +1,8 @@
-{ pkgs, config, ... }:
+{ pkgs, config, inputs, ... }:
 {
   home.packages = with pkgs; [
+    inputs.hunk.packages.${pkgs.system}.default
+    inputs.herdr.packages.${pkgs.system}.default
     # Languages & Compilers
     gcc
     go
