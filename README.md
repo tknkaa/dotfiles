@@ -7,29 +7,25 @@ gsettings set org.gnome.desktop.interface cursor-theme 'Adwaita'
 ## herdr
 
 [herdr](https://herdr.dev/) is a tmux-like, agent-aware terminal multiplexer
-that runs *inside* WezTerm. Pane and tab control is delegated to herdr, so the
-matching keybindings were removed from `wezterm.lua` and live in
-`home-manager/herdr/config.toml` (deployed to `~/.config/herdr/config.toml`).
+that runs *inside* WezTerm. It owns **both tab and pane control**, so WezTerm
+keeps only its fullscreen toggle (`Shift+Ctrl+n`) and everything else is driven
+through herdr's prefix key. The config lives in `home-manager/herdr/config.toml`
+(deployed to `~/.config/herdr/config.toml`).
 
-The bindings are direct chords (no tmux prefix) and match what WezTerm used
-before:
+The **prefix is `Ctrl+a`** — press it, release, then the action key:
 
-| Action              | Key            |
-| ------------------- | -------------- |
-| New tab             | `Ctrl+Shift+t` |
-| Close tab           | `Ctrl+Shift+w` |
-| Next tab            | `Ctrl+Tab`     |
-| Previous tab        | `Ctrl+Shift+Tab` |
-| Split right         | `Alt+v`        |
-| Split down          | `Alt+s`        |
-| Focus pane left     | `Alt+h`        |
-| Focus pane down     | `Alt+j`        |
-| Focus pane up       | `Alt+k`        |
-| Focus pane right    | `Alt+l`        |
-| Close pane          | `Alt+x`        |
+| Action        | Key           |     | Action           | Key           |
+| ------------- | ------------- | --- | ---------------- | ------------- |
+| New tab       | `Ctrl+a` `b`  |     | Split right      | `Ctrl+a` `v`  |
+| Close tab     | `Ctrl+a` `x`  |     | Split down       | `Ctrl+a` `s`  |
+| Previous tab  | `Ctrl+a` `u`  |     | Focus pane ←     | `Ctrl+a` `h`  |
+| Next tab      | `Ctrl+a` `i`  |     | Focus pane ↓     | `Ctrl+a` `j`  |
+| Zoom (全画面) | `Ctrl+a` `n`  |     | Focus pane ↑     | `Ctrl+a` `k`  |
+|               |               |     | Focus pane →     | `Ctrl+a` `l`  |
+|               |               |     | Close pane       | `Ctrl+a` `d`  |
 
-Everything else stays on herdr's default `Ctrl+b` prefix (e.g. `Ctrl+b q` to
-detach, `Ctrl+b ?` for help).
+Other herdr defaults still apply on the same prefix (e.g. `Ctrl+a` `q` to
+detach, `Ctrl+a` `?` for help). Run `herdr --default-config` for the full list.
 
 ### Usage
 

@@ -1,31 +1,29 @@
 # herdr configuration
 # Deployed to ~/.config/herdr/config.toml by home-manager.
 #
-# herdr runs inside WezTerm and owns pane/tab control. The bindings below are
-# direct terminal-mode chords (no prefix) that mirror the shortcuts WezTerm used
-# to handle, so the muscle memory stays the same after moving control to herdr.
-# The matching bindings were removed from wezterm.lua so the keys pass through.
+# herdr runs inside WezTerm and owns both tab and pane control (tmux-style).
+# All actions go through the prefix key (Ctrl+a), so nothing collides with
+# WezTerm or the desktop environment. WezTerm keeps only its fullscreen toggle.
 
 [theme]
 # Match WezTerm's Dracula+ color scheme.
 name = "dracula"
 
 [keys]
+prefix = "ctrl+a"
+
 # --- Tabs ---
-new_tab = "ctrl+shift+t"         # was WezTerm SHIFT|CTRL t (SpawnTab)
-close_tab = "ctrl+shift+w"       # was WezTerm SHIFT|CTRL w (CloseCurrentTab)
-next_tab = "ctrl+tab"            # was WezTerm CTRL Tab
-previous_tab = "ctrl+shift+tab"  # was WezTerm SHIFT|CTRL Tab
+new_tab = "prefix+b"        # 作成
+close_tab = "prefix+x"      # 閉じる
+previous_tab = "prefix+u"   # 前のタブ
+next_tab = "prefix+i"       # 次のタブ
+zoom = "prefix+n"           # 全画面 (ペインをズーム)
 
-# --- Pane splits ---
-split_vertical = "alt+v"         # split right, was WezTerm ALT v (SplitHorizontal)
-split_horizontal = "alt+s"       # split down,  was WezTerm ALT s (SplitVertical)
-
-# --- Pane navigation (Vim directions) ---
-focus_pane_left = "alt+h"        # was WezTerm ALT h
-focus_pane_down = "alt+j"        # was WezTerm ALT j
-focus_pane_up = "alt+k"          # was WezTerm ALT k
-focus_pane_right = "alt+l"       # was WezTerm ALT l
-
-# --- Close pane ---
-close_pane = "alt+x"             # was WezTerm ALT x (CloseCurrentPane)
+# --- Panes ---
+split_vertical = "prefix+v"    # 右に分割
+split_horizontal = "prefix+s"  # 下に分割
+focus_pane_left = "prefix+h"
+focus_pane_down = "prefix+j"
+focus_pane_up = "prefix+k"
+focus_pane_right = "prefix+l"
+close_pane = "prefix+d"        # ペインを閉じる
