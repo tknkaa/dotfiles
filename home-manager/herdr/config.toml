@@ -9,6 +9,12 @@
 # Match WezTerm's Dracula+ color scheme.
 name = "dracula"
 
+[ui.toast]
+delivery = "system"   # OS通知として表示（サウンドの代わり）
+
+[ui.sound]
+enabled = false        # サウンド通知を無効化
+
 [keys]
 prefix = "ctrl+a"
 
