@@ -34,7 +34,10 @@ return {
 		-- 全画面表示
 		{ key = "n", mods = "SHIFT|CTRL", action = act.ToggleFullScreen },
 
-		-- タブ / ペインの操作は herdr に委譲する。
+		-- ペインを閉じる (herdr の Ctrl+a d と重複するバックアップ)
+		{ key = "x", mods = "ALT", action = act.CloseCurrentPane({ confirm = true }) },
+
+		-- 上記以外のタブ / ペインの操作は herdr に委譲する。
 		-- WezTerm 側でキーを奪わないよう、対応するバインドは意図的に外して
 		-- ある(そのままキーが herdr に渡る)。設定は home-manager/herdr/config.toml。
 	},
