@@ -4,6 +4,7 @@
   imports = [
     ./apps.nix
     ./browser.nix
+    ./claude-code
     ./development.nix
     ./direnv
     ./helix
