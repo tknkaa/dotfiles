@@ -24,7 +24,6 @@
     lazygit
     antigravity-ide
     antigravity-cli
-    gemini-cli
     ollama
     stylua
     github-copilot-cli
