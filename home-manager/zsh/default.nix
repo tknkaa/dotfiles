@@ -12,8 +12,7 @@
       ls = "eza --icons always --classify always";
       tree = "eza --icons always --classify always --tree";
       n = "nvim";
-      c = "copilot";
-      a = "antigravity";
+      c = "claude";
       gst = "git status";
       glg = "git log --oneline -5";
       x = "xclip -select clipboard";

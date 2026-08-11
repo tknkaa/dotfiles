@@ -22,7 +22,9 @@
     fzf
     zoxide
     lazygit
-    antigravity
+    antigravity-ide
+    antigravity-cli
+    gemini-cli
     ollama
     stylua
     github-copilot-cli
@@ -32,6 +34,7 @@
     google-cloud-sql-proxy
     vim
     google-cloud-sdk
+    azure-cli
     gettext
     claude-code
     codex
