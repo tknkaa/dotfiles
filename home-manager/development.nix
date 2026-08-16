@@ -41,6 +41,7 @@
     delta
     turso-cli
     sqld
+    awscli2
 
     # to preview readme in local
     python3Packages.grip
