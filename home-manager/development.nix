@@ -42,6 +42,7 @@
     turso-cli
     sqld
     awscli2
+    cursor-cli
 
     # to preview readme in local
     python3Packages.grip
