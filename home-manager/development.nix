@@ -30,6 +30,7 @@
     tfenv
     gnumake
     shopify-cli
+    cloudflared
     google-cloud-sql-proxy
     vim
     google-cloud-sdk
