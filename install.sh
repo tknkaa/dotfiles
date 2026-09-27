@@ -84,7 +84,7 @@ install_user_tools() {
 
   if [ ! -x "$HOME/.cargo/bin/rustup" ]; then
     log "Installing Rust toolchain (rustup)"
-    rustup-init -y --no-modify-path --component rust-analyzer rust-src
+    rustup-init -y --no-modify-path --component rust-analyzer,rust-src
   fi
 
   # PROFILE=/dev/null keeps the nvm installer from editing the stowed .zshrc
