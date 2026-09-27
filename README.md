@@ -29,7 +29,6 @@ Each top-level directory is a stow package whose contents mirror `$HOME`:
 | `wezterm`  | `~/.config/wezterm/wezterm.lua`         |
 | `herdr`    | `~/.config/herdr/config.toml`           |
 | `nvim`     | `~/.config/nvim/init.lua`               |
-| `helix`    | `~/.config/helix/*.toml`                |
 | `vscode`   | `~/.config/Code/User/settings.json`     |
 | `claude`   | `~/.claude/skills/herdr/SKILL.md`       |
 
@@ -59,7 +58,7 @@ To add a new config: create `<pkg>/<path relative to $HOME>`, add `<pkg>` to
 Language servers come from three places:
 
 - **mason.nvim** (auto-installed on first launch): lua_ls, pyright, ts_ls,
-  svelte, vue_ls, tinymist, zls, terraformls
+  svelte, vue_ls, tinymist, terraformls
 - **dnf**: clangd (`clang-tools-extra`), gopls
 - **rustup**: rust-analyzer
 

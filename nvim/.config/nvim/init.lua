@@ -82,7 +82,6 @@ require("lazy").setup({
 					"r",
 					"rust",
 					"typst",
-					"zig",
 					"vue",
 				},
 				sync_install = false,
@@ -132,7 +131,6 @@ require("lazy").setup({
 				"svelte",
 				"vue_ls",
 				"tinymist",
-				"zls",
 				"terraformls",
 			},
 			automatic_enable = false,
@@ -168,16 +166,6 @@ require("lazy").setup({
 				},
 			}
 
-			vim.lsp.config.zls = {
-				capabilities = capabilities,
-				settings = {
-					zls = {
-						enable_build_on_save = true,
-						build_on_save_step = "check",
-					},
-				},
-			}
-
 			vim.filetype.add({
 				extension = {
 					tf = "terraform",
@@ -194,7 +182,6 @@ require("lazy").setup({
 				"gleam",
 				"rust_analyzer",
 				"tinymist",
-				"zls",
 				"vue_ls",
 				"terraformls",
 			})

@@ -11,7 +11,6 @@ DOTFILES="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 COPR_REPOS=(
   wezfurlong/wezterm-nightly
   atim/starship
-  atim/lazygit
   atim/bottom
 )
 
@@ -19,12 +18,12 @@ DNF_PACKAGES=(
   # Terminal, shell, prompt
   wezterm zsh zsh-autosuggestions zsh-syntax-highlighting starship
   # Editors
-  neovim helix tree-sitter-cli
+  neovim tree-sitter-cli
   # CLI utilities
-  stow bat eza fzf zoxide git-delta lazygit gh ripgrep bottom httpie
+  stow bat eza fzf zoxide git-delta gh ripgrep bottom httpie
   wl-clipboard xclip unzip bind-utils direnv libnotify
   # Languages & build tools
-  gcc make openssl-devel golang rustup zig uv
+  gcc make openssl-devel golang rustup uv
   # Cloud CLIs (google-cloud-cli comes from Google's repo, added below)
   awscli2 azure-cli google-cloud-cli libxcrypt-compat
   # Database clients
@@ -33,13 +32,15 @@ DNF_PACKAGES=(
   google-chrome-stable
   # Language servers not installed by mason.nvim
   clang-tools-extra gopls
+  # Containers (docker CLI shim + compose)
+  podman podman-docker podman-compose
   # Japanese input
   ibus-mozc
 )
 
 NPM_GLOBAL_PACKAGES=(bun hunkdiff @openai/codex @shopify/cli)
 
-STOW_PACKAGES=(zsh git starship wezterm herdr nvim helix vscode claude)
+STOW_PACKAGES=(zsh git starship wezterm herdr nvim vscode claude)
 
 NVM_VERSION=v0.40.8
 NERD_FONTS=(JetBrainsMono FiraCode)

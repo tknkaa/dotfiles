@@ -18,6 +18,9 @@ HISTSIZE=10000
 SAVEHIST=10000
 setopt share_history hist_ignore_dups hist_ignore_space hist_expire_dups_first
 
+export EDITOR=nvim
+export VISUAL=nvim
+
 # Emacs-style line editing (zsh would switch to vi mode if EDITOR contains "vi")
 bindkey -e
 
@@ -39,6 +42,8 @@ alias grep="rg"
 alias ls="eza --icons always --classify always"
 alias tree="eza --icons always --classify always --tree"
 alias n="nvim"
+alias vi="nvim"
+alias vim="nvim"
 alias c="claude"
 alias gst="git status"
 alias glg="git log --oneline -5"
