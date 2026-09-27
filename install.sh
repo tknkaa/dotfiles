@@ -57,18 +57,18 @@ install_dnf() {
   sudo dnf install -y fedora-workstation-repositories
   sudo dnf config-manager setopt google-chrome.enabled=1
 
-  if [ ! -f /etc/yum.repos.d/google-cloud-sdk.repo ]; then
-    log "Adding Google Cloud CLI repository"
-    sudo tee /etc/yum.repos.d/google-cloud-sdk.repo >/dev/null <<'REPO'
+  # el10 packages are signed with the v10 key; the older key is kept too.
+  log "Configuring Google Cloud CLI repository"
+  sudo tee /etc/yum.repos.d/google-cloud-sdk.repo >/dev/null <<'REPO'
 [google-cloud-cli]
 name=Google Cloud CLI
 baseurl=https://packages.cloud.google.com/yum/repos/cloud-sdk-el10-x86_64
 enabled=1
 gpgcheck=1
 repo_gpgcheck=0
-gpgkey=https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+gpgkey=https://packages.cloud.google.com/yum/doc/rpm-package-key-v10.gpg
+       https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
 REPO
-  fi
 
   log "Installing dnf packages"
   sudo dnf install -y "${DNF_PACKAGES[@]}"
