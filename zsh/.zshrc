@@ -8,6 +8,7 @@ path=(
   "$HOME/go/bin"
   "$HOME/.bun/bin"
   "$HOME/.npm-global/bin"
+  "$HOME/.tfenv/bin"
   $path
 )
 

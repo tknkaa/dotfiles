@@ -25,11 +25,15 @@ DNF_PACKAGES=(
   wl-clipboard xclip unzip bind-utils direnv libnotify
   # Languages & build tools
   gcc make openssl-devel golang rustup zig uv
+  # Cloud CLIs (google-cloud-cli comes from Google's repo, added below)
+  awscli2 azure-cli google-cloud-cli libxcrypt-compat
   # Language servers not installed by mason.nvim
   clang-tools-extra gopls
   # Japanese input
   ibus-mozc
 )
+
+NPM_GLOBAL_PACKAGES=(bun @openai/codex @shopify/cli)
 
 STOW_PACKAGES=(zsh git starship wezterm herdr nvim helix vscode claude)
 
@@ -44,6 +48,19 @@ install_dnf() {
   for repo in "${COPR_REPOS[@]}"; do
     sudo dnf copr enable -y "$repo"
   done
+
+  if [ ! -f /etc/yum.repos.d/google-cloud-sdk.repo ]; then
+    log "Adding Google Cloud CLI repository"
+    sudo tee /etc/yum.repos.d/google-cloud-sdk.repo >/dev/null <<'REPO'
+[google-cloud-cli]
+name=Google Cloud CLI
+baseurl=https://packages.cloud.google.com/yum/repos/cloud-sdk-el10-x86_64
+enabled=1
+gpgcheck=1
+repo_gpgcheck=0
+gpgkey=https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+REPO
+  fi
 
   log "Installing dnf packages"
   sudo dnf install -y "${DNF_PACKAGES[@]}"
@@ -68,15 +85,27 @@ install_user_tools() {
     log "Installing nvm"
     curl -fsSL "https://raw.githubusercontent.com/nvm-sh/nvm/$NVM_VERSION/install.sh" | PROFILE=/dev/null bash
   fi
+  # nvm is not compatible with `set -u`
+  set +u
   # shellcheck disable=SC1091
   . "$NVM_DIR/nvm.sh"
   if ! nvm ls --no-colors default >/dev/null 2>&1; then
     log "Installing Node.js LTS"
     nvm install --lts
   fi
-  if ! command -v bun >/dev/null; then
-    log "Installing bun"
-    npm install -g bun
+  local pkg missing=()
+  for pkg in "${NPM_GLOBAL_PACKAGES[@]}"; do
+    npm ls -g --depth=0 "$pkg" >/dev/null 2>&1 || missing+=("$pkg")
+  done
+  if [ "${#missing[@]}" -gt 0 ]; then
+    log "Installing npm packages: ${missing[*]}"
+    npm install -g "${missing[@]}"
+  fi
+  set -u
+
+  if [ ! -d "$HOME/.tfenv" ]; then
+    log "Installing tfenv"
+    git clone --depth=1 https://github.com/tfutils/tfenv.git "$HOME/.tfenv"
   fi
 }
 

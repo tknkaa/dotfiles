@@ -11,7 +11,7 @@ The previous NixOS / home-manager setup is kept in git history (tag `nix`).
 ```sh
 git clone git@github.com:tknkaa/dotfiles.git ~/dotfiles
 cd ~/dotfiles
-./install.sh   # dnf/COPR packages, herdr, rustup, nvm + Node, bun, Nerd Fonts, stow, login shell
+./install.sh   # dnf/COPR packages, cloud CLIs, herdr, rustup, nvm + Node, npm CLIs, tfenv, Nerd Fonts, stow, login shell
 ./gnome.sh     # Caps→Ctrl, cursor theme, Mozc input source
 ```
 
