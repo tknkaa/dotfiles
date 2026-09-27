@@ -27,13 +27,17 @@ DNF_PACKAGES=(
   gcc make openssl-devel golang rustup zig uv
   # Cloud CLIs (google-cloud-cli comes from Google's repo, added below)
   awscli2 azure-cli google-cloud-cli libxcrypt-compat
+  # Database clients
+  postgresql
+  # Apps
+  google-chrome-stable
   # Language servers not installed by mason.nvim
   clang-tools-extra gopls
   # Japanese input
   ibus-mozc
 )
 
-NPM_GLOBAL_PACKAGES=(bun @openai/codex @shopify/cli)
+NPM_GLOBAL_PACKAGES=(bun hunkdiff @openai/codex @shopify/cli)
 
 STOW_PACKAGES=(zsh git starship wezterm herdr nvim helix vscode claude)
 
@@ -48,6 +52,10 @@ install_dnf() {
   for repo in "${COPR_REPOS[@]}"; do
     sudo dnf copr enable -y "$repo"
   done
+
+  # Google Chrome repo ships with Fedora Workstation but is disabled by default
+  sudo dnf install -y fedora-workstation-repositories
+  sudo dnf config-manager setopt google-chrome.enabled=1
 
   if [ ! -f /etc/yum.repos.d/google-cloud-sdk.repo ]; then
     log "Adding Google Cloud CLI repository"
