@@ -1,0 +1,127 @@
+#!/usr/bin/env bash
+# Set up this Fedora machine from the dotfiles repo.
+# Safe to re-run: every step skips work that is already done.
+#
+#   ./install.sh            # everything
+#   ./install.sh stow       # only (re)link configs
+set -euo pipefail
+
+DOTFILES="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+COPR_REPOS=(
+  wezfurlong/wezterm-nightly
+  atim/starship
+  atim/lazygit
+  atim/bottom
+)
+
+DNF_PACKAGES=(
+  # Terminal, shell, prompt
+  wezterm zsh zsh-autosuggestions zsh-syntax-highlighting starship
+  # Editors
+  neovim helix tree-sitter-cli
+  # CLI utilities
+  stow bat eza fzf zoxide git-delta lazygit gh ripgrep bottom httpie
+  wl-clipboard xclip unzip bind-utils direnv libnotify
+  # Languages & build tools
+  gcc make openssl-devel golang rustup zig uv
+  # Language servers not installed by mason.nvim
+  clang-tools-extra gopls
+  # Japanese input
+  ibus-mozc
+)
+
+STOW_PACKAGES=(zsh git starship wezterm herdr nvim helix vscode claude)
+
+NVM_VERSION=v0.40.8
+NERD_FONTS=(JetBrainsMono FiraCode)
+
+log() { printf '\n\033[1;34m==> %s\033[0m\n' "$*"; }
+
+install_dnf() {
+  log "Enabling COPR repositories"
+  sudo dnf install -y dnf5-plugins
+  for repo in "${COPR_REPOS[@]}"; do
+    sudo dnf copr enable -y "$repo"
+  done
+
+  log "Installing dnf packages"
+  sudo dnf install -y "${DNF_PACKAGES[@]}"
+}
+
+install_user_tools() {
+  mkdir -p "$HOME/.local/bin"
+
+  if ! command -v herdr >/dev/null && [ ! -x "$HOME/.local/bin/herdr" ]; then
+    log "Installing herdr"
+    curl -fsSL https://herdr.dev/install.sh | sh
+  fi
+
+  if [ ! -x "$HOME/.cargo/bin/rustup" ]; then
+    log "Installing Rust toolchain (rustup)"
+    rustup-init -y --no-modify-path --component rust-analyzer rust-src
+  fi
+
+  # PROFILE=/dev/null keeps the nvm installer from editing the stowed .zshrc
+  export NVM_DIR="$HOME/.nvm"
+  if [ ! -s "$NVM_DIR/nvm.sh" ]; then
+    log "Installing nvm"
+    curl -fsSL "https://raw.githubusercontent.com/nvm-sh/nvm/$NVM_VERSION/install.sh" | PROFILE=/dev/null bash
+  fi
+  # shellcheck disable=SC1091
+  . "$NVM_DIR/nvm.sh"
+  if ! nvm ls --no-colors default >/dev/null 2>&1; then
+    log "Installing Node.js LTS"
+    nvm install --lts
+  fi
+  if ! command -v bun >/dev/null; then
+    log "Installing bun"
+    npm install -g bun
+  fi
+}
+
+install_fonts() {
+  local dir="$HOME/.local/share/fonts"
+  local font installed=0
+  for font in "${NERD_FONTS[@]}"; do
+    [ -d "$dir/$font" ] && continue
+    log "Installing $font Nerd Font"
+    mkdir -p "$dir/$font"
+    curl -fsSL "https://github.com/ryanoasis/nerd-fonts/releases/latest/download/$font.tar.xz" |
+      tar -xJ -C "$dir/$font"
+    installed=1
+  done
+  if [ "$installed" = 1 ]; then fc-cache -f "$dir"; fi
+}
+
+link_configs() {
+  log "Linking configs with stow"
+  # --no-folding: link individual files, so tools can still write their own
+  # files next to ours (e.g. ~/.claude/skills, ~/.config/git/config.local).
+  stow --no-folding -d "$DOTFILES" -t "$HOME" --restow "${STOW_PACKAGES[@]}"
+}
+
+set_login_shell() {
+  local zsh_path
+  zsh_path="$(command -v zsh)"
+  if [ "$(getent passwd "$USER" | cut -d: -f7)" != "$zsh_path" ]; then
+    log "Changing login shell to zsh (takes effect after re-login)"
+    sudo usermod -s "$zsh_path" "$USER"
+  fi
+}
+
+case "${1:-all}" in
+  all)
+    install_dnf
+    install_user_tools
+    install_fonts
+    link_configs
+    set_login_shell
+    log "Done. Log out and back in to start using zsh."
+    ;;
+  stow) link_configs ;;
+  *)
+    echo "usage: $0 [all|stow]" >&2
+    exit 1
+    ;;
+esac
