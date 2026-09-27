@@ -38,7 +38,7 @@ DNF_PACKAGES=(
   ibus-mozc
 )
 
-NPM_GLOBAL_PACKAGES=(bun pnpm hunkdiff @openai/codex @shopify/cli)
+NPM_GLOBAL_PACKAGES=(bun pnpm hunkdiff @openai/codex opencode-ai @shopify/cli)
 
 STOW_PACKAGES=(zsh git starship wezterm herdr nvim claude)
 
