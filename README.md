@@ -29,7 +29,6 @@ Each top-level directory is a stow package whose contents mirror `$HOME`:
 | `wezterm`  | `~/.config/wezterm/wezterm.lua`         |
 | `herdr`    | `~/.config/herdr/config.toml`           |
 | `nvim`     | `~/.config/nvim/init.lua`               |
-| `vscode`   | `~/.config/Code/User/settings.json`     |
 | `claude`   | `~/.claude/skills/herdr/SKILL.md`       |
 
 Because these are symlinks, editing `~/.config/...` edits the repo directly.
