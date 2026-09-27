@@ -1,0 +1,269 @@
+-- To add a new LSP, edit the following 3 places:
+-- 1. vim.lsp.config.*: per-LSP settings like capabilities
+-- 2. vim.lsp.enable(): list of enabled servers
+-- 3. install the binary: add it to mason-lspconfig's ensure_installed, or
+--    install it with dnf/rustup (clangd, gopls, rust_analyzer) via install.sh
+vim.g.mapleader = " "
+vim.g.loaded_netrwPlugin = 1
+vim.g.loaded_netrw = 1
+
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+	vim.fn.system({
+		"git",
+		"clone",
+		"--filter=blob:none",
+		"https://github.com/folke/lazy.nvim.git",
+		"--branch=stable",
+		lazypath,
+	})
+end
+vim.opt.rtp:prepend(lazypath)
+
+require("lazy").setup({
+	{
+		"Mofiqul/vscode.nvim",
+		lazy = false,
+		priority = 1000,
+		config = function()
+			require("vscode").setup({
+				transparent = false,
+				italic_comments = true,
+				disable_nvimtree_bg = true,
+			})
+			vim.cmd([[colorscheme vscode]])
+		end,
+	},
+	{
+		"yorickpeterse/vim-paper",
+		lazy = true,
+	},
+	{
+		"github/copilot.vim",
+		config = function()
+			vim.g.copilot_no_tab_map = true
+			vim.keymap.set("i", "<C-j>", 'copilot#Accept("")', {
+				expr = true,
+				replace_keycodes = false,
+				silent = true,
+			})
+		end,
+	},
+	{
+		"CopilotC-Nvim/CopilotChat.nvim",
+		dependencies = {
+			"github/copilot.vim",
+			"nvim-lua/plenary.nvim",
+		},
+		keys = {
+			{ "<leader>cc", "<cmd>CopilotChat<CR>", desc = "CopilotChat" },
+			{ "<leader>ce", "<cmd>CopilotChatExplain<CR>", desc = "Explain code" },
+			{ "<leader>cf", "<cmd>CopilotChatFix<CR>", desc = "Fix code" },
+			{ "<leader>ct", "<cmd>CopilotChatTests<CR>", desc = "Generate tests" },
+		},
+	},
+	{
+		"nvim-treesitter/nvim-treesitter",
+		build = ":TSUpdate",
+		branch = "main",
+		lazy = false,
+		config = function()
+			require("nvim-treesitter").setup({
+				ensure_installed = {
+					"c",
+					"lua",
+					"python",
+					"typescript",
+					"tsx",
+					"javascript",
+					"svelte",
+					"gleam",
+					"go",
+					"r",
+					"rust",
+					"typst",
+					"vue",
+				},
+				sync_install = false,
+				auto_install = true,
+			})
+		end,
+	},
+	{
+		"nvim-telescope/telescope.nvim",
+		branch = "master",
+		dependencies = { "nvim-lua/plenary.nvim" },
+		config = function()
+			require("telescope").setup({
+				defaults = {
+					preview = {
+						treesitter = false,
+					},
+				},
+			})
+		end,
+	},
+	{
+		"lewis6991/gitsigns.nvim",
+		opts = {
+			signs = {
+				add = { text = "▎" },
+				change = { text = "▎" },
+				delete = { text = "" },
+				topdelete = { text = "" },
+				changedelete = { text = "▎" },
+			},
+			current_line_blame = true,
+		},
+	},
+	{
+		"mason-org/mason-lspconfig.nvim",
+		dependencies = {
+			{ "mason-org/mason.nvim", opts = {} },
+			"neovim/nvim-lspconfig",
+		},
+		opts = {
+			-- Servers not available from dnf/rustup. Enabled below via vim.lsp.enable().
+			ensure_installed = {
+				"lua_ls",
+				"pyright",
+				"ts_ls",
+				"svelte",
+				"vue_ls",
+				"tinymist",
+				"terraformls",
+			},
+			automatic_enable = false,
+		},
+	},
+	{
+		"neovim/nvim-lspconfig",
+		dependencies = {
+			"hrsh7th/cmp-nvim-lsp",
+		},
+		config = function()
+			local capabilities = require("cmp_nvim_lsp").default_capabilities()
+
+			vim.lsp.config.pyright = { capabilities = capabilities }
+			vim.lsp.config.clangd = { capabilities = capabilities }
+			vim.lsp.config.lua_ls = { capabilities = capabilities }
+			vim.lsp.config.svelte = { capabilities = capabilities }
+			vim.lsp.config.gopls = { capabilities = capabilities }
+			vim.lsp.config.r_language_server = { capabilities = capabilities }
+			vim.lsp.config.gleam = { capabilities = capabilities }
+			vim.lsp.config.rust_analyzer = { capabilities = capabilities }
+			vim.lsp.config.tinymist = { capabilities = capabilities }
+			vim.lsp.config.vue_ls = { capabilities = capabilities }
+			vim.lsp.config.terraformls = { capabilities = capabilities }
+
+			vim.lsp.config.ts_ls = {
+				capabilities = capabilities,
+				filetypes = {
+					"typescript",
+					"typescriptreact",
+					"javascript",
+					"javascriptreact",
+				},
+			}
+
+			vim.filetype.add({
+				extension = {
+					tf = "terraform",
+				},
+			})
+			vim.lsp.enable({
+				"pyright",
+				"clangd",
+				"lua_ls",
+				"ts_ls",
+				"svelte",
+				"gopls",
+				"r_language_server",
+				"gleam",
+				"rust_analyzer",
+				"tinymist",
+				"vue_ls",
+				"terraformls",
+			})
+		end,
+	},
+	{
+		"nvim-lualine/lualine.nvim",
+		config = function()
+			require("lualine").setup()
+		end,
+	},
+	{
+		"hrsh7th/nvim-cmp",
+		dependencies = {
+			"hrsh7th/cmp-nvim-lsp",
+			"hrsh7th/cmp-buffer",
+			"hrsh7th/cmp-path",
+		},
+		config = function()
+			local cmp = require("cmp")
+			cmp.setup({
+				mapping = cmp.mapping.preset.insert({
+					["<C-Space>"] = cmp.mapping.complete(),
+					["<C-e>"] = cmp.mapping.abort(),
+					["<CR>"] = cmp.mapping.confirm({ select = true }),
+					["<Tab>"] = cmp.mapping.select_next_item(),
+					["<S-Tab>"] = cmp.mapping.select_prev_item(),
+				}),
+				sources = cmp.config.sources({
+					{ name = "nvim_lsp" },
+					{ name = "buffer" },
+					{ name = "path" },
+				}),
+			})
+		end,
+	},
+	{
+		"nvim-tree/nvim-tree.lua",
+		config = function()
+			require("nvim-tree").setup()
+		end,
+	},
+	{
+		"windwp/nvim-autopairs",
+		event = "InsertEnter",
+		config = true,
+	},
+})
+
+vim.o.clipboard = "unnamedplus"
+vim.o.number = true
+vim.o.relativenumber = true
+vim.o.expandtab = true
+vim.o.shiftwidth = 2
+vim.o.tabstop = 2
+vim.o.termguicolors = true
+vim.o.cursorline = true
+
+vim.api.nvim_create_autocmd("FileType", {
+	callback = function()
+		pcall(vim.treesitter.start)
+	end,
+})
+
+vim.lsp.log.set_level("off")
+
+local map = vim.keymap.set
+local opts = { noremap = true, silent = true }
+
+map("i", "jk", "<ESC>", opts)
+map("n", "<leader>f", ":Telescope find_files<CR>", opts)
+map("n", "K", vim.lsp.buf.hover, opts)
+map("n", "<C-k>", vim.diagnostic.open_float, opts)
+map("n", "[d", vim.diagnostic.goto_prev, opts)
+map("n", "]d", vim.diagnostic.goto_next, opts)
+map("n", "<leader>e", ":NvimTreeToggle<CR>", opts)
+map("n", "<leader>b", ":NvimTreeFocus<CR>", opts)
+map("n", "]c", ":Gitsigns next_hunk<CR>", opts)
+map("n", "[c", ":Gitsigns prev_hunk<CR>", opts)
+map("n", "<leader>hp", ":Gitsigns preview_hunk<CR>", opts)
+map("n", "<leader>hs", ":Gitsigns stage_hunk<CR>", opts)
+map("n", "<leader>hr", ":Gitsigns reset_hunk<CR>", opts)
+map("n", "gd", vim.lsp.buf.definition, opts)
+map("n", "gr", vim.lsp.buf.references, opts)
+map("n", "gi", vim.lsp.buf.implementation, opts)
