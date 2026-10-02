@@ -20,7 +20,7 @@ DNF_PACKAGES=(
   # Editors
   neovim tree-sitter-cli
   # CLI utilities
-  stow bat eza fzf zoxide git-delta gh ripgrep bottom httpie
+  stow bat eza fzf zoxide git-delta gh ripgrep bottom httpie just
   wl-clipboard xclip unzip bind-utils direnv libnotify
   # Languages & build tools
   gcc make openssl-devel golang rustup uv
@@ -38,7 +38,7 @@ DNF_PACKAGES=(
   ibus-mozc
 )
 
-NPM_GLOBAL_PACKAGES=(bun pnpm hunkdiff @openai/codex opencode-ai @shopify/cli)
+NPM_GLOBAL_PACKAGES=(bun pnpm hunkdiff @openai/codex opencode-ai @shopify/cli cf)
 
 STOW_PACKAGES=(zsh git starship wezterm herdr nvim claude opencode)
 
