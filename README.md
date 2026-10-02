@@ -30,6 +30,7 @@ Each top-level directory is a stow package whose contents mirror `$HOME`:
 | `herdr`    | `~/.config/herdr/config.toml`           |
 | `nvim`     | `~/.config/nvim/init.lua`               |
 | `claude`   | `~/.claude/skills/herdr/SKILL.md`       |
+| `opencode` | `~/.config/opencode/opencode.jsonc`     |
 
 Because these are symlinks, editing `~/.config/...` edits the repo directly.
 
