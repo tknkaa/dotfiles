@@ -64,7 +64,7 @@ The fix is to let GNOME Shell draw the candidates via **kimpanel**:
 - fcitx5 side (in the repo): `fcitx5/.config/fcitx5/config` sets
   `DisabledAddons=classicui`; the kimpanel addon ships with the `fcitx5` package.
 - GNOME side (**manual**, not scripted): install the
-  [Input Method Panel](https://extensions.gnome.org/) extension (`kimpanel@kde.org`)
+  [Input Method Panel](https://extensions.gnome.org/extension/261/kimpanel/) extension (`kimpanel@kde.org`)
   from extensions.gnome.org and enable it. If it is missing, candidates will not
   show at all — delete `~/.config/fcitx5/config` and run `fcitx5 -r` to revert.
 - `~/.config/environment.d/fcitx5.conf` sets `XMODIFIERS` / `QT_IM_MODULE`, so log
