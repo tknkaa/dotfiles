@@ -27,7 +27,7 @@ DNF_PACKAGES=(
   # Cloud CLIs (google-cloud-cli comes from Google's repo, added below)
   awscli2 azure-cli google-cloud-cli libxcrypt-compat
   # Database clients
-  postgresql
+  postgresql sqlite
   # Apps
   google-chrome-stable
   # Language servers not installed by mason.nvim
