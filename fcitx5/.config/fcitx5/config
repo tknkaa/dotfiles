@@ -1,0 +1,3 @@
+[Behavior]
+# Candidates are drawn by the GNOME Shell kimpanel extension instead
+DisabledAddons=classicui
