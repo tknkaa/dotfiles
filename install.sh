@@ -35,12 +35,12 @@ DNF_PACKAGES=(
   # Containers (docker CLI shim + compose)
   podman podman-docker podman-compose
   # Japanese input
-  ibus-mozc
+  fcitx5 fcitx5-mozc fcitx5-autostart fcitx5-configtool
 )
 
 NPM_GLOBAL_PACKAGES=(bun pnpm hunkdiff @openai/codex opencode-ai @shopify/cli cf)
 
-STOW_PACKAGES=(zsh git starship wezterm herdr nvim claude opencode)
+STOW_PACKAGES=(zsh git starship wezterm herdr nvim claude opencode fcitx5)
 
 NVM_VERSION=v0.40.8
 NERD_FONTS=(JetBrainsMono FiraCode)
