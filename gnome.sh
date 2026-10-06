@@ -8,5 +8,5 @@ gsettings set org.gnome.desktop.input-sources xkb-options "['caps:ctrl_modifier'
 # Cursor theme
 gsettings set org.gnome.desktop.interface cursor-theme 'Adwaita'
 
-# Japanese keyboard layout + Mozc (switch with Super+Space)
-gsettings set org.gnome.desktop.input-sources sources "[('xkb', 'jp'), ('ibus', 'mozc-jp')]"
+# Japanese keyboard layout only; Mozc is provided by fcitx5 (see fcitx5/)
+gsettings set org.gnome.desktop.input-sources sources "[('xkb', 'jp')]"
