@@ -21,3 +21,11 @@ if [ -n "$ptyxis_profile" ]; then
 else
   echo "Ptyxis has no profile yet: launch it once, then re-run ./gnome.sh" >&2
 fi
+
+# Ptyxis shortcuts, matching the old WezTerm setup:
+# Ctrl+Shift+N toggles fullscreen (its default new-window binding moves aside),
+# Alt+X closes the current tab (herdr owns panes, so a tab is the "pane" here).
+S=org.gnome.Ptyxis.Shortcuts
+gsettings set $S new-window '<ctrl><shift><alt>n'
+gsettings set $S toggle-fullscreen '<ctrl><shift>n'
+gsettings set $S close-tab '<alt>x'
