@@ -12,7 +12,7 @@ The previous NixOS / home-manager setup is kept in git history (tag `nix`).
 git clone git@github.com:tknkaa/dotfiles.git ~/dotfiles
 cd ~/dotfiles
 ./install.sh   # dnf/COPR packages, cloud CLIs, herdr, rustup, nvm + Node, npm CLIs, tfenv, Nerd Fonts, stow, login shell
-./gnome.sh     # Caps→Ctrl, cursor theme, keyboard layout (Mozc runs via fcitx5), Ptyxis font + palette
+./gnome.sh     # Caps→Ctrl, cursor theme, keyboard layout (Mozc runs via fcitx5), Ptyxis font + VS Code palette
 ```
 
 Then log out and back in (login shell becomes zsh).

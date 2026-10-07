@@ -7,8 +7,8 @@ onboarding = false
 # collides with the terminal or the desktop environment.
 
 [theme]
-# Pair with a Dracula-style palette in the terminal.
-name = "dracula"
+# Follow the terminal palette (Ptyxis uses the VS Code palette).
+name = "terminal"
 
 [ui.toast]
 delivery = "system"   # OS通知として表示（サウンドの代わり）
