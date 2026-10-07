@@ -14,7 +14,7 @@ gsettings set org.gnome.desktop.input-sources sources "[('xkb', 'jp')]"
 # Ptyxis terminal: Nerd Font + VS Code palette (herdr follows it via theme "terminal").
 # The profile uuid is generated on first launch, so look it up instead of hardcoding.
 gsettings set org.gnome.Ptyxis use-system-font false
-gsettings set org.gnome.Ptyxis font-name 'JetBrainsMono Nerd Font 14'
+gsettings set org.gnome.Ptyxis font-name 'JetBrainsMono Nerd Font 10'
 ptyxis_profile="$(gsettings get org.gnome.Ptyxis default-profile-uuid | tr -d "'")"
 if [ -n "$ptyxis_profile" ]; then
   gsettings set "org.gnome.Ptyxis.Profile:/org/gnome/Ptyxis/Profiles/$ptyxis_profile/" palette 'Vs Code'
