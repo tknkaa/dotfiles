@@ -2,12 +2,12 @@ onboarding = false
 # herdr configuration
 # Deployed to ~/.config/herdr/config.toml by `stow herdr`.
 #
-# herdr runs inside WezTerm and owns both tab and pane control (tmux-style).
-# All actions go through the prefix key (Ctrl+a), so nothing collides with
-# WezTerm or the desktop environment. WezTerm keeps only its fullscreen toggle.
+# herdr runs inside the terminal (Ptyxis) and owns both tab and pane control
+# (tmux-style). All actions go through the prefix key (Ctrl+a), so nothing
+# collides with the terminal or the desktop environment.
 
 [theme]
-# Match WezTerm's Dracula+ color scheme.
+# Pair with a Dracula-style palette in the terminal.
 name = "dracula"
 
 [ui.toast]
