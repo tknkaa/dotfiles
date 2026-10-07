@@ -5,7 +5,7 @@ description: Use when driving herdr (https://herdr.dev), the tmux-style, agent-a
 
 # herdr
 
-herdr runs inside WezTerm and owns both tab and pane control, tmux-style.
+herdr runs inside the terminal (Ptyxis) and owns both tab and pane control, tmux-style.
 Everything is driven through the `herdr` CLI (a thin client over a local
 socket API), which is why it works even from inside a pane it's managing.
 

@@ -1,6 +1,6 @@
 # dotfiles
 
-Fedora (GNOME / Wayland) setup: WezTerm + herdr + Neovim + zsh.
+Fedora (GNOME / Wayland) setup: Ptyxis + herdr + Neovim + zsh.
 Configs are symlinked into `$HOME` with [GNU Stow](https://www.gnu.org/software/stow/);
 packages are installed by `install.sh`.
 
@@ -12,7 +12,7 @@ The previous NixOS / home-manager setup is kept in git history (tag `nix`).
 git clone git@github.com:tknkaa/dotfiles.git ~/dotfiles
 cd ~/dotfiles
 ./install.sh   # dnf/COPR packages, cloud CLIs, herdr, rustup, nvm + Node, npm CLIs, tfenv, Nerd Fonts, stow, login shell
-./gnome.sh     # Caps→Ctrl, cursor theme, keyboard layout (Mozc runs via fcitx5)
+./gnome.sh     # Caps→Ctrl, cursor theme, keyboard layout (Mozc runs via fcitx5), Ptyxis font + VS Code palette
 ```
 
 Then log out and back in (login shell becomes zsh).
@@ -26,7 +26,6 @@ Each top-level directory is a stow package whose contents mirror `$HOME`:
 | `zsh`      | `~/.zshrc`                              |
 | `git`      | `~/.config/git/config`                  |
 | `starship` | `~/.config/starship.toml`               |
-| `wezterm`  | `~/.config/wezterm/wezterm.lua`         |
 | `herdr`    | `~/.config/herdr/config.toml`           |
 | `nvim`     | `~/.config/nvim/init.lua`               |
 | `claude`   | `~/.claude/skills/herdr/SKILL.md`       |
@@ -86,9 +85,8 @@ Language servers come from three places:
 ## herdr
 
 [herdr](https://herdr.dev/) is a tmux-like, agent-aware terminal multiplexer
-that runs *inside* WezTerm. It owns **both tab and pane control**, so WezTerm
-keeps only its fullscreen toggle (`Shift+Ctrl+n`) and everything else is driven
-through herdr's prefix key. The config lives in `herdr/.config/herdr/config.toml`.
+that runs *inside* the terminal (Ptyxis). It owns **both tab and pane control**,
+so everything is driven through herdr's prefix key. The config lives in `herdr/.config/herdr/config.toml`.
 
 The **prefix is `Ctrl+a`** — press it, release, then the action key:
 

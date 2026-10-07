@@ -9,14 +9,13 @@ set -euo pipefail
 DOTFILES="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 COPR_REPOS=(
-  wezfurlong/wezterm-nightly
   atim/starship
   atim/bottom
 )
 
 DNF_PACKAGES=(
   # Terminal, shell, prompt
-  wezterm zsh zsh-autosuggestions zsh-syntax-highlighting starship
+  ptyxis zsh zsh-autosuggestions zsh-syntax-highlighting starship
   # Editors
   neovim tree-sitter-cli
   # CLI utilities
@@ -40,7 +39,7 @@ DNF_PACKAGES=(
 
 NPM_GLOBAL_PACKAGES=(bun pnpm hunkdiff @openai/codex opencode-ai @shopify/cli cf)
 
-STOW_PACKAGES=(zsh git starship wezterm herdr nvim claude opencode fcitx5)
+STOW_PACKAGES=(zsh git starship herdr nvim claude opencode fcitx5)
 
 NVM_VERSION=v0.40.8
 NERD_FONTS=(JetBrainsMono FiraCode)
