@@ -39,7 +39,7 @@ DNF_PACKAGES=(
 
 NPM_GLOBAL_PACKAGES=(bun pnpm hunkdiff @openai/codex opencode-ai @shopify/cli cf)
 
-STOW_PACKAGES=(zsh git starship herdr nvim claude opencode fcitx5)
+STOW_PACKAGES=(zsh git starship herdr nvim claude opencode fcitx5 mimeapps)
 
 NVM_VERSION=v0.40.8
 NERD_FONTS=(JetBrainsMono FiraCode)

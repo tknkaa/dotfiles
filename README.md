@@ -31,6 +31,7 @@ Each top-level directory is a stow package whose contents mirror `$HOME`:
 | `claude`   | `~/.claude/skills/herdr/SKILL.md`       |
 | `opencode` | `~/.config/opencode/opencode.jsonc`     |
 | `fcitx5`   | `~/.config/fcitx5/`, `~/.config/environment.d/fcitx5.conf` |
+| `mimeapps` | `~/.config/mimeapps.list` (default apps: PDF/HTML → Chrome) |
 
 Because these are symlinks, editing `~/.config/...` edits the repo directly.
 
