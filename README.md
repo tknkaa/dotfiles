@@ -9,8 +9,9 @@ The previous NixOS / home-manager setup is kept in git history (tag `nix`).
 ## Setup
 
 ```sh
-git clone git@github.com:tknkaa/dotfiles.git ~/dotfiles
-cd ~/dotfiles
+# Cloned to the ghq layout by hand, since ghq itself is installed by install.sh
+git clone git@github.com:tknkaa/dotfiles.git ~/ghq/github.com/tknkaa/dotfiles
+cd ~/ghq/github.com/tknkaa/dotfiles
 ./install.sh   # dnf/COPR packages, cloud CLIs, herdr, rustup, nvm + Node, npm CLIs, tfenv, Nerd Fonts, stow, login shell
 ./gnome.sh     # Caps→Ctrl, cursor theme, keyboard layout (Mozc runs via fcitx5), Ptyxis font + VS Code palette
 ```
