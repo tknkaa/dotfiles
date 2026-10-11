@@ -49,10 +49,11 @@ alias gst="git status"
 alias glg="git log --oneline -5"
 alias x="wl-copy"
 
-# Open a git-tracked file in nvim via fzf
-ni() {
-  local file
-  file=$(git ls-files | fzf) && nvim "$file"
+# Open files in nvim via fzf (tracked + untracked, respects .gitignore)
+fe() {
+  local files
+  files=("${(@f)$(git ls-files -co --exclude-standard | fzf -m --preview 'bat --color=always --line-range=:200 {}')}") || return
+  [ -n "$files" ] && nvim "${files[@]}"
 }
 
 # Jump to a ghq repository via fzf
