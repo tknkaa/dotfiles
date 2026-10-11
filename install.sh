@@ -42,6 +42,7 @@ NPM_GLOBAL_PACKAGES=(bun pnpm hunkdiff @openai/codex opencode-ai @shopify/cli cf
 STOW_PACKAGES=(zsh git starship herdr nvim claude opencode fcitx5 mimeapps)
 
 NVM_VERSION=v0.40.8
+GHQ_VERSION=v1.11.2
 NERD_FONTS=(JetBrainsMono FiraCode)
 
 log() { printf '\n\033[1;34m==> %s\033[0m\n' "$*"; }
@@ -110,6 +111,11 @@ install_user_tools() {
     npm install -g "${missing[@]}"
   fi
   set -u
+
+  if [ ! -x "$HOME/go/bin/ghq" ]; then
+    log "Installing ghq"
+    go install github.com/x-motemen/ghq@"$GHQ_VERSION"
+  fi
 
   if [ ! -d "$HOME/.tfenv" ]; then
     log "Installing tfenv"

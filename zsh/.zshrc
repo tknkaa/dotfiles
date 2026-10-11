@@ -49,14 +49,47 @@ alias gst="git status"
 alias glg="git log --oneline -5"
 alias x="wl-copy"
 
-# Open a git-tracked file in nvim via fzf
-ni() {
-  local file
-  file=$(git ls-files | fzf) && nvim "$file"
+# Open files in nvim via fzf (tracked + untracked, respects .gitignore)
+fe() {
+  local files
+  files=("${(@f)$(git ls-files -co --exclude-standard | fzf -m --preview 'bat --color=always --line-range=:200 {}')}") || return
+  [ -n "$files" ] && nvim "${files[@]}"
+}
+
+# Jump to a ghq repository via fzf
+g() {
+  local dir
+  dir=$(ghq list -p | fzf --preview 'eza -T -L1 --color=always {}; echo; git -C {} log --oneline -5 --color=always') || return
+  cd "$dir"
+}
+
+# Ctrl-G: pick a ghq repository and cd, even mid-command
+ghq-fzf() {
+  local dir
+  dir=$(ghq list -p | fzf --height 40% --reverse --query "$LBUFFER") || { zle reset-prompt; return }
+  BUFFER="cd ${(q)dir}"
+  zle accept-line
+}
+zle -N ghq-fzf
+bindkey '^g' ghq-fzf
+
+# Switch branch via fzf (local + remote-only, newest first)
+gb() {
+  local b
+  b=$(git for-each-ref --sort=-committerdate --format='%(refname:short)' refs/heads refs/remotes |
+    grep -v 'HEAD$' | sed 's#^origin/##' | awk '!s[$0]++' |
+    fzf --preview 'git log --oneline -10 --color=always {}') || return
+  git switch "$b"
+}
+
+# cd to a worktree of the current repository via fzf
+gw() {
+  local dir
+  dir=$(git worktree list | fzf --preview 'git -C {1} status -sb' | awk '{print $1}') || return
+  cd "$dir"
 }
 
 # --- Tool hooks ---
-command -v zoxide   >/dev/null && eval "$(zoxide init zsh --cmd cd)"
 command -v direnv   >/dev/null && eval "$(direnv hook zsh)"
 command -v starship >/dev/null && eval "$(starship init zsh)"
 
@@ -65,3 +98,6 @@ command -v starship >/dev/null && eval "$(starship init zsh)"
   . /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 [ -f /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ] &&
   . /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# --- zoxide (must be initialized last) ---
+command -v zoxide   >/dev/null && eval "$(zoxide init zsh --cmd cd)"
