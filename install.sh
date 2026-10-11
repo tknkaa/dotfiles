@@ -111,6 +111,11 @@ install_user_tools() {
   fi
   set -u
 
+  if [ ! -x "$HOME/go/bin/ghq" ]; then
+    log "Installing ghq"
+    go install github.com/x-motemen/ghq@latest
+  fi
+
   if [ ! -d "$HOME/.tfenv" ]; then
     log "Installing tfenv"
     git clone --depth=1 https://github.com/tfutils/tfenv.git "$HOME/.tfenv"

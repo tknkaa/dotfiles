@@ -55,8 +55,24 @@ ni() {
   file=$(git ls-files | fzf) && nvim "$file"
 }
 
+# Jump to a ghq repository via fzf
+g() {
+  local dir
+  dir=$(ghq list -p | fzf --preview 'eza -T -L1 --color=always {}; echo; git -C {} log --oneline -5 --color=always') || return
+  cd "$dir"
+}
+
+# Ctrl-G: pick a ghq repository and cd, even mid-command
+ghq-fzf() {
+  local dir
+  dir=$(ghq list -p | fzf --height 40% --reverse --query "$LBUFFER") || { zle reset-prompt; return }
+  BUFFER="cd ${(q)dir}"
+  zle accept-line
+}
+zle -N ghq-fzf
+bindkey '^g' ghq-fzf
+
 # --- Tool hooks ---
-command -v zoxide   >/dev/null && eval "$(zoxide init zsh --cmd cd)"
 command -v direnv   >/dev/null && eval "$(direnv hook zsh)"
 command -v starship >/dev/null && eval "$(starship init zsh)"
 
@@ -65,3 +81,6 @@ command -v starship >/dev/null && eval "$(starship init zsh)"
   . /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 [ -f /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ] &&
   . /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# --- zoxide (must be initialized last) ---
+command -v zoxide   >/dev/null && eval "$(zoxide init zsh --cmd cd)"
