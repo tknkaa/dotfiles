@@ -72,6 +72,22 @@ ghq-fzf() {
 zle -N ghq-fzf
 bindkey '^g' ghq-fzf
 
+# Switch branch via fzf (local + remote-only, newest first)
+gb() {
+  local b
+  b=$(git for-each-ref --sort=-committerdate --format='%(refname:short)' refs/heads refs/remotes |
+    grep -v 'HEAD$' | sed 's#^origin/##' | awk '!s[$0]++' |
+    fzf --preview 'git log --oneline -10 --color=always {}') || return
+  git switch "$b"
+}
+
+# cd to a worktree of the current repository via fzf
+gw() {
+  local dir
+  dir=$(git worktree list | fzf --preview 'git -C {1} status -sb' | awk '{print $1}') || return
+  cd "$dir"
+}
+
 # --- Tool hooks ---
 command -v direnv   >/dev/null && eval "$(direnv hook zsh)"
 command -v starship >/dev/null && eval "$(starship init zsh)"
