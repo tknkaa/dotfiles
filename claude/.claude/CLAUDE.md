@@ -1,6 +1,6 @@
 # Git
 
-- 新しいブランチを切るときは必ず worktree を作成する。`git checkout -b` / `git switch -c` / `git branch <name>` は使わない(hook でブロックされる)。
+- 新しいブランチを切るときは必ず worktree を作成する。`git checkout -b` / `git switch -c` / `git branch <name>` は使わない。
 - worktree は main の root 直下の `.worktree/<branch>` に作る。`main` だけは repo root に置いたままにする。
 - 既存ブランチで作業するときも main のワークツリーで checkout せず、そのブランチの worktree を使う(無ければ作る)。
 
@@ -24,3 +24,8 @@ git worktree add "$dir" "$branch"                # 既存ブランチ
 - 削除: `git worktree remove "$root/.worktree/<name>"`(dirty なら拒否される。`--force` はユーザーの同意が要る)、手で消されたものは `git worktree prune`。
 - ブランチ削除はユーザーが求めたときだけ。`git branch -d`(`-D` は使わない)。
 - 依存関係や env ファイルは worktree にコピーされない。必要ならユーザーに伝える。
+
+# Pull Request
+
+- `gh pr create` / `gh stack submit` など PR の作成は、ユーザーが明示的に指示したときだけ行う。
+- 変更は先に difit でユーザーがローカル確認する。確認前に PR を作らない。
