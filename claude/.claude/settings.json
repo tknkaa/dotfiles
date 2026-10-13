@@ -15,5 +15,18 @@
       "effortLevel": "low"
     }
   },
-  "theme": "dark"
+  "theme": "dark",
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/block-branch-create.sh"
+          }
+        ]
+      }
+    ]
+  }
 }
