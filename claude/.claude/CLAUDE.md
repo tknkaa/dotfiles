@@ -25,7 +25,18 @@ git worktree add "$dir" "$branch"                # 既存ブランチ
 - ブランチ削除はユーザーが求めたときだけ。`git branch -d`(`-D` は使わない)。
 - 依存関係や env ファイルは worktree にコピーされない。必要ならユーザーに伝える。
 
+# 一時ファイル
+
+- repo root 直下の `tmp` は使わない。代わりに repo root 直下に `./.tmp` を作って使う。
+- `.tmp` は `.git/info/exclude` で除外する(`.gitignore` は触らない)。clone ごとなので毎回冪等に追記する:
+
+```sh
+common=$(git rev-parse --path-format=absolute --git-common-dir)
+root=$(dirname "$common")
+mkdir -p "$common/info" "$root/.tmp"
+grep -qxF '/.tmp/' "$common/info/exclude" 2>/dev/null || echo '/.tmp/' >> "$common/info/exclude"
+```
+
 # Pull Request
 
 - `gh pr create` / `gh stack submit` など PR の作成は、ユーザーが明示的に指示したときだけ行う。
-- 変更は先に difit でユーザーがローカル確認する。確認前に PR を作らない。
