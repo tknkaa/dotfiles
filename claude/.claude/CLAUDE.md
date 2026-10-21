@@ -37,6 +37,12 @@ mkdir -p "$common/info" "$root/.tmp"
 grep -qxF '/.tmp/' "$common/info/exclude" 2>/dev/null || echo '/.tmp/' >> "$common/info/exclude"
 ```
 
+# コードコメント
+
+- コメントは日本語で書く。英語では書かない。
+- 理由、その帰結の順に書く(例: `// 外部APIは稀に重複通知を送るため、IDで重複排除する。そうしないと二重課金になる`)。
+- 何をしているかの説明ではなく、なぜそうするのかを書く。
+
 # Pull Request
 
 - `gh pr create` / `gh stack submit` など PR の作成は、ユーザーが明示的に指示したときだけ行う。
