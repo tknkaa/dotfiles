@@ -37,7 +37,7 @@ DNF_PACKAGES=(
   fcitx5 fcitx5-mozc fcitx5-autostart fcitx5-configtool
 )
 
-NPM_GLOBAL_PACKAGES=(bun pnpm hunkdiff @openai/codex opencode-ai @shopify/cli cf difit)
+NPM_GLOBAL_PACKAGES=(bun pnpm hunkdiff @openai/codex opencode-ai @shopify/cli cf difit @marp-team/marp-cli)
 
 STOW_PACKAGES=(zsh git starship herdr nvim claude opencode fcitx5 mimeapps)
 
@@ -86,6 +86,12 @@ install_user_tools() {
   if [ ! -x "$HOME/.cargo/bin/rustup" ]; then
     log "Installing Rust toolchain (rustup)"
     rustup-init -y --no-modify-path --component rust-analyzer,rust-src
+  fi
+
+  # typst は Fedora のリポジトリにないため、cargo で入れる。そうしないと手動で導入し直す必要が出る
+  if [ ! -x "$HOME/.cargo/bin/typst" ]; then
+    log "Installing typst (cargo)"
+    "$HOME/.cargo/bin/cargo" install --locked typst-cli
   fi
 
   # PROFILE=/dev/null keeps the nvm installer from editing the stowed .zshrc
