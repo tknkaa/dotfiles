@@ -3,9 +3,10 @@
     "commit": "",
     "pr": ""
   },
-  "model": "sonnet",
+  "model": "opus",
   "enabledPlugins": {
-    "gopls-lsp@claude-plugins-official": true
+    "gopls-lsp@claude-plugins-official": true,
+    "shopify-ai-toolkit@claude-plugins-official": true
   },
   "modelSettings": {
     "claude-opus-5-5": {
