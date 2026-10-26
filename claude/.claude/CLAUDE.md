@@ -1,5 +1,6 @@
 # Git
 
+- GitHub のリポジトリをローカルに clone するときは `git clone` ではなく `ghq get` を使う(例: `ghq get owner/repo`)。そうしないと `~/ghq` 配下の配置規則から外れる。
 - 新しいブランチを切るときは必ず worktree を作成する。`git checkout -b` / `git switch -c` / `git branch <name>` は使わない。
 - worktree は main の root 直下の `.worktree/<branch>` に作る。`main` だけは repo root に置いたままにする。
 - 既存ブランチで作業するときも main のワークツリーで checkout せず、そのブランチの worktree を使う(無ければ作る)。
@@ -46,3 +47,7 @@ grep -qxF '/.tmp/' "$common/info/exclude" 2>/dev/null || echo '/.tmp/' >> "$comm
 # Pull Request
 
 - `gh pr create` / `gh stack submit` など PR の作成は、ユーザーが明示的に指示したときだけ行う。
+
+# ドキュメント
+
+- 太字を多用しない。本当に強調が必要な箇所だけに絞る。そうしないと強調が埋もれて、どこが重要か読み取れなくなる。
