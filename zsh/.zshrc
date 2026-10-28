@@ -5,6 +5,7 @@ typeset -U path
 path=(
   "$HOME/.local/bin"
   "$HOME/.cargo/bin"
+  "$HOME/.elan/bin"
   "$HOME/go/bin"
   "$HOME/.bun/bin"
   "$HOME/.npm-global/bin"

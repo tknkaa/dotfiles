@@ -187,6 +187,15 @@ require("lazy").setup({
 			})
 		end,
 	},
+	-- Lean の LSP は lake 経由でプロジェクトごとの toolchain を使う必要があるため、lspconfig ではなく lean.nvim に任せる
+	{
+		"Julian/lean.nvim",
+		event = { "BufReadPre *.lean", "BufNewFile *.lean" },
+		-- 現行版は setup() を持たず vim.g.lean_config を読むため、opts ではなく init で渡す。opts だと読み込み時にエラーになる
+		init = function()
+			vim.g.lean_config = { mappings = true }
+		end,
+	},
 	{
 		"nvim-lualine/lualine.nvim",
 		config = function()

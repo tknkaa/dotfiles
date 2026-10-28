@@ -42,6 +42,7 @@ NPM_GLOBAL_PACKAGES=(bun pnpm hunkdiff @openai/codex opencode-ai @shopify/cli cf
 STOW_PACKAGES=(zsh git starship herdr nvim claude opencode fcitx5 mimeapps)
 
 NVM_VERSION=v0.40.8
+ELAN_VERSION=v4.2.4
 GHQ_VERSION=v1.11.2
 COOLIFY_VERSION=v1.11.0
 NERD_FONTS=(JetBrainsMono FiraCode)
@@ -93,6 +94,16 @@ install_user_tools() {
   if [ ! -x "$HOME/.cargo/bin/typst" ]; then
     log "Installing typst (cargo)"
     "$HOME/.cargo/bin/cargo" install --locked typst-cli
+  fi
+
+  # elan は Fedora のリポジトリにないため、cargo でタグ固定してビルドする。curl | sh だとスクリプトの中身が変わっても気づけない
+  if [ ! -x "$HOME/.elan/bin/elan" ]; then
+    log "Installing elan (cargo)"
+    # 同梱 OpenSSL のビルドには perl の追加モジュールが要るため、システムの openssl-devel を使う。そうしないとビルドが失敗する
+    OPENSSL_NO_VENDOR=1 "$HOME/.cargo/bin/cargo" install --locked --git https://github.com/leanprover/elan --tag "$ELAN_VERSION" elan
+    # Lean 本体は各プロジェクトの lean-toolchain で決まるため none にする。インストーラは ~/.elan に自身を配置するので cargo 側からは消す
+    "$HOME/.cargo/bin/elan-init" -y --no-modify-path --default-toolchain none
+    "$HOME/.cargo/bin/cargo" uninstall elan
   fi
 
   # PROFILE=/dev/null keeps the nvm installer from editing the stowed .zshrc
