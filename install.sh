@@ -37,7 +37,7 @@ DNF_PACKAGES=(
   fcitx5 fcitx5-mozc fcitx5-autostart fcitx5-configtool
 )
 
-NPM_GLOBAL_PACKAGES=(bun pnpm hunkdiff @openai/codex opencode-ai @shopify/cli cf difit @marp-team/marp-cli)
+NPM_GLOBAL_PACKAGES=(bun pnpm hunkdiff @openai/codex opencode-ai @shopify/cli cf difit @marp-team/marp-cli agent-browser)
 
 STOW_PACKAGES=(zsh git starship herdr nvim claude opencode fcitx5 mimeapps)
 
