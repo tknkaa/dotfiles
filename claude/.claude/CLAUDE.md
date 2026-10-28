@@ -7,24 +7,19 @@
 
 ## worktree の手順
 
-linked worktree 内から実行しても動くよう、common git dir から root を求める:
+worktree の作成と片付けは `wt`(github.com/tknkaa/wt)で行う。`git worktree add` を直接使わない。`.git/info/exclude` への追記、`.env` のコピー、依存のインストールを手でやると漏れるため。
 
 ```sh
-common=$(git rev-parse --path-format=absolute --git-common-dir)
-root=$(dirname "$common")
-mkdir -p "$common/info"
-grep -qxF '/.worktree/' "$common/info/exclude" 2>/dev/null || echo '/.worktree/' >> "$common/info/exclude"
-dir="$root/.worktree/${branch//\//-}"   # feat/foo -> feat-foo
-git worktree add -b "$branch" "$dir" [<start>]   # 新規ブランチ(start 省略時は main を基点にする)
-git worktree add "$dir" "$branch"                # 既存ブランチ
+wt new <branch> [<start>]   # .worktree/<branch> に作る(feat/foo -> feat-foo)。既存ブランチならそれを使う
+wt list
+wt clean                    # マージ済みの worktree とブランチを一覧にし、確認してから消す
 ```
 
-- `.gitignore` は触らない。除外は `.git/info/exclude` のみ(clone ごとなので毎回上の冪等な追記を行う)。
-- 既に別の場所で checkout 済みのブランチには作らない(先に `git worktree list`)。
-- 作成後はそのパスをユーザーに伝え、そのブランチの作業は worktree 内で行う。
-- 削除: `git worktree remove "$root/.worktree/<name>"`(dirty なら拒否される。`--force` はユーザーの同意が要る)、手で消されたものは `git worktree prune`。
-- ブランチ削除はユーザーが求めたときだけ。`git branch -d`(`-D` は使わない)。
-- 依存関係や env ファイルは worktree にコピーされない。必要ならユーザーに伝える。
+- 作成後は出力の最後の行(worktree のパス)をユーザーに伝え、そのブランチの作業は worktree 内で行う。コピーやインストールで何をしたかも伝える。
+- ローカル DB のマイグレーションなどリポジトリ固有の後処理は `git config wt.setup "<command>"` に設定しておく。未設定で必要そうなら、設定してよいかユーザーに聞く。
+- ローカル DB などの状態(`.wrangler/` など)はコピーしない。ブランチでスキーマを変えても main のデータを壊さないため。main のデータが要るときだけユーザーに確認してコピーする。
+- `wt clean` は確認を挟むので、AI が実行するときは対象の一覧をユーザーに見せてから、了承を得て `wt clean -y` を使う。
+- 1 つだけ消す: `git worktree remove "<path>"`(dirty なら拒否される。`--force` はユーザーの同意が要る)。ブランチ削除はユーザーが求めたときだけ `git branch -d`(`-D` はユーザーの同意が要る)。
 
 # 一時ファイル
 

@@ -124,6 +124,11 @@ install_user_tools() {
     go install github.com/x-motemen/ghq@"$GHQ_VERSION"
   fi
 
+  if [ ! -x "$HOME/go/bin/wt" ]; then
+    log "Installing wt"
+    go install github.com/tknkaa/wt@latest
+  fi
+
   if [ ! -x "$HOME/go/bin/coolify" ]; then
     log "Installing coolify-cli"
     go install github.com/coollabsio/coolify-cli/coolify@"$COOLIFY_VERSION"
