@@ -43,6 +43,7 @@ STOW_PACKAGES=(zsh git starship herdr nvim claude opencode fcitx5 mimeapps)
 
 NVM_VERSION=v0.40.8
 GHQ_VERSION=v1.11.2
+COOLIFY_VERSION=v1.11.0
 NERD_FONTS=(JetBrainsMono FiraCode)
 
 log() { printf '\n\033[1;34m==> %s\033[0m\n' "$*"; }
@@ -121,6 +122,11 @@ install_user_tools() {
   if [ ! -x "$HOME/go/bin/ghq" ]; then
     log "Installing ghq"
     go install github.com/x-motemen/ghq@"$GHQ_VERSION"
+  fi
+
+  if [ ! -x "$HOME/go/bin/coolify" ]; then
+    log "Installing coolify-cli"
+    go install github.com/coollabsio/coolify-cli/coolify@"$COOLIFY_VERSION"
   fi
 
   if [ ! -d "$HOME/.tfenv" ]; then
