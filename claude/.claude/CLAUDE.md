@@ -56,3 +56,11 @@ grep -qxF '/.tmp/' "$common/info/exclude" 2>/dev/null || echo '/.tmp/' >> "$comm
 
 - CI で `terraform plan` する構成のリポジトリでは、まずローカルで実行する必要があるかを考える。CI の plan で足りるならローカルでは実行しない。ローカルで実行すると state のロックを取り、中断やエラーでロックが残ると CI の plan が失敗するため。
 - ローカルで実行する必要がある場合(CI では確認できない、すぐ結果が要るなど)は、実行後にロックが残っていないか確認する。残っていたらユーザーに伝え、`terraform force-unlock` はユーザーの同意を得てから行う。
+
+# ツールのインストール
+
+- npm でグローバルにツールを入れるときは `npm install -g` を直接実行せず、dotfiles の `install.sh` の `NPM_GLOBAL_PACKAGES` に追記して dotfiles 経由で入れる。そうしないと環境を再構築したときに再現できない。
+
+# ブラウザ操作
+
+- ブラウザを操作するときは Claude in Chrome(`mcp__claude-in-chrome__*`)ではなく `agent-browser` を使う。
