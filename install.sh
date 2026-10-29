@@ -41,7 +41,11 @@ NPM_GLOBAL_PACKAGES=(bun pnpm hunkdiff @openai/codex opencode-ai @shopify/cli cf
 
 STOW_PACKAGES=(zsh git starship herdr nvim claude opencode fcitx5 mimeapps bin)
 
+# 依存パッケージ(esbuild など)の install script も止められるため、それらも含める
+NPM_ALLOW_SCRIPTS=(bun pnpm opencode-ai agent-browser @anthropic-ai/claude-code esbuild @parcel/watcher workerd)
+
 NVM_VERSION=v0.40.8
+NODE_VERSION=v26.13.0
 ELAN_VERSION=v4.2.4
 GHQ_VERSION=v1.11.2
 COOLIFY_VERSION=v1.11.0
@@ -116,17 +120,21 @@ install_user_tools() {
   set +u
   # shellcheck disable=SC1091
   . "$NVM_DIR/nvm.sh"
-  if ! nvm ls --no-colors default >/dev/null 2>&1; then
-    log "Installing Node.js LTS"
-    nvm install --lts
+  # --lts だと実行した時期でメジャーが変わり環境を再現できないため、バージョンを固定する
+  if ! nvm ls --no-colors "$NODE_VERSION" >/dev/null 2>&1; then
+    log "Installing Node.js $NODE_VERSION"
+    nvm install "$NODE_VERSION"
   fi
+  nvm alias default "$NODE_VERSION" >/dev/null
+  nvm use "$NODE_VERSION" >/dev/null
   local pkg missing=()
   for pkg in "${NPM_GLOBAL_PACKAGES[@]}"; do
     npm ls -g --depth=0 "$pkg" >/dev/null 2>&1 || missing+=("$pkg")
   done
   if [ "${#missing[@]}" -gt 0 ]; then
     log "Installing npm packages: ${missing[*]}"
-    npm install -g "${missing[@]}"
+    # Node 26 同梱の npm は許可していない install script を実行せず、bun などのバイナリが入らないため明示的に許可する
+    npm install -g --allow-scripts="$(IFS=,; echo "${NPM_ALLOW_SCRIPTS[*]}")" "${missing[@]}"
   fi
   set -u
 
