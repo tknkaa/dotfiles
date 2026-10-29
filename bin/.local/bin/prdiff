@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+# 今の worktree で PR を作ったときに出る差分(merge-base から未コミット分まで)を difit で開く
+set -euo pipefail
+
+if [ "${1:-}" = "-h" ] || [ "${1:-}" = "--help" ]; then
+  echo "usage: prdiff [<base>]   # base 省略時は origin の default branch"
+  exit 0
+fi
+
+git rev-parse --show-toplevel >/dev/null
+
+# origin/HEAD は clone 時にしか設定されず、古い clone では無いことがあるため main に fallback する
+default=$(git symbolic-ref --quiet --short refs/remotes/origin/HEAD 2>/dev/null | sed 's|^origin/||' || true)
+base=${1:-${default:-main}}
+
+# 手元の origin/<base> が古いと、PR では出ない差分まで表示されるため先に取り直す
+git fetch --quiet origin "$base"
+
+# 前回の difit が残っていると port がずれて別の差分を開きかねないため、この repo の分は止める
+state_dir=${XDG_STATE_HOME:-$HOME/.local/state}/prdiff
+mkdir -p "$state_dir"
+pid_file="$state_dir/$(git rev-parse --show-toplevel | tr '/' '_').pid"
+if [ -f "$pid_file" ]; then
+  kill "$(cat "$pid_file")" 2>/dev/null || true
+  rm -f "$pid_file"
+fi
+
+info=$(difit . "origin/$base" --merge-base --include-untracked --background --no-open | tail -n 1)
+url=$(printf '%s' "$info" | sed -n 's/.*"url":"\([^"]*\)".*/\1/p')
+pid=$(printf '%s' "$info" | sed -n 's/.*"pid":\([0-9]*\).*/\1/p')
+echo "$pid" >"$pid_file"
+
+xdg-open "$url" >/dev/null 2>&1 &
+echo "$url (base: origin/$base, pid: $pid, stop: kill $pid)"

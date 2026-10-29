@@ -39,7 +39,7 @@ DNF_PACKAGES=(
 
 NPM_GLOBAL_PACKAGES=(bun pnpm hunkdiff @openai/codex opencode-ai @shopify/cli cf difit @marp-team/marp-cli agent-browser)
 
-STOW_PACKAGES=(zsh git starship herdr nvim claude opencode fcitx5 mimeapps)
+STOW_PACKAGES=(zsh git starship herdr nvim claude opencode fcitx5 mimeapps bin)
 
 NVM_VERSION=v0.40.8
 ELAN_VERSION=v4.2.4

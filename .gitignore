@@ -53,6 +53,7 @@ config.local*
 # System files
 .cache/
 .local/
+!/bin/.local/
 .python_history
 .config/netlify/
 
