@@ -42,6 +42,7 @@ grep -qxF '/.tmp/' "$common/info/exclude" 2>/dev/null || echo '/.tmp/' >> "$comm
 # Pull Request
 
 - `gh pr create` / `gh stack submit` など PR の作成は、ユーザーが明示的に指示したときだけ行う。
+- description は短くする。書くのは、何をなぜ変えるかの概要と、レビュアーやリリース担当が知らないと事故になること(デプロイ順など)だけにする。変更ファイルの列挙、費用試算、確認項目のチェックリストは書かない。そうしないと長すぎて読まれず、重要な点が埋もれる。
 
 # ドキュメント
 
@@ -59,3 +60,6 @@ grep -qxF '/.tmp/' "$common/info/exclude" 2>/dev/null || echo '/.tmp/' >> "$comm
 # ブラウザ操作
 
 - ブラウザを操作するときは Claude in Chrome(`mcp__claude-in-chrome__*`)ではなく `agent-browser` を使う。
+- Chrome のプロファイルのログイン状態を使うときは `agent-browser --profile <name> --args "--password-store=gnome-libsecret" open <url>` で開く。agent-browser は既定で `--password-store=basic` で起動するため、そのままだと Cookie を復号できず Google や Slack のログインが引き継がれない。プロファイル名は `agent-browser profiles` で確認する(例: ZERO COLOR は `Default`)。
+- bot 判定のあるページ(Shopify アプリなど)は `--user-agent` で通常の Chrome の UA を指定して開く(例: `--user-agent "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/<version>.0.0.0 Safari/537.36"`)。headless だと UA に `HeadlessChrome` が入り、弾かれる(Shopify アプリは 410 を返す)。
+- Slack のパーマリンクはデスクトップアプリへのリダイレクト画面で止まるので、`https://app.slack.com/client/<team>/<channel>/thread/<channel>-<ts>` の形で開く。
