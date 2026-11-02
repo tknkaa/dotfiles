@@ -102,3 +102,7 @@ command -v starship >/dev/null && eval "$(starship init zsh)"
 
 # --- zoxide (must be initialized last) ---
 command -v zoxide   >/dev/null && eval "$(zoxide init zsh --cmd cd)"
+
+
+# Added by Antigravity CLI installer
+export PATH="/home/tknkaa/.local/bin:$PATH"
