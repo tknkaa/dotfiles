@@ -35,6 +35,8 @@ DNF_PACKAGES=(
   podman podman-docker podman-compose
   # Japanese input
   fcitx5 fcitx5-mozc fcitx5-autostart fcitx5-configtool
+  # File sync
+  syncthing
 )
 
 NPM_GLOBAL_PACKAGES=(bun pnpm hunkdiff @openai/codex opencode-ai @shopify/cli cf difit @marp-team/marp-cli agent-browser)
@@ -180,6 +182,12 @@ link_configs() {
   stow --no-folding -d "$DOTFILES" -t "$HOME" --restow "${STOW_PACKAGES[@]}"
 }
 
+enable_user_services() {
+  log "Enabling user services"
+  # ログイン中は常に動かしておくため user unit で有効化する。手動起動だとスマホ側が古いままになる
+  systemctl --user enable --now syncthing.service
+}
+
 set_login_shell() {
   local zsh_path
   zsh_path="$(command -v zsh)"
@@ -195,6 +203,7 @@ case "${1:-all}" in
     install_user_tools
     install_fonts
     link_configs
+    enable_user_services
     set_login_shell
     log "Done. Log out and back in to start using zsh."
     ;;
