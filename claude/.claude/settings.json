@@ -13,7 +13,7 @@
       "effortLevel": "low"
     },
     "claude-sonnet-5-5": {
-      "effortLevel": "low"
+      "effortLevel": "medium"
     }
   },
   "theme": "dark"
