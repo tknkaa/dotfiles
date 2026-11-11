@@ -116,6 +116,37 @@ require("lazy").setup({
 			current_line_blame = true,
 		},
 	},
+	-- 差分を見ながら編集するためのインライン表示。普段は行番号の色だけにして通常の見た目を保ち、必要なときだけオーバーレイを出す
+	{
+		"nvim-mini/mini.diff",
+		version = "*",
+		event = "VeryLazy",
+		config = function()
+			local diff = require("mini.diff")
+			diff.setup({
+				view = { style = "number" },
+				-- hunk の移動や stage は gitsigns の ]c / <leader>h* に揃えるため、mini.diff 側のキーは割り当てない。二重に定義すると挙動が紛らわしくなる
+				mappings = {
+					apply = "",
+					reset = "",
+					textobject = "",
+					goto_first = "",
+					goto_prev = "",
+					goto_next = "",
+					goto_last = "",
+				},
+			})
+			vim.keymap.set("n", "<leader>gd", diff.toggle_overlay, { desc = "差分オーバーレイ切替" })
+
+			-- 既定では変更行の新しい側も DiffText に紐づき、vscode テーマだと赤になる。追加した文字まで赤いと削除と見分けられないので、新しい側は DiffAdd の緑にする
+			local function set_diff_hl()
+				vim.api.nvim_set_hl(0, "MiniDiffOverChangeBuf", { link = "DiffAdd" })
+			end
+			set_diff_hl()
+			-- カラースキームを切り替えるとハイライトが初期化されるため、そのたびに設定し直す
+			vim.api.nvim_create_autocmd("ColorScheme", { callback = set_diff_hl })
+		end,
+	},
 	{
 		"mason-org/mason-lspconfig.nvim",
 		dependencies = {
