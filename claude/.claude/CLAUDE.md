@@ -12,7 +12,7 @@ worktree の作成と片付けは `wt`(github.com/tknkaa/wt)で行う。`git wor
 ```sh
 wt new <branch> [<start>]   # .worktree/<branch> に作る(feat/foo -> feat-foo)。既存ブランチならそれを使う
 wt list
-wt clean                    # マージ済みの worktree とブランチを一覧にし、確認してから消す
+wt clean [--gone]           # マージ済み・close 済みの PR の worktree とブランチを一覧にし、確認してから消す。--gone でリモートが消えただけのものも消す
 ```
 
 - 作成後は出力の最後の行(worktree のパス)をユーザーに伝え、そのブランチの作業は worktree 内で行う。コピーやインストールで何をしたかも伝える。
@@ -60,6 +60,9 @@ grep -qxF '/.tmp/' "$common/info/exclude" 2>/dev/null || echo '/.tmp/' >> "$comm
 # ブラウザ操作
 
 - ブラウザを操作するときは Claude in Chrome(`mcp__claude-in-chrome__*`)ではなく `agent-browser` を使う。
-- Chrome のプロファイルのログイン状態を使うときは `agent-browser --profile <name> --args "--password-store=gnome-libsecret" open <url>` で開く。agent-browser は既定で `--password-store=basic` で起動するため、そのままだと Cookie を復号できず Google や Slack のログインが引き継がれない。プロファイル名は `agent-browser profiles` で確認する(例: ZERO COLOR は `Default`)。
-- bot 判定のあるページ(Shopify アプリなど)は `--user-agent` で通常の Chrome の UA を指定して開く(例: `--user-agent "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/<version>.0.0.0 Safari/537.36"`)。headless だと UA に `HeadlessChrome` が入り、弾かれる(Shopify アプリは 410 を返す)。
+- Chrome のプロファイルのログイン状態を使うときは `agent-browser --profile <name> --args "--password-store=gnome-libsecret" open <url>` で開く。agent-browser は既定で `--password-store=basic` で起動するため、そのままだと Cookie を復号できず Google や Slack のログインが引き継がれない。プロファイル名は `agent-browser profiles` で確認する(例: ZERO COLOR は `Default`)。- bot 判定のあるページ(Shopify アプリなど)は `--user-agent` で通常の Chrome の UA を指定して開く(例: `--user-agent "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/<version>.0.0.0 Safari/537.36"`)。headless だと UA に `HeadlessChrome` が入り、弾かれる(Shopify アプリは 410 を返す)。
 - Slack のパーマリンクはデスクトップアプリへのリダイレクト画面で止まるので、`https://app.slack.com/client/<team>/<channel>/thread/<channel>-<ts>` の形で開く。
+
+# URL の書き方
+
+- URL は `[タイトル](URL)` のような Markdown リンクにせず、URL をそのまま書く。Web 検索の出典も同じ。そうしないとターミナルで URL をコピーしにくい。
