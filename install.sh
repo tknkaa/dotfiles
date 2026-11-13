@@ -35,6 +35,8 @@ DNF_PACKAGES=(
   podman podman-docker podman-compose
   # Japanese input
   fcitx5 fcitx5-mozc fcitx5-autostart fcitx5-configtool
+  # meltype は作者のリポジトリから入れる(下で登録)。meltype-fcitx5 がないと fcitx5 から使えない
+  meltype meltype-fcitx5
   # File sync
   syncthing
 )
@@ -78,6 +80,12 @@ repo_gpgcheck=0
 gpgkey=https://packages.cloud.google.com/yum/doc/rpm-package-key-v10.gpg
        https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
 REPO
+
+  # Meltype は Fedora のリポジトリにないため、作者の dnf リポジトリを登録する。
+  # --overwrite を付けないと、再実行したときに既存の repo ファイルがあって失敗する
+  log "Configuring Meltype repository"
+  sudo dnf config-manager addrepo --overwrite \
+    --from-repofile=https://yksr-melt.github.io/Meltype/rpm/meltype.repo
 
   log "Installing dnf packages"
   sudo dnf install -y "${DNF_PACKAGES[@]}"
