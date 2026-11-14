@@ -2,24 +2,26 @@
 
 - GitHub のリポジトリをローカルに clone するときは `git clone` ではなく `ghq get` を使う(例: `ghq get owner/repo`)。そうしないと `~/ghq` 配下の配置規則から外れる。
 - 新しいブランチを切るときは必ず worktree を作成する。`git checkout -b` / `git switch -c` / `git branch <name>` は使わない。
-- worktree は main の root 直下の `.worktree/<branch>` に作る。`main` だけは repo root に置いたままにする。
+- worktree は `~/worktrees/<owner>/<repo>/<branch>` に作る(feat/foo -> feat-foo)。`main` だけは ghq の repo root に置いたままにする。repo の中に置くと親の CLAUDE.md や node_modules を拾い、ghq の配下に置くと `ghq list` に混ざるため。
 - 既存ブランチで作業するときも main のワークツリーで checkout せず、そのブランチの worktree を使う(無ければ作る)。
 
 ## worktree の手順
 
-worktree の作成と片付けは `wt`(github.com/tknkaa/wt)で行う。`git worktree add` を直接使わない。`.git/info/exclude` への追記、`.env` のコピー、依存のインストールを手でやると漏れるため。
+worktree の作成と片付けは worktrunk(`wt`)で行う。`git worktree add` を直接使わない。作成時の pre-start フック(`wt-setup-worktree`)が `.env` のコピー、依存のインストール、`wt.setup` の実行を行い、手でやると漏れるため。
 
 ```sh
-wt new <branch> [<start>]   # .worktree/<branch> に作る(feat/foo -> feat-foo)。既存ブランチならそれを使う
+wt switch --create <branch> [--base <start>] --no-cd  # 新しいブランチの worktree を作る
+wt switch <branch> --no-cd                            # 既存ブランチの worktree を作る(あればそれを使う)
 wt list
-wt clean [--gone]           # マージ済み・close 済みの PR の worktree とブランチを一覧にし、確認してから消す。--gone でリモートが消えただけのものも消す
+wt step prune --dry-run                               # main に取り込み済み(squash も含む)の worktree とブランチの一覧
+wt remove <branch>                                    # 1 つ消す。未マージのブランチは消さない
 ```
 
-- 作成後は出力の最後の行(worktree のパス)をユーザーに伝え、そのブランチの作業は worktree 内で行う。コピーやインストールで何をしたかも伝える。
+- AI は shell が cd しないので `--no-cd` を付け、パスは `wt list` で確認する。作成後は worktree のパスをユーザーに伝え、そのブランチの作業は worktree 内で行う。コピーやインストールで何をしたかも伝える。
 - ローカル DB のマイグレーションなどリポジトリ固有の後処理は `git config wt.setup "<command>"` に設定しておく。未設定で必要そうなら、設定してよいかユーザーに聞く。
 - ローカル DB などの状態(`.wrangler/` など)はコピーしない。ブランチでスキーマを変えても main のデータを壊さないため。main のデータが要るときだけユーザーに確認してコピーする。
-- `wt clean` は確認を挟むので、AI が実行するときは対象の一覧をユーザーに見せてから、了承を得て `wt clean -y` を使う。
-- 1 つだけ消す: `git worktree remove "<path>"`(dirty なら拒否される。`--force` はユーザーの同意が要る)。ブランチ削除はユーザーが求めたときだけ `git branch -d`(`-D` はユーザーの同意が要る)。
+- まとめて消すときは `wt step prune --dry-run` の一覧をユーザーに見せ、了承を得てから `wt step prune -y` を使う。
+- close されただけで main に入っていないブランチは prune では消えない。消すには `wt remove <branch> -D` が要り、ユーザーの同意が要る。`--force`(未コミットの変更ごと消す)も同じ。
 
 # 一時ファイル
 

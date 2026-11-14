@@ -1,0 +1,7 @@
+# worktree は ghq と同じ owner/repo の階層で ~/worktrees にまとめる。feat/foo は feat-foo になる。
+# repo の中に置くと親の CLAUDE.md や node_modules を拾い、ghq の配下に置くと ghq list に repo として混ざるため
+worktree-path = "~/worktrees/{{ owner }}/{{ repo }}/{{ branch | sanitize }}"
+
+# 後続の --execute(claude の起動など)が依存や .env を前提にするため、post-start ではなく完了を待つ pre-start で行う
+[pre-start]
+setup = "wt-setup-worktree"

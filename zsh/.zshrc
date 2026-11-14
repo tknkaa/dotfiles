@@ -93,6 +93,8 @@ gw() {
 # --- Tool hooks ---
 command -v direnv   >/dev/null && eval "$(direnv hook zsh)"
 command -v starship >/dev/null && eval "$(starship init zsh)"
+# wt switch で cd するには shell 関数が要る。wt config shell install は .zshrc を書き換えて dotfiles と食い違うため、ここで読み込む
+command -v wt       >/dev/null && eval "$(command wt config shell init zsh)"
 
 # --- Plugins (Fedora packages; syntax-highlighting must be sourced last) ---
 [ -f /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh ] &&
