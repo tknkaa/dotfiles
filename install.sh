@@ -41,7 +41,7 @@ DNF_PACKAGES=(
 
 NPM_GLOBAL_PACKAGES=(bun pnpm hunkdiff @openai/codex opencode-ai @shopify/cli cf difit @marp-team/marp-cli agent-browser)
 
-STOW_PACKAGES=(zsh git starship herdr nvim claude opencode fcitx5 mimeapps bin)
+STOW_PACKAGES=(zsh git starship herdr nvim claude opencode fcitx5 mimeapps bin worktrunk)
 
 # 依存パッケージ(esbuild など)の install script も止められるため、それらも含める
 NPM_ALLOW_SCRIPTS=(bun pnpm opencode-ai agent-browser @anthropic-ai/claude-code esbuild @parcel/watcher workerd)
@@ -51,6 +51,7 @@ NODE_VERSION=v26.13.0
 ELAN_VERSION=v4.2.4
 GHQ_VERSION=v1.11.2
 COOLIFY_VERSION=v1.11.0
+WORKTRUNK_VERSION=0.81.0
 NERD_FONTS=(JetBrainsMono FiraCode)
 
 log() { printf '\n\033[1;34m==> %s\033[0m\n' "$*"; }
@@ -102,6 +103,12 @@ install_user_tools() {
     "$HOME/.cargo/bin/cargo" install --locked typst-cli
   fi
 
+  # worktrunk は Fedora のリポジトリにないため、cargo でバージョンを固定して入れる。そうしないと再構築のたびに挙動が変わりうる
+  if [ ! -x "$HOME/.cargo/bin/wt" ]; then
+    log "Installing worktrunk (cargo)"
+    "$HOME/.cargo/bin/cargo" install --locked worktrunk@"$WORKTRUNK_VERSION"
+  fi
+
   # elan は Fedora のリポジトリにないため、cargo でタグ固定してビルドする。curl | sh だとスクリプトの中身が変わっても気づけない
   if [ ! -x "$HOME/.elan/bin/elan" ]; then
     log "Installing elan (cargo)"
@@ -143,11 +150,6 @@ install_user_tools() {
   if [ ! -x "$HOME/go/bin/ghq" ]; then
     log "Installing ghq"
     go install github.com/x-motemen/ghq@"$GHQ_VERSION"
-  fi
-
-  if [ ! -x "$HOME/go/bin/wt" ]; then
-    log "Installing wt"
-    go install github.com/tknkaa/wt@latest
   fi
 
   if [ ! -x "$HOME/go/bin/coolify" ]; then
