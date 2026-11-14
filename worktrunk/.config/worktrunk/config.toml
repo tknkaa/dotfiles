@@ -4,4 +4,4 @@ worktree-path = "~/worktrees/{{ owner }}/{{ repo }}/{{ branch | sanitize }}"
 
 # 後続の --execute(claude の起動など)が依存や .env を前提にするため、post-start ではなく完了を待つ pre-start で行う
 [pre-start]
-setup = "wt-setup-worktree"
+setup = "wt-setup-worktree.sh"
