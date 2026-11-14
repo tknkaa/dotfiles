@@ -306,4 +306,17 @@ map("n", "<leader>hs", ":Gitsigns stage_hunk<CR>", opts)
 map("n", "<leader>hr", ":Gitsigns reset_hunk<CR>", opts)
 map("n", "gd", vim.lsp.buf.definition, opts)
 map("n", "gr", vim.lsp.buf.references, opts)
+-- ウィンドウ操作の割り当てを herdr のペイン操作(prefix+d で閉じる、prefix+n でズーム)に揃え、両方で同じ指の動きにするため。
+-- 既定の <C-w>d(診断の表示)は <C-k> と同じなので上書きしてよい
+map("n", "<C-w>d", "<cmd>close<CR>", opts)
+map("n", "<C-w>n", function()
+	-- ズーム中に戻すと元の配置に戻れるよう、ズーム前の配置を覚えておく。そうしないと <C-w>= で均等割りにしか戻らない
+	if vim.t.zoom_restore then
+		vim.cmd(vim.t.zoom_restore)
+		vim.t.zoom_restore = nil
+	else
+		vim.t.zoom_restore = vim.fn.winrestcmd()
+		vim.cmd("wincmd | | wincmd _")
+	end
+end, opts)
 map("n", "gi", vim.lsp.buf.implementation, opts)
