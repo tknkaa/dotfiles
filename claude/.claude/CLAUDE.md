@@ -7,7 +7,7 @@
 
 ## worktree の手順
 
-worktree の作成と片付けは worktrunk(`wt`)で行う。`git worktree add` を直接使わない。作成時の pre-start フック(`wt-setup-worktree`)が `.env` のコピー、依存のインストール、`wt.setup` の実行を行い、手でやると漏れるため。
+worktree の作成と片付けは worktrunk(`wt`)で行う。`git worktree add` を直接使わない。作成時の pre-start フック(`wt-setup-worktree.sh`)が `.env` のコピー、依存のインストール、`wt.setup` の実行を行い、手でやると漏れるため。
 
 ```sh
 wt switch --create <branch> [--base <start>] --no-cd  # 新しいブランチの worktree を作る
