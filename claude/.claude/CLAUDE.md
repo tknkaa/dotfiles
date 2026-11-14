@@ -2,7 +2,15 @@
 
 - GitHub のリポジトリをローカルに clone するときは `git clone` ではなく `ghq get` を使う(例: `ghq get owner/repo`)。そうしないと `~/ghq` 配下の配置規則から外れる。
 - 新しいブランチを切るときは必ず worktree を作成する。`git checkout -b` / `git switch -c` / `git branch <name>` は使わない。
-- worktree は `~/worktrees/<owner>/<repo>/<branch>` に作る(feat/foo -> feat-foo)。`main` だけは ghq の repo root に置いたままにする。repo の中に置くと親の CLAUDE.md や node_modules を拾い、ghq の配下に置くと `ghq list` に混ざるため。
+- repo 本体(main)は ghq の `~/ghq/github.com/<owner>/<repo>` に、main 以外のブランチの worktree は `~/worktrees/<owner>/<repo>/<branch>` に置く(feat/foo -> feat-foo)。ghq は clone を、worktrunk はブランチごとの作業ディレクトリを扱い、役割は重ならない。
+
+  ```
+  ~/ghq/github.com/zero-color/amazon-ads-adjustment       # repo 本体(main)。.git の本体はここにだけある
+  ~/worktrees/zero-color/amazon-ads-adjustment/feat-foo   # feat/foo の worktree
+  ```
+
+  - worktree を repo の中に置かないのは、親の CLAUDE.md や node_modules を拾うため。ghq のルートの下に置かないのは、`ghq list` が worktree も repo として表示するため(隠しディレクトリでも混ざる)。
+  - worktree は ghq 側の repo の `.git` を共有しているので、`ghq rm` などで repo 本体を消すと worktree も使えなくなる。
 - 既存ブランチで作業するときも main のワークツリーで checkout せず、そのブランチの worktree を使う(無ければ作る)。
 
 ## worktree の手順
