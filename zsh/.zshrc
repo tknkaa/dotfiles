@@ -42,7 +42,8 @@ alias cat="bat"
 alias grep="rg"
 alias ls="eza --icons always --classify always"
 alias tree="eza --icons always --classify always --tree"
-alias n="nvim"
+# 引数なしで開くことがほとんどカレントディレクトリなので、n だけで . を開く。ファイルを渡したときはそのまま開く
+n() { nvim "${@:-.}" }
 alias vi="nvim"
 alias vim="nvim"
 alias c="claude"
