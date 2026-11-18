@@ -47,6 +47,7 @@ n() { nvim "${@:-.}" }
 alias vi="nvim"
 alias vim="nvim"
 alias c="claude"
+alias h="herdr"
 alias gst="git status"
 alias glg="git log --oneline -5"
 alias x="wl-copy"
