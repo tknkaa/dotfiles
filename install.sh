@@ -52,6 +52,11 @@ ELAN_VERSION=v4.2.4
 GHQ_VERSION=v1.11.2
 COOLIFY_VERSION=v1.11.0
 WORKTRUNK_VERSION=0.81.0
+K6_VERSION=v2.3.0
+XK6_VERSION=v1.4.15
+# xk6-mqtt は k6 v2 に未対応のため、k6-mqtt だけ v1 系でビルドする
+K6_MQTT_K6_VERSION=v1.8.2
+XK6_MQTT_VERSION=v0.40.3
 NERD_FONTS=(JetBrainsMono FiraCode)
 
 log() { printf '\n\033[1;34m==> %s\033[0m\n' "$*"; }
@@ -117,6 +122,22 @@ install_user_tools() {
     # Lean 本体は各プロジェクトの lean-toolchain で決まるため none にする。インストーラは ~/.elan に自身を配置するので cargo 側からは消す
     "$HOME/.cargo/bin/elan-init" -y --no-modify-path --default-toolchain none
     "$HOME/.cargo/bin/cargo" uninstall elan
+  fi
+
+  # k6 は Fedora のリポジトリにないため、リリースのバイナリをバージョン固定で入れる。そうしないと再構築で版が変わりうる
+  if [ ! -x "$HOME/.local/bin/k6" ]; then
+    log "Installing k6 $K6_VERSION"
+    curl -fsSL "https://github.com/grafana/k6/releases/download/$K6_VERSION/k6-$K6_VERSION-linux-amd64.tar.gz" |
+      tar -xz -C "$HOME/.local/bin" --strip-components=1 "k6-$K6_VERSION-linux-amd64/k6"
+  fi
+
+  # 機材は MQTT で IoT Hub へ送るため、負荷試験用に MQTT 拡張入りの k6 を別名でビルドする。標準の k6 は HTTP しか話せない
+  if [ ! -x "$HOME/.local/bin/k6-mqtt" ]; then
+    log "Building k6-mqtt (xk6)"
+    GOBIN="$HOME/.local/bin" go install go.k6.io/xk6/cmd/xk6@"$XK6_VERSION"
+    "$HOME/.local/bin/xk6" build "$K6_MQTT_K6_VERSION" \
+      --with github.com/pmalhaire/xk6-mqtt@"$XK6_MQTT_VERSION" \
+      --output "$HOME/.local/bin/k6-mqtt"
   fi
 
   # PROFILE=/dev/null keeps the nvm installer from editing the stowed .zshrc
