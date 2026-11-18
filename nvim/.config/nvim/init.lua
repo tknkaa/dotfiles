@@ -1,8 +1,3 @@
--- To add a new LSP, edit the following 3 places:
--- 1. vim.lsp.config.*: per-LSP settings like capabilities
--- 2. vim.lsp.enable(): list of enabled servers
--- 3. install the binary: add it to mason-lspconfig's ensure_installed, or
---    install it with dnf/rustup (clangd, gopls, rust_analyzer) via install.sh
 vim.g.mapleader = " "
 vim.g.loaded_netrwPlugin = 1
 vim.g.loaded_netrw = 1
@@ -116,7 +111,6 @@ require("lazy").setup({
 			current_line_blame = true,
 		},
 	},
-	-- 差分を見ながら編集するためのインライン表示。普段は行番号の色だけにして通常の見た目を保ち、必要なときだけオーバーレイを出す
 	{
 		"nvim-mini/mini.diff",
 		version = "*",
@@ -125,7 +119,6 @@ require("lazy").setup({
 			local diff = require("mini.diff")
 			diff.setup({
 				view = { style = "number" },
-				-- hunk の移動や stage は gitsigns の ]c / <leader>h* に揃えるため、mini.diff 側のキーは割り当てない。二重に定義すると挙動が紛らわしくなる
 				mappings = {
 					apply = "",
 					reset = "",
@@ -138,12 +131,10 @@ require("lazy").setup({
 			})
 			vim.keymap.set("n", "<leader>gd", diff.toggle_overlay, { desc = "差分オーバーレイ切替" })
 
-			-- 既定では変更行の新しい側も DiffText に紐づき、vscode テーマだと赤になる。追加した文字まで赤いと削除と見分けられないので、新しい側は DiffAdd の緑にする
 			local function set_diff_hl()
 				vim.api.nvim_set_hl(0, "MiniDiffOverChangeBuf", { link = "DiffAdd" })
 			end
 			set_diff_hl()
-			-- カラースキームを切り替えるとハイライトが初期化されるため、そのたびに設定し直す
 			vim.api.nvim_create_autocmd("ColorScheme", { callback = set_diff_hl })
 		end,
 	},
@@ -154,7 +145,6 @@ require("lazy").setup({
 			"neovim/nvim-lspconfig",
 		},
 		opts = {
-			-- Servers not available from dnf/rustup. Enabled below via vim.lsp.enable().
 			ensure_installed = {
 				"lua_ls",
 				"pyright",
@@ -218,11 +208,9 @@ require("lazy").setup({
 			})
 		end,
 	},
-	-- Lean の LSP は lake 経由でプロジェクトごとの toolchain を使う必要があるため、lspconfig ではなく lean.nvim に任せる
 	{
 		"Julian/lean.nvim",
 		event = { "BufReadPre *.lean", "BufNewFile *.lean" },
-		-- 現行版は setup() を持たず vim.g.lean_config を読むため、opts ではなく init で渡す。opts だと読み込み時にエラーになる
 		init = function()
 			vim.g.lean_config = { mappings = true }
 		end,
@@ -306,11 +294,8 @@ map("n", "<leader>hs", ":Gitsigns stage_hunk<CR>", opts)
 map("n", "<leader>hr", ":Gitsigns reset_hunk<CR>", opts)
 map("n", "gd", vim.lsp.buf.definition, opts)
 map("n", "gr", vim.lsp.buf.references, opts)
--- ウィンドウ操作の割り当てを herdr のペイン操作(prefix+d で閉じる、prefix+n でズーム)に揃え、両方で同じ指の動きにするため。
--- 既定の <C-w>d(診断の表示)は <C-k> と同じなので上書きしてよい
 map("n", "<C-w>d", "<cmd>close<CR>", opts)
 map("n", "<C-w>n", function()
-	-- ズーム中に戻すと元の配置に戻れるよう、ズーム前の配置を覚えておく。そうしないと <C-w>= で均等割りにしか戻らない
 	if vim.t.zoom_restore then
 		vim.cmd(vim.t.zoom_restore)
 		vim.t.zoom_restore = nil

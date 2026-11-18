@@ -1,9 +1,4 @@
 #!/usr/bin/env bash
-# Set up this Fedora machine from the dotfiles repo.
-# Safe to re-run: every step skips work that is already done.
-#
-#   ./install.sh            # everything
-#   ./install.sh stow       # only (re)link configs
 set -euo pipefail
 
 DOTFILES="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -14,28 +9,17 @@ COPR_REPOS=(
 )
 
 DNF_PACKAGES=(
-  # Terminal, shell, prompt
   ptyxis zsh zsh-autosuggestions zsh-syntax-highlighting starship
-  # Editors
   neovim tree-sitter-cli
-  # CLI utilities
   stow bat eza fzf zoxide git-delta gh ripgrep bottom httpie just
   wl-clipboard xclip unzip bind-utils direnv libnotify
-  # Languages & build tools
   gcc make openssl-devel golang rustup uv
-  # Cloud CLIs (google-cloud-cli comes from Google's repo, added below)
   awscli2 azure-cli google-cloud-cli libxcrypt-compat
-  # Database clients
   postgresql sqlite
-  # Apps
   google-chrome-stable
-  # Language servers not installed by mason.nvim
   clang-tools-extra gopls
-  # Containers (docker CLI shim + compose)
   podman podman-docker podman-compose
-  # Japanese input
   fcitx5 fcitx5-mozc fcitx5-autostart fcitx5-configtool
-  # File sync
   syncthing
 )
 
@@ -43,7 +27,6 @@ NPM_GLOBAL_PACKAGES=(bun pnpm hunkdiff @openai/codex opencode-ai @shopify/cli cf
 
 STOW_PACKAGES=(zsh git starship herdr nvim claude opencode fcitx5 mimeapps bin worktrunk)
 
-# 依存パッケージ(esbuild など)の install script も止められるため、それらも含める
 NPM_ALLOW_SCRIPTS=(bun pnpm opencode-ai agent-browser @anthropic-ai/claude-code esbuild @parcel/watcher workerd)
 
 NVM_VERSION=v0.40.8
@@ -54,7 +37,6 @@ COOLIFY_VERSION=v1.11.0
 WORKTRUNK_VERSION=0.81.0
 K6_VERSION=v2.3.0
 XK6_VERSION=v1.4.15
-# xk6-mqtt は k6 v2 に未対応のため、k6-mqtt だけ v1 系でビルドする
 K6_MQTT_K6_VERSION=v1.8.2
 XK6_MQTT_VERSION=v0.40.3
 NERD_FONTS=(JetBrainsMono FiraCode)
@@ -68,11 +50,9 @@ install_dnf() {
     sudo dnf copr enable -y "$repo"
   done
 
-  # Google Chrome repo ships with Fedora Workstation but is disabled by default
   sudo dnf install -y fedora-workstation-repositories
   sudo dnf config-manager setopt google-chrome.enabled=1
 
-  # el10 packages are signed with the v10 key; the older key is kept too.
   log "Configuring Google Cloud CLI repository"
   sudo tee /etc/yum.repos.d/google-cloud-sdk.repo >/dev/null <<'REPO'
 [google-cloud-cli]
@@ -102,36 +82,29 @@ install_user_tools() {
     rustup-init -y --no-modify-path --component rust-analyzer,rust-src
   fi
 
-  # typst は Fedora のリポジトリにないため、cargo で入れる。そうしないと手動で導入し直す必要が出る
   if [ ! -x "$HOME/.cargo/bin/typst" ]; then
     log "Installing typst (cargo)"
     "$HOME/.cargo/bin/cargo" install --locked typst-cli
   fi
 
-  # worktrunk は Fedora のリポジトリにないため、cargo でバージョンを固定して入れる。そうしないと再構築のたびに挙動が変わりうる
   if [ ! -x "$HOME/.cargo/bin/wt" ]; then
     log "Installing worktrunk (cargo)"
     "$HOME/.cargo/bin/cargo" install --locked worktrunk@"$WORKTRUNK_VERSION"
   fi
 
-  # elan は Fedora のリポジトリにないため、cargo でタグ固定してビルドする。curl | sh だとスクリプトの中身が変わっても気づけない
   if [ ! -x "$HOME/.elan/bin/elan" ]; then
     log "Installing elan (cargo)"
-    # 同梱 OpenSSL のビルドには perl の追加モジュールが要るため、システムの openssl-devel を使う。そうしないとビルドが失敗する
     OPENSSL_NO_VENDOR=1 "$HOME/.cargo/bin/cargo" install --locked --git https://github.com/leanprover/elan --tag "$ELAN_VERSION" elan
-    # Lean 本体は各プロジェクトの lean-toolchain で決まるため none にする。インストーラは ~/.elan に自身を配置するので cargo 側からは消す
     "$HOME/.cargo/bin/elan-init" -y --no-modify-path --default-toolchain none
     "$HOME/.cargo/bin/cargo" uninstall elan
   fi
 
-  # k6 は Fedora のリポジトリにないため、リリースのバイナリをバージョン固定で入れる。そうしないと再構築で版が変わりうる
   if [ ! -x "$HOME/.local/bin/k6" ]; then
     log "Installing k6 $K6_VERSION"
     curl -fsSL "https://github.com/grafana/k6/releases/download/$K6_VERSION/k6-$K6_VERSION-linux-amd64.tar.gz" |
       tar -xz -C "$HOME/.local/bin" --strip-components=1 "k6-$K6_VERSION-linux-amd64/k6"
   fi
 
-  # 機材は MQTT で IoT Hub へ送るため、負荷試験用に MQTT 拡張入りの k6 を別名でビルドする。標準の k6 は HTTP しか話せない
   if [ ! -x "$HOME/.local/bin/k6-mqtt" ]; then
     log "Building k6-mqtt (xk6)"
     GOBIN="$HOME/.local/bin" go install go.k6.io/xk6/cmd/xk6@"$XK6_VERSION"
@@ -140,17 +113,13 @@ install_user_tools() {
       --output "$HOME/.local/bin/k6-mqtt"
   fi
 
-  # PROFILE=/dev/null keeps the nvm installer from editing the stowed .zshrc
   export NVM_DIR="$HOME/.nvm"
   if [ ! -s "$NVM_DIR/nvm.sh" ]; then
     log "Installing nvm"
     curl -fsSL "https://raw.githubusercontent.com/nvm-sh/nvm/$NVM_VERSION/install.sh" | PROFILE=/dev/null bash
   fi
-  # nvm is not compatible with `set -u`
   set +u
-  # shellcheck disable=SC1091
   . "$NVM_DIR/nvm.sh"
-  # --lts だと実行した時期でメジャーが変わり環境を再現できないため、バージョンを固定する
   if ! nvm ls --no-colors "$NODE_VERSION" >/dev/null 2>&1; then
     log "Installing Node.js $NODE_VERSION"
     nvm install "$NODE_VERSION"
@@ -163,7 +132,6 @@ install_user_tools() {
   done
   if [ "${#missing[@]}" -gt 0 ]; then
     log "Installing npm packages: ${missing[*]}"
-    # Node 26 同梱の npm は許可していない install script を実行せず、bun などのバイナリが入らないため明示的に許可する
     npm install -g --allow-scripts="$(IFS=,; echo "${NPM_ALLOW_SCRIPTS[*]}")" "${missing[@]}"
   fi
   set -u
@@ -200,14 +168,11 @@ install_fonts() {
 
 link_configs() {
   log "Linking configs with stow"
-  # --no-folding: link individual files, so tools can still write their own
-  # files next to ours (e.g. ~/.claude/skills, ~/.config/git/config.local).
   stow --no-folding -d "$DOTFILES" -t "$HOME" --restow "${STOW_PACKAGES[@]}"
 }
 
 enable_user_services() {
   log "Enabling user services"
-  # ログイン中は常に動かしておくため user unit で有効化する。手動起動だとスマホ側が古いままになる
   systemctl --user enable --now syncthing.service
 }
 

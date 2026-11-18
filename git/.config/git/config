@@ -1,5 +1,3 @@
-# Deployed by `stow git` from ~/dotfiles.
-# Identity (user.name / user.email) lives in config.local, which is not tracked.
 [include]
 	path = config.local
 

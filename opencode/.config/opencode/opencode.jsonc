@@ -7,11 +7,9 @@
     "glob": "allow",
     "grep": "allow",
     "list": "allow",
-    // 個別の可否は plugins/auto-mode-classifier.ts が依頼との整合で判定するため、ここでは全許可にする
     "bash": "allow"
   },
   "agent": {
-    // auto-mode-classifier が判定に使う。ツールを持たせない。そうしないと判定対象のコマンドを判定側が実行しかねない
     "judge": {
       "mode": "primary",
       "description": "bash コマンドが依頼に沿っているかを判定する(プラグイン専用)",

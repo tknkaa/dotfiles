@@ -1,10 +1,8 @@
-# Starship prompt config
 "$schema" = "https://starship.rs/config-schema.json"
 
 format = "$directory[ ](fg:#88C0D0 bg:#1d2230)$git_branch$git_status[ ](fg:#1d2230)\n$character"
 right_format = ""
 add_newline = true
-# 各モジュール設定
 
 [username]
 style_user = "white bold"

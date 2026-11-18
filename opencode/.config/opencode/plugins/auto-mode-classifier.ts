@@ -1,10 +1,6 @@
-// bash を全許可にする代わりに、別プロセスの opencode(安いモデル)にユーザーの依頼と実行コマンドを照らし合わせさせる。
-// 静的パターン(auto-mode-guard.ts)では依頼から外れた操作を見抜けないため、意図との整合をモデルに判定させる。
-// 判定に失敗・タイムアウトしたときは拒否する。そうしないと分類器が落ちている間に全コマンドが素通りする。
 
 const JUDGE_MODEL = process.env.OPENCODE_JUDGE_MODEL ?? "opencode-go/deepseek-v4.1-flash"
 const TIMEOUT_MS = 60_000
-// 依頼文が長すぎると安いモデルの文脈を圧迫し判定が雑になるため、直近の依頼だけを渡す
 const MAX_PROMPT_CHARS = 8_000
 
 const instruction = `あなたはコーディングエージェントのコマンド実行を監査する分類器です。
@@ -33,7 +29,6 @@ const userRequests = (messages: Message[]) => {
 
 const judge = async (requests: string, command: string, cwd: string) => {
   const message = `${instruction}\n\n<cwd>${cwd}</cwd>\n<user_requests>\n${requests}\n</user_requests>\n<command>\n${command}\n</command>`
-  // --pure で外部プラグインを読まない。そうしないと判定側の opencode でもこのフックが動き再帰する
   const proc = Bun.spawn(["opencode", "run", "--pure", "--agent", "judge", "-m", JUDGE_MODEL, message], {
     cwd,
     stdout: "pipe",
@@ -44,7 +39,6 @@ const judge = async (requests: string, command: string, cwd: string) => {
   const [out, code] = await Promise.all([new Response(proc.stdout).text(), proc.exited])
   clearTimeout(timer)
   if (code !== 0) return { allow: false, reason: `分類器の実行に失敗しました (exit ${code})` }
-  // モデルが前置きを書くことがあるため、最初に ALLOW/BLOCK が現れた行で判定する
   const lines = out.replace(/\x1b\[[0-9;]*m/g, "").split("\n").map((l) => l.trim()).filter(Boolean)
   const idx = lines.findIndex((l) => /^(ALLOW|BLOCK)\b/.test(l))
   if (idx < 0) return { allow: false, reason: `分類器の出力を解釈できませんでした: ${out.slice(0, 200)}` }

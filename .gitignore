@@ -1,5 +1,3 @@
-# .gitignore for dotfiles
-# OS/Editor/Tool specific files
 .DS_Store
 Thumbs.db
 *.swp
@@ -22,7 +20,6 @@ Thumbs.db
 *.so
 *.dylib
 
-# SSH, GPG, and other secrets
 *.pem
 *.key
 *.crt
@@ -34,7 +31,6 @@ Thumbs.db
 private*
 config.local*
 
-# History and logs
 *.history
 *.log*
 *.gz
@@ -45,42 +41,16 @@ config.local*
 *.bak
 *.old
 
-# VSCode and JetBrains IDEs
 .vscode/
 .idea/
 *.iml
 
-# System files
 .cache/
 .local/
 !/bin/.local/
 .python_history
 .config/netlify/
 
-# Custom: ignore all files in 'logs' and 'tmp' folders
 logs/
 tmp/
 
-# Uncomment below if you want to ignore all files except dotfiles tracked by git
-# !.gitignore
-# !*/
-# !*.sh
-# !*.zsh
-# !*.bash
-# !*.config
-# !*.vimrc
-# !*.tmux.conf
-# !*.gitconfig
-# !*.profile
-# !*.aliases
-# !*.functions
-# !*.exports
-# !*.envrc
-# !*.inputrc
-# !*.editorconfig
-# !*.npmrc
-# !*.yarnrc
-# !*.gitattributes
-# !*.gitmodules
-# !*.gitmessage
-# !*.gitignore

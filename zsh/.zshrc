@@ -1,6 +1,4 @@
-# ~/.zshrc — deployed by `stow zsh` from ~/dotfiles
 
-# --- PATH ---
 typeset -U path
 path=(
   "$HOME/.local/bin"
@@ -13,7 +11,6 @@ path=(
   $path
 )
 
-# --- History ---
 HISTFILE="$HOME/.zsh_history"
 HISTSIZE=10000
 SAVEHIST=10000
@@ -22,27 +19,19 @@ setopt share_history hist_ignore_dups hist_ignore_space hist_expire_dups_first
 export EDITOR=nvim
 export VISUAL=nvim
 
-# Emacs-style line editing (zsh would switch to vi mode if EDITOR contains "vi")
 bindkey -e
 
-# --- Completion ---
 autoload -Uz compinit && compinit
 
-# --- Node (nvm) ---
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
 
-# --- Secrets ---
-# API keys live outside the repo. Example ~/.config/secrets.env:
-#   export GEMINI_API_KEY="..."
 [ -f "$HOME/.config/secrets.env" ] && . "$HOME/.config/secrets.env"
 
-# --- Aliases ---
 alias cat="bat"
 alias grep="rg"
 alias ls="eza --icons always --classify always"
 alias tree="eza --icons always --classify always --tree"
-# 引数なしで開くことがほとんどカレントディレクトリなので、n だけで . を開く。ファイルを渡したときはそのまま開く
 n() { nvim "${@:-.}" }
 alias vi="nvim"
 alias vim="nvim"
@@ -52,21 +41,18 @@ alias gst="git status"
 alias glg="git log --oneline -5"
 alias x="wl-copy"
 
-# Open files in nvim via fzf (tracked + untracked, respects .gitignore)
 fe() {
   local files
   files=("${(@f)$(git ls-files -co --exclude-standard | fzf -m --preview 'bat --color=always --line-range=:200 {}')}") || return
   [ -n "$files" ] && nvim "${files[@]}"
 }
 
-# Jump to a ghq repository via fzf
 g() {
   local dir
   dir=$(ghq list -p | fzf --preview 'eza -T -L1 --color=always {}; echo; git -C {} log --oneline -5 --color=always') || return
   cd "$dir"
 }
 
-# Ctrl-G: pick a ghq repository and cd, even mid-command
 ghq-fzf() {
   local dir
   dir=$(ghq list -p | fzf --height 40% --reverse --query "$LBUFFER") || { zle reset-prompt; return }
@@ -76,7 +62,6 @@ ghq-fzf() {
 zle -N ghq-fzf
 bindkey '^g' ghq-fzf
 
-# Switch branch via fzf (local + remote-only, newest first)
 gb() {
   local b
   b=$(git for-each-ref --sort=-committerdate --format='%(refname:short)' refs/heads refs/remotes |
@@ -85,28 +70,21 @@ gb() {
   git switch "$b"
 }
 
-# cd to a worktree of the current repository via fzf
 gw() {
   local dir
   dir=$(git worktree list | fzf --preview 'git -C {1} status -sb' | awk '{print $1}') || return
   cd "$dir"
 }
 
-# --- Tool hooks ---
 command -v direnv   >/dev/null && eval "$(direnv hook zsh)"
 command -v starship >/dev/null && eval "$(starship init zsh)"
-# wt switch で cd するには shell 関数が要る。wt config shell install は .zshrc を書き換えて dotfiles と食い違うため、ここで読み込む
 command -v wt       >/dev/null && eval "$(command wt config shell init zsh)"
 
-# --- Plugins (Fedora packages; syntax-highlighting must be sourced last) ---
 [ -f /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh ] &&
   . /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 [ -f /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ] &&
   . /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-# --- zoxide (must be initialized last) ---
 command -v zoxide   >/dev/null && eval "$(zoxide init zsh --cmd cd)"
 
-
-# Added by Antigravity CLI installer
 export PATH="/home/tknkaa/.local/bin:$PATH"

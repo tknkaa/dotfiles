@@ -1,36 +1,27 @@
 onboarding = false
-# herdr configuration
-# Deployed to ~/.config/herdr/config.toml by `stow herdr`.
-#
-# herdr runs inside the terminal (Ptyxis) and owns both tab and pane control
-# (tmux-style). All actions go through the prefix key (Ctrl+a), so nothing
-# collides with the terminal or the desktop environment.
 
 [theme]
-# Follow the terminal palette (Ptyxis uses the VS Code palette).
 name = "terminal"
 
 [ui.toast]
-delivery = "system"   # OS通知として表示（サウンドの代わり）
+delivery = "system"
 
 [ui.sound]
-enabled = false        # サウンド通知を無効化
+enabled = false
 
 [keys]
 prefix = "ctrl+a"
 
-# --- Tabs ---
-new_tab = "prefix+b"        # 作成
-close_tab = "prefix+x"      # 閉じる
-previous_tab = "prefix+u"   # 前のタブ
-next_tab = "prefix+i"       # 次のタブ
-zoom = "prefix+n"           # 全画面 (ペインをズーム)
+new_tab = "prefix+b"
+close_tab = "prefix+x"
+previous_tab = "prefix+u"
+next_tab = "prefix+i"
+zoom = "prefix+n"
 
-# --- Panes ---
-split_vertical = "prefix+v"    # 右に分割
-split_horizontal = "prefix+s"  # 下に分割
+split_vertical = "prefix+v"
+split_horizontal = "prefix+s"
 focus_pane_left = "prefix+h"
 focus_pane_down = "prefix+j"
 focus_pane_up = "prefix+k"
 focus_pane_right = "prefix+l"
-close_pane = "prefix+d"        # ペインを閉じる
+close_pane = "prefix+d"
