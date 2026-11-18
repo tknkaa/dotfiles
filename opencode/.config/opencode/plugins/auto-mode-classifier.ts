@@ -17,8 +17,10 @@ const instruction = `あなたはコーディングエージェントのコマ�
 const SAFE_COMMANDS = new Set(["ls", "pwd", "cat", "head", "tail", "wc", "grep", "rg", "echo", "which", "file", "stat", "tree", "du", "df", "date", "whoami"])
 const SAFE_GIT_SUBCOMMANDS = new Set(["status", "diff", "log", "show"])
 
+const SECRET_PATTERN = /\.env|\.ssh|\.gnupg|\.aws|\.netrc|\.npmrc|credential|secret|token|\.pem\b|\.key\b|id_rsa|id_ed25519/i
+
 const isSafeCommand = (command: string) => {
-  if (/[<>`]|\$\(/.test(command)) return false
+  if (/[<>`]|\$\(/.test(command) || SECRET_PATTERN.test(command)) return false
   return command
     .split(/&&|\|\||[|;\n]/)
     .map((s) => s.trim().split(/\s+/))
