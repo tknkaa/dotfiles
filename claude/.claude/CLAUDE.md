@@ -33,7 +33,7 @@ wt remove <branch>                                    # 1 つ消す。未マー�
 
 # 一時ファイル
 
-- repo root 直下の `tmp` は使わない。代わりに repo root 直下に `./.tmp` を作って使う。
+- repo root 直下の `tmp` は使わない。代わりに repo root 直下に `~/tmp` を作って使う。
 - `.tmp` は `.git/info/exclude` で除外する(`.gitignore` は触らない)。clone ごとなので毎回冪等に追記する:
 
 ```sh
