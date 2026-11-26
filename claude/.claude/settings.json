@@ -16,5 +16,28 @@
       "effortLevel": "medium"
     }
   },
-  "theme": "dark"
+  "theme": "dark",
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/japanese-guard.py"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "mcp__.*__wrap_up",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/japanese-guard.py"
+          }
+        ]
+      }
+    ]
+  }
 }
