@@ -77,3 +77,5 @@ grep -qxF '/.tmp/' "$common/info/exclude" 2>/dev/null || echo '/.tmp/' >> "$comm
 # URL の書き方
 
 - URL は `[タイトル](URL)` のような Markdown リンクにせず、URL をそのまま書く。Web 検索の出典も同じ。そうしないとターミナルで URL をコピーしにくい。
+
+@RTK.md

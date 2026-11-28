@@ -39,6 +39,7 @@ K6_VERSION=v2.3.0
 XK6_VERSION=v1.4.15
 K6_MQTT_K6_VERSION=v1.8.2
 XK6_MQTT_VERSION=v0.40.3
+RTK_VERSION=v1.2.1
 NERD_FONTS=(JetBrainsMono FiraCode)
 
 log() { printf '\n\033[1;34m==> %s\033[0m\n' "$*"; }
@@ -103,6 +104,12 @@ install_user_tools() {
     log "Installing k6 $K6_VERSION"
     curl -fsSL "https://github.com/grafana/k6/releases/download/$K6_VERSION/k6-$K6_VERSION-linux-amd64.tar.gz" |
       tar -xz -C "$HOME/.local/bin" --strip-components=1 "k6-$K6_VERSION-linux-amd64/k6"
+  fi
+
+  if [ ! -x "$HOME/.local/bin/rtk" ]; then
+    log "Installing rtk $RTK_VERSION"
+    curl -fsSL "https://github.com/rtk-ai/rtk/releases/download/$RTK_VERSION/rtk-x86_64-unknown-linux-musl.tar.gz" |
+      tar -xz -C "$HOME/.local/bin" rtk
   fi
 
   if [ ! -x "$HOME/.local/bin/k6-mqtt" ]; then
